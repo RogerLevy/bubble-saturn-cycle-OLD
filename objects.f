@@ -62,7 +62,7 @@ actor super class explorer
 box start:
   4000 4000 2rnd x 2v!
   128 128 2rnd 5 5 2max w 2v!
-  show> drawBox
+  \ show> drawBox
 ;
 \ the size of each box is randomized here.
 
