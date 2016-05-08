@@ -10,6 +10,8 @@ explorer single player
 \
 \ /boxes
 
+: *box  ( x y w h -- )  box one  w 2v! x 2v!  updateCbox  ahb boxGrid addCbox ;
+
 \ camera
 create m  16 cells /allot
 
@@ -34,14 +36,16 @@ create m  16 cells /allot
 
 \ piston config
 ' camRender is render
-: step2  0 all>  vx 2v@ x 2v+!  updateCbox ;  \ note all objects do this; could be optimized...
+: step2  0 all>  vx 2v@ x 2v+!  updateCbox ;
 :noname  [ is sim ]  step1  step2  numFrames ++ ;
 
 
 \ new game
 : dropPlayer  player stage add  252 258 player put ;
-: newGame ( -- )  cleanup  dropPlayer ;
+: loadMap  ( n -- )
+  cleanup  boxGrid resetCgrid  drop  " data\maps\test-coldata.f" included ;
+: newGame ( -- )  0 loadMap  dropPlayer ;
 
 
 \ initialization
-\ newGame
+newGame
