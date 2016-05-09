@@ -14,6 +14,6 @@ fixed
 : #sprites  ( spriteset# -- n )
   spritesets id> numSubimages @ ;
 
-: spriteset-size  ( spriteset# -- w h )
+: spriteSize  ( spriteset# -- w h )
   spritesets id> subw 2v@ ;
 
