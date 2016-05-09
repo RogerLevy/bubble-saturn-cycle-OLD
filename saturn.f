@@ -31,7 +31,7 @@ create m  16 cells /allot
   dup  factor @ dup 2af  al_scale_transform
     al_use_transform
   area000.image bmp @ 0 0 2af 0 al_draw_bitmap
-  0 all> show ;
+  0 all>  show  drawCbox ;
 
 
 \ piston config
