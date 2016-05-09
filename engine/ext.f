@@ -6,6 +6,8 @@
 \ Forth Language-level Extensions
   [undefined] f+ [if]
     +opt
+    warning on
+
     requires fpmath
     cr .( loaded: fpmath)
   [then]
@@ -26,7 +28,7 @@
   [then]
 
   [undefined] rld [if]
-    : rld  ( -- )  s" dev.f" included ;
+    : rld  ( -- )  warning off  s" dev.f" included ;
     \ Dev tool: reload from the top
 
     : game-starter  " include toc ok" evaluate ;

@@ -75,6 +75,8 @@ aka f 1f  \ not recommended, looks very similar to "if"
 private
 \ NTS: keep these as one-liners, I might make them macros...
 : *  ( n n -- n )  1f s>f f* f>s ;
+public  aka * p*
+private
 : /  ( n n -- n )  swap s>f 1f f/ f>s ;
 : /mod  ( n n -- r q ) 2dup mod -rot / ;
 : ++  1.0 swap +! ;

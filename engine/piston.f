@@ -1,8 +1,9 @@
 \ piston internals
 : poll  pollKeyboard  pollJoysticks ;
 : ?break  ( -- )  <escape> kstate shift? and abort" User break" ;
-\ : ?break  ( -- )  <pause> kstate dup cr . abort" User break" ;
-: tick  poll  ?break  sim  lag ++ ;
+cr .( Press ALT-TILDE to toggle hitboxes etc. )
+: ?info  <tilde> kpressed alt? and if  info @ not info !  then ;
+: tick  poll  ?info  ?break  sim  lag ++ ;
 : close-event  etype ALLEGRO_EVENT_DISPLAY_CLOSE = if  0 ExitProcess  then ;
 : common-events  ( kbstate-events )  close-event ;
 : timer-event  etype ALLEGRO_EVENT_TIMER = if  tick  then ;

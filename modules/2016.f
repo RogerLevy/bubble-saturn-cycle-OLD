@@ -16,9 +16,10 @@ fixed
 : y!   cell+ ! ;
 \ -----------------------------------------------------------------------------
 decimal
-: or!  ( n adr - )  dup @ rot or swap ! ;
-: and!  ( n adr - ) dup @ rot and swap ! ;
-: xor!  ( n adr - ) dup @ rot xor swap ! ;
+: or!  ( n adr -- )  dup @ rot or swap ! ;
+: and!  ( n adr -- ) dup @ rot and swap ! ;
+: xor!  ( n adr -- ) dup @ rot xor swap ! ;
+: unset  ( n adr -- ) dup @ rot invert and swap ! ;
 [undefined] third [if] : third  >r over r> swap ; [then]
 [undefined] @+ [if] : @+  dup @ swap cell+ swap ; [then]
 : u+  rot + swap ;  \ "under plus"
