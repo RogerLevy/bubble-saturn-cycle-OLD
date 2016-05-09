@@ -41,7 +41,7 @@ create e   32 cells /allot  \ internal
 
 \ some meta-compilation systems management stuff
 : teardown  display al_destroy_display  al_uninstall_system ;
-: empty   teardown only empty ;
+: empty   teardown only forth empty ;
 
 \ --------------------------------- keyboard ----------------------------------
 decimal
