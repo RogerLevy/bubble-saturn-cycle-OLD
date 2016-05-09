@@ -68,7 +68,7 @@ actor super class explorer
 box start:
   extents 2nip 2rnd x 2v!
   128 128 2rnd 5 5 2max w 2v!
-  show> drawCbox
+  \ show> drawCbox
 ;
 \ the size of each box is randomized here.
 
@@ -76,7 +76,7 @@ box start:
 explorer start:
   36 16 w 2v!
   act>  vx udlrvec  clampVel  do-x do-y
-  show> x 2v@ -12 -8 2+ at  0 SPR_EARWIG drawSprite  drawCbox
+  show> x 2v@ -12 -8 2+ at  0 SPR_EARWIG drawSprite  \ drawCbox
 ;
 
 
