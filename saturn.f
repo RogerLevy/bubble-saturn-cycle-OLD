@@ -24,7 +24,7 @@ create m  16 cells /allot
   player 's x 2v@  player 's w 2v@ 2halve 2+
   gfxw gfxh 2halve  2-  extents 2clamp  cam 's x 2v! ;
 
-: camRender  ( ---)
+: camRender  ( -- )
   camTrack
   0.5 0.5 0.5 1.0 clear-to-color
   camTransform
@@ -41,9 +41,9 @@ create m  16 cells /allot
 
 
 \ new game
-: dropPlayer  player stage add  252 258 player put ;
+: dropPlayer  player stage add  252 238 player put ;
 : loadMap  ( n -- )
-  cleanup  boxGrid resetCgrid  drop  " data\maps\test-coldata.f" included ;
+  drop  cleanup  boxGrid resetCgrid  " data\maps\test-coldata.f" included ;
 : newGame ( -- )  0 loadMap  dropPlayer ;
 
 

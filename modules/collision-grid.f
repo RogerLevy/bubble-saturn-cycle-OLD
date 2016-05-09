@@ -3,11 +3,8 @@ fixed
 \ Fast collision manager object.  Does efficient AABB collision checks of massive
 \ numbers of rectangles.
 
-\ Current caveats:
-\  - Doesn't support hitboxes larger than 255x255
-\  - Doesn't support playfields larger than 16384x16384 
-\  - Algorithm for ?CORNER is not correct (need to bring in the fixed code
-\     that's around somewhere...)
+\ Notes:
+\  - Doesn't support hitboxes greater or equal to sectw*2 x secth*2
 
 
 package cgridding public
@@ -34,10 +31,12 @@ public aka /cbox /cbox
 : 4@  ( cbox -- x1 y1 x2 y2 ) dup 2v@ rot cell+ cell+ 2v@ ;
 
 private
-7 12 + constant bitshift
-$ffffff80 12 << constant mask
-128 constant sectw
-128 constant secth
+
+decimal
+9 12 + constant bitshift
+fixed
+512 constant sectw
+512 constant secth
 \ the size of each sector is a constant.
 \  use a smaller size if you're going to have lots of small objects.
 \  use a larger size if you're going to have lots of large objects.
@@ -62,8 +61,10 @@ struct /cgrid
 
 private
 
+  decimal
   : sector  ( x y -- addr )
-    ( y ) bitshift >> cols @ * swap ( x ) bitshift >> + cells sectors @ + ;
+    ( y ) bitshift >> cols @ p* swap ( x ) bitshift >> + cells sectors @ + ;
+  fixed
 
   : link  ( box sector -- )
     >r
@@ -76,7 +77,9 @@ private
     2dup = if  false  exit  then                                                \ boxes can't collide with themselves!
     2dup >r  4@  r> 4@   overlap? ;
 
+  0 value cnt
   : checkSector  ( cbox1 sector -- flag )
+    0 to cnt
     true locals| flag |
     swap >r
     begin @ dup  flag and while
@@ -85,9 +88,12 @@ private
       else
         2drop
       then
+      1 +to cnt
     repeat
     r> 2drop
-    flag ;
+    flag
+    info @ if cr cnt . then
+    ;
 
   : ?checkSector  ( cbox1 sector|0 -- flag )                                \ check a cbox against a sector
     dup if  checkSector  else  nip  then ;
@@ -124,7 +130,7 @@ public
   o dup s3 @ ?checkSector ?exit
   o dup s4 @ ?checkSector drop ;
 
-\ note this doesn't require the box to be added to the cgrid
+\ this doesn't require the box to be added to the cgrid
 : checkCbox  ( cbox1 xt cgrid -- )  \ xt is the response
   to cgrid  is collide
   with  lastsector off

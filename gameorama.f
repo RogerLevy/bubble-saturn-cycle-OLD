@@ -41,14 +41,14 @@ create e   32 cells /allot  \ internal
 
 \ some meta-compilation systems management stuff
 : teardown  display al_destroy_display  al_uninstall_system ;
-: empty   teardown empty ;
+: empty   teardown only empty ;
 
 \ --------------------------------- keyboard ----------------------------------
 decimal
 include engine/input
 : klast  kblast swap al_key_down  ;
 : kstate kbstate swap al_key_down ;
-: kdelta >r  r@ klast 1 and  r> kstate 1 and  - ;
+: kdelta >r  r@ kstate 1 and  r> klast 1 and  - ;
 : kpressed  kdelta 1 = ;
 : kreleased  kdelta -1 = ;
 : alt?   <alt> kstate     <altgr> kstate   or ;
@@ -143,6 +143,9 @@ class actor
 bit persistent
 value actorBit
 
+defer defaults  ' noop is defaults
+
+variable info
 
 : show>  r> code> 'show !  vis on ;                                             ( -- <code> )
 : act>   r> code> 'act ! ;                                                      ( -- <code> )
@@ -160,7 +163,8 @@ value actorBit
   dup stage add
   me!
   dup  me class !  at@ x 2v!
-       onstart @ execute  noop ;
+      defaults
+      onstart @ execute  noop ;
 
 : unload  backstage add ;                                                       ( -- )
 :noname  flags @ persistent and -exit  me stage add ;

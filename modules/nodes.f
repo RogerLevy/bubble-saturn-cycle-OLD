@@ -16,9 +16,11 @@ decimal
 
 package class-defs
   : class   create ,  /class cell- /allot  class-defs -order ;                   ( super isize -- <name> )
+  aka class extend
 end-package
 : super  @  class-defs +order ;                                                 ( class -- super csize isize )
-: extend  !  class-defs -order ;
+\ : extend  !  class-defs -order ;
+
 
 : staticvar  ( -- <name> )  /class xvar to /class ;
 

@@ -2,7 +2,13 @@ actor super
   var w            \ hitbox dimensions
   var h
   /cbox field ahb  \ Actor Hit Box
-actor extend
+
+  var HP           \ hit points
+  var maxHP        \ max hit points
+  var ATK
+  var DEF
+
+extend actor
 
 actorBit
 bit top#
@@ -15,7 +21,7 @@ to actorBit
 : clampVel  x 2v@  vx 2v@  2+  extents  w 2v@ 2-  2clamp  x 2v@ 2-  vx 2v! ;
 
 : ahb>actor  [ ahb me - ]# - ;
-: drawBox    ahb cbox@ 2over 2+ 4af  1 1 1 1 4af  1 1af  al_draw_rectangle ;
+: drawCbox    info @ -exit  ahb cbox@ 2over 2+ 4af  1 1 1 1 4af  1 1af  al_draw_rectangle ;
 : updateCbox  x 2v@  w 2v@  ahb cbox! ;
 
 
@@ -60,17 +66,17 @@ actor super class box
 actor super class explorer
 
 box start:
-  4000 4000 2rnd x 2v!
+  extents 2nip 2rnd x 2v!
   128 128 2rnd 5 5 2max w 2v!
-  \ show> drawBox
+  show> drawCbox
 ;
 \ the size of each box is randomized here.
 
 
 explorer start:
-  16 16 w 2v!
+  36 16 w 2v!
   act>  vx udlrvec  clampVel  do-x do-y
-  show> drawBox
+  show> x 2v@ -12 -8 2+ at  0 SPR_EARWIG drawSprite  drawCbox
 ;
 
 

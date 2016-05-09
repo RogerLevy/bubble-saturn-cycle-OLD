@@ -12,14 +12,13 @@ include modules\2016
 
 \ =========================== main load sequence ==============================
 
-warning on
 /RND
 
 include gameorama  \ load standard game services (core)
 
 \ load other game services
 include modules\safetables
-\ include sprites
+include sprites
 \ include tilesets
 \ include tilemap
 \ include tilemap-collision
