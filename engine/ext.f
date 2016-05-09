@@ -7,7 +7,6 @@
   [undefined] f+ [if]
     +opt
     warning on
-
     requires fpmath
     cr .( loaded: fpmath)
   [then]
@@ -31,7 +30,30 @@
     : rld  ( -- )  warning off  s" dev.f" included ;
     \ Dev tool: reload from the top
 
-    : game-starter  " include toc ok" evaluate ;
+    create null-personality
+      4 cells , 19 , 0 , 0 ,
+      ' noop , \ INVOKE    ( -- )
+      ' noop , \ REVOKE    ( -- )
+      ' noop , \ /INPUT    ( -- )
+      ' drop ,  \ EMIT      ( char -- )
+      ' 2drop , \ TYPE      ( addr len -- )
+      ' 2drop , \ ?TYPE     ( addr len -- )
+      ' noop , \ CR        ( -- )
+      ' noop , \ PAGE      ( -- )
+      ' drop , \ ATTRIBUTE ( n -- )
+      ' dup , \ KEY       ( -- char )
+      ' dup , \ KEY?      ( -- flag )
+      ' dup , \ EKEY      ( -- echar )
+      ' dup , \ EKEY?     ( -- flag )
+      ' dup , \ AKEY      ( -- char )
+      ' 2drop , \ PUSHTEXT  ( addr len -- )
+      ' 2drop ,  \ AT-XY     ( x y -- )
+      ' 2dup , \ GET-XY    ( -- x y )
+      ' 2dup , \ GET-SIZE  ( -- x y )
+      ' drop , \ ACCEPT    ( addr u1 -- u2)
+
+    : game-starter  null-personality open-personality " include toc ok" evaluate ;
     \ Turnkey starter
+
     gild
   [then]
