@@ -26,17 +26,19 @@ private
 struct /cbox
 public aka /cbox /cbox
 
+decimal
 : cbox!  ( x y w h cbox -- )  with  2over 2+  1 1 2-  o x2 2v!  o x1 2v! ;
 : cbox@  ( cbox -- x y w h ) dup >r x1 2v@ r> x2 2v@  2over 2-  1 1 2+ ;
 : 4@  ( cbox -- x1 y1 x2 y2 ) dup 2v@ rot cell+ cell+ 2v@ ;
+fixed
 
 private
 
 decimal
-9 12 + constant bitshift
+8 12 + constant bitshift
 fixed
-512 constant sectw
-512 constant secth
+256 constant sectw
+256 constant secth
 \ the size of each sector is a constant.
 \  use a smaller size if you're going to have lots of small objects.
 \  use a larger size if you're going to have lots of large objects.
@@ -95,10 +97,10 @@ private
     info @ if cr cnt . then
     ;
 
-  : ?checkSector  ( cbox1 sector|0 -- flag )                                \ check a cbox against a sector
+  : ?checkSector  ( cbox1 sector|0 -- flag )  \ check a cbox against a sector
     dup if  checkSector  else  nip  then ;
 
-  : ?corner  ( x y -- 0 | sector )  \ see what sector the given coords are in / cull alreadyChecked corners
+  : ?corner  ( x y -- 0 | sector )  \ see what sector the given coords are in & cull already checked corners
     sector
     dup lastsector @ = if  drop 0  exit  then
     dup lastsector2 @ = if  drop 0  exit  then
@@ -113,30 +115,30 @@ public
 
 : addCbox  ( cbox cgrid -- )
   to cgrid
-  ( box ) with
+  ( box ) with  lastsector off  lastsector2 off 
   o x1 2v@       ?corner ?dup if  dup o s1 !  o swap link  else  o s1 off  then
   o x2 @ o y1 @  ?corner ?dup if  dup o s2 !  o swap link  else  o s2 off  then
   o x1 @ o y2 @  ?corner ?dup if  dup o s4 !  o swap link  else  o s4 off  then
   o x2 2v@       ?corner ?dup if  dup o s3 !  o swap link  else  o s3 off  then
-  ( topleft off topright off btmleft off ) lastsector off  lastsector2 off ;
+  ( topleft off topright off btmleft off ) ;
 
 \ perform collision checks.  assumes box has already been added to the cgrid.
 \   this avoids unnecessary work for the CPU.
 : checkCgrid  ( cbox1 xt cgrid -- )  \ xt is the response
   to cgrid  is collide
   with
-  o dup s1 @ ?checkSector ?exit
-  o dup s2 @ ?checkSector ?exit
-  o dup s3 @ ?checkSector ?exit
+  o dup s1 @ ?checkSector -exit
+  o dup s2 @ ?checkSector -exit
+  o dup s3 @ ?checkSector -exit
   o dup s4 @ ?checkSector drop ;
 
 \ this doesn't require the box to be added to the cgrid
 : checkCbox  ( cbox1 xt cgrid -- )  \ xt is the response
   to cgrid  is collide
-  with  lastsector off
-    o dup x1 2v@       ?corner  ?checkSector ?exit
-    o dup x2 @ o y1 @  ?corner  ?checkSector ?exit
-    o dup x1 @ o y2 @  ?corner  ?checkSector ?exit
+  with  lastsector off lastsector2 off
+    o dup x1 2v@       ?corner  ?checkSector -exit
+    o dup x2 @ o y1 @  ?corner  ?checkSector -exit
+    o dup x1 @ o y2 @  ?corner  ?checkSector -exit
     o dup x2 2v@       ?corner  ?checkSector drop ;
 
 : >#sectdims  sectw 1 - secth 1 - 2+  sectw secth 2/  2pfloor ;
