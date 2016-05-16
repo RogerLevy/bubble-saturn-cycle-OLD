@@ -6,7 +6,7 @@ fixed
   display al_get_display_refresh_rate  s>p
   ?dup 0= [if] 60 [then]
   dup value fps
-  f f/ al_create_timer
+  f f/ 1df al_create_timer
     value displaytimer
 
 variable (timer)

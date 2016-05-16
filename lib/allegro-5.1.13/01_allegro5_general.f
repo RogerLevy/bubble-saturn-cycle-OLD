@@ -247,7 +247,6 @@ function: al_start_thread ( thread -- )
 function: al_destroy_thread ( thread -- )
 
 function: al_create_timer ( n n -- timer )
-: al_create_timer  1df al_create_timer ;
 function: al_start_timer ( timer -- )
 function: al_stop_timer ( timer -- )
 function: al_destroy_timer ( timer -- )
