@@ -6,6 +6,7 @@ include modules/nodes
 include modules/rects
 include modules/2d-arrays
 include modules/id-radixsort
+include modules/allegro-floats
 
 \ -----------------------------------------------------------------------------
 fixed
@@ -14,12 +15,12 @@ variable factor  2 factor !
 240 value gfxh
 
 \ -----------------------------------------------------------------------------
-include engine/bootstrap/allegroinit
-include engine/allegrowindow
+include engine/createDisplay
 
-\ -----------------------------------------------------------------------------
+include engine/bootstrap/allegroinit
+
 fixed
-gfxw gfxh factor @ dup 2* create-display value display                          \ actually create the display
+gfxw gfxh factor @ dup 2* createDisplay value display                          \ actually create the display
 al_create_builtin_font value default-font
 create native  /ALLEGRO_DISPLAY_MODE /allot
   al_get_num_display_modes 1 - native al_get_display_mode
@@ -36,8 +37,6 @@ include engine/bootstrap/timerevent
 \ --------------------------------- utilities ---------------------------------
 : nativew   native x@ ;
 : nativeh   native y@ ;
-create e   32 cells /allot  \ internal
-: etype   e ALLEGRO_EVENT_TYPE-type @ ;  \ internal
 
 \ some meta-compilation systems management stuff
 : teardown  display al_destroy_display  al_uninstall_system ;
@@ -68,7 +67,6 @@ create penx  0 ,  here 0 ,  constant peny
 : -at  ( x y -- )  2negate +at ;
 \ NTS: the pen should always function as a final translation stage
 \ NTS: add matrix words (as of 2/21 i'm going to keep things very basic.)
-include modules\af-prims
 : clear-to-color  ( r g b a -- ) 4af al_clear_to_color ;
 : bitmapW   al_get_bitmap_width  s>p ;
 : bitmapH   al_get_bitmap_height  s>p ;

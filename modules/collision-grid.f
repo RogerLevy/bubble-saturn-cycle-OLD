@@ -1,10 +1,11 @@
 fixed
 
-\ Fast collision manager object.  Does efficient AABB collision checks of massive
-\ numbers of rectangles.
+\ Fast collision manager object.  Does efficient collision checks of massive
+\ numbers of AABB (axis-aligned bounding boxes).
+\ Very useful for broad-phase collision checks.
 
 \ Notes:
-\  - Doesn't support hitboxes greater or equal to sectw*2 x secth*2
+\  - Doesn't support hitboxes bigger than sectw x secth
 
 
 package cgridding public
@@ -14,16 +15,16 @@ package cgridding public
 : cgrid-var  create dup , cell+ does> @ cgrid + ;
 
 private
-0
-  xvar x1
-  xvar y1
-  xvar x2
-  xvar y2
-  xvar s1  \ sector 1
-  xvar s2  \  ...
-  xvar s3  \  ...
-  xvar s4  \  ...
-struct /cbox
+  0
+    xvar x1
+    xvar y1
+    xvar x2
+    xvar y2
+    xvar s1  \ sector 1
+    xvar s2  \  ...
+    xvar s3  \  ...
+    xvar s4  \  ...
+  struct /cbox
 public aka /cbox /cbox
 
 decimal
@@ -34,22 +35,22 @@ fixed
 
 private
 
-decimal
-8 12 + constant bitshift
-fixed
-256 constant sectw
-256 constant secth
-\ the size of each sector is a constant.
-\  use a smaller size if you're going to have lots of small objects.
-\  use a larger size if you're going to have lots of large objects.
+  decimal
+  8 12 + constant bitshift
+  fixed
+  256 constant sectw
+  256 constant secth
+  \ the size of each sector is a constant.
+  \  use a smaller size if you're going to have lots of small objects.
+  \  use a larger size if you're going to have lots of large objects.
 
-\ variable topleft
-\ variable topright
-\ variable btmleft
-variable lastsector
-variable lastsector2
+  \ variable topleft
+  \ variable topright
+  \ variable btmleft
+  variable lastsector
+  variable lastsector2
 
-defer collide  ( ... true cbox1 cbox2 -- ... keepgoing? )
+  defer collide  ( ... true cbox1 cbox2 -- ... keepgoing? )
 
 public
 0

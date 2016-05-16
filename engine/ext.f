@@ -10,6 +10,10 @@
     requires fpmath
     cr .( loaded: fpmath)
   [then]
+  [undefined] 1sf [if]
+    include lib\fpext
+    cr .( loaded: fpext)
+  [then]
   [undefined] rnd [if]
     requires rnd
   [then]
@@ -21,8 +25,8 @@
     include lib\fixedp_2
   [then]
   [undefined] ALLEGRO_VERSION_INT [if]
-    pushpath cd lib\allegro5.1.13
-      include allegro5.1.13.f
+    pushpath cd lib\allegro-5.1.13
+      include allegro-5.1.13.f
     poppath
   [then]
 
@@ -57,3 +61,6 @@
 
     gild
   [then]
+
+\ some more entitlements
+include modules\2016

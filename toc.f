@@ -5,9 +5,6 @@ empty \ NTS: this line is interpreted, so it always refers to the latest definit
 \ Extended Vocabulary
 include engine\ext.f
 
-\ some more entitlements
-include modules\2016
-
 \ ============================ end dependencies ===============================
 
 \ =========================== main load sequence ==============================

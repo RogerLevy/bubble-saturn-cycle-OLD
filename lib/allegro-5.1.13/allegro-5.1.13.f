@@ -55,23 +55,13 @@ aka \ /*
 
 \ ----------------------------- load files --------------------------------
 
-[undefined] f+ [if]
-  requires fpmath
-  cr .( loaded: fpmath)
-[then]
-
-[undefined] fpext [if]
-  include fpext
-  cr .( loaded: fpext)
-[then]
-
-
 include 01_allegro5_general
 include 02_allegro5_events
 include 03_allegro5_keys
 include 04_allegro5_audio
 include 05_allegro5_graphics
-\ include 06_allegro5_floatparms
+
+include tools
 
 \ =============================== END ==================================
 
