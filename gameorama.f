@@ -16,8 +16,7 @@ variable factor  2 factor !
 
 \ -----------------------------------------------------------------------------
 include engine/createDisplay
-
-include engine/bootstrap/allegroinit
+include engine/bootstrap/init-allegro
 
 fixed
 gfxw gfxh factor @ dup 2* createDisplay value display                          \ actually create the display
