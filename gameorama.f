@@ -195,9 +195,9 @@ transform outputm
 /output
 
 \ -------------------------------- defaults -----------------------------------
-variable numFrames
+0 value #frames
 : step1  0 all>  'act @ execute ;
 : step2  0 all>  vx 2v@ x 2v+! ;
-:noname  [ is sim ]  step1  step2  numFrames ++ ;
+:noname  [ is sim ]  step1  step2  1 +to #frames ;
 : cls  0.5 0.5 0.5 1.0 clear-to-color ;
 :noname  [ is render ] cls  0 all> show ;
