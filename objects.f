@@ -26,7 +26,7 @@ to actorBit
 
 
 cgridding +order
-
+decimal
   \ push current actor out of given ahb and set appropriate flags
   : ?lr  ( ahb -- )
     [ right# left# or invert ]# flags and!
@@ -47,6 +47,8 @@ cgridding +order
     flags or!  0 vy !  ;
 
 cgridding -order
+fixed
+
 
 :noname  nip ?lr  drop false ;
 : do-x  ( -- )
@@ -63,19 +65,61 @@ cgridding -order
 
 
 actor super class box
-actor super class explorer
 
-box start:
-  extents 2nip 2rnd x 2v!
-  128 128 2rnd 5 5 2max w 2v!
-;
-\ the size of each box is randomized here.
+: ~dims  128 128 2rnd 5 5 2max w 2v! ;
+
+: *randomBox  extents somewhere at  box one ~dims ;
+
+
+
+
+actor super
+  var sc  \ shoot counter
+  var ac  \ animation counter
+class explorer
+
+\ 14 f constant radius#
+94 100 / constant fric#
+1 4 / constant force#
+8 3 / constant limit#
+: limit  ( -- ) vx 2v@ hypot limit# > if  vx 2v@ angle limit# vector vx 2v!  then ;
+\ : shoot 5 channel *gun* playsmp { generate bullet vx 2! } ;
+: friction ( -- ) vx 2v@ fric# uscale vx 2v! ;
+: accel  ( x y -- ) force# uscale vx 2v+! ;
+\ : collisions radius# /orbs life +! 1 channel bell playsmp ( life @ . ) ;
+\ : ?shoot sc ++ sc @ 1 and if <z> key if 0 14 f shoot then ;; then <a> key if 0 -14 f shoot then ;
+
+: controls ( -- )
+  udlrvec accel friction limit ( ?shoot { collisions } restrict ) ;
+
+\ : loc 512 2/ 384 2/ 30 + 2f x 2! ;
+\ : initship ship loc controls draw radius> i circ ;
+
+
+transform t
+
+: transformed
+  r>
+  al_get_current_transform >r
+  t al_identity_transform
+  t w 2v@ 2negate 2af al_translate_transform
+  t vx 2v@ angle 1f d>r 1sf al_rotate_transform
+  t x 2v@ 2af al_translate_transform
+  t r@ al_compose_transform
+  t al_use_transform
+  call
+  r> al_use_transform ;
+
+: animated
+  \ vx 2@ magnitude dup 1 < if drop 0 exit then  #frames 8 / * 1 and ;
+  vx 2v@ magnitude 13 / ac +!
+  ac @ 1 and ;
 
 
 explorer start:
-  36 16 w 2v!
-  act>  vx udlrvec  clampVel  do-x do-y
-  show> x 2v@ -12 -8 2+ at  0 SPR_EARWIG drawSprite
+  18 18 w 2v!
+  act>  controls  clampVel  do-x do-y
+  show>  0 0 at ( x 2v@ -14 -7 2+ at )  transformed  animated SPR_EARWIG drawSprite
 ;
 
 
