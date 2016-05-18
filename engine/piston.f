@@ -13,6 +13,5 @@ cr .( Press ALT-TILDE to toggle hitboxes etc. )
 : consume  begin  dup execute  eventq e al_get_next_event not until  drop ;     ( xt -- )  ( -- )
 : (render)  me >r  ['] render catch drop  al_flip_display  r> me! ;
 : ?redraw  lag @ -exit  need-update? -exit  (render)  0 lag ! ;   ( -- )
-: frame  wait  ['] game-events consume  ?redraw ;
-: (dev-ok)  begin  frame  pause  again ;
-: dev-ok  clearkb >gfx +timer  ['] (dev-ok) catch  -timer >ide  throw ;
+: game-frame  wait  ['] game-events consume  ?redraw ;
+' game-frame is frame

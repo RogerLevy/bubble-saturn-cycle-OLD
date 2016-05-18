@@ -178,9 +178,11 @@ variable info
 fixed
 defer render        ' noop is render
 defer sim           ' noop is sim
+defer frame         ' noop is frame   \ the body of the loop.  can bypass RENDER and SIM if desired.
 variable lag                                                                    \ completed ticks
 include engine\piston
 : time?  ucounter 2>r  execute  ucounter 2r> d-  d>s  i. ;                      ( xt - )  \ print time given XT takes in microseconds
+: dev-ok  clearkb >gfx +timer  begin  ['] frame catch  again  -timer >ide  throw ;
 : ok  dev-ok ;
 
 \ -------------------------------- border -------------------------------------
@@ -201,3 +203,5 @@ transform outputm
 :noname  [ is sim ]  step1  step2  1 +to #frames ;
 : cls  0.5 0.5 0.5 1.0 clear-to-color ;
 :noname  [ is render ] cls  0 all> show ;
+
+' game-frame is frame
