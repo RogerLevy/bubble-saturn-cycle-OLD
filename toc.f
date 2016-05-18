@@ -15,13 +15,13 @@ include gameorama  \ load standard game services (core)
 
 \ load other game services
 include modules\safetables
+include modules\collision-grid
+
+\ game systems
 include sprites
 \ include tilesets
 \ include tilemap
 \ include tilemap-collision
-include modules\collision-grid
-
-\ game systems
 \ include gpu
 
 \ global constants, variables, and assets
