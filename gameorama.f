@@ -182,7 +182,7 @@ defer frame         ' noop is frame   \ the body of the loop.  can bypass RENDER
 variable lag                                                                    \ completed ticks
 include engine\piston
 : time?  ucounter 2>r  execute  ucounter 2r> d-  d>s  i. ;                      ( xt - )  \ print time given XT takes in microseconds
-: dev-ok  clearkb >gfx +timer  begin  ['] frame catch  again  -timer >ide  throw ;
+: dev-ok  clearkb >gfx +timer  begin  ['] frame catch ?dup until  -timer >ide  throw ;
 : ok  dev-ok ;
 
 \ -------------------------------- border -------------------------------------

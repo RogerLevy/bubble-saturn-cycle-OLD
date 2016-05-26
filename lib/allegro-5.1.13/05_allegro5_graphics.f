@@ -311,4 +311,12 @@ macro: rp16]   (rp) @ rp! ;
 : al_calculate_ribbon             [rp16 al_calculate_ribbon rp16] ;
 : al_calculate_arc                [rp16 al_calculate_arc rp16] ;
 
+function: al_draw_polygon  ( vertices count joinstyle r g b a thickness miterlimit -- )
+function: al_draw_filled_polygon  ( vertices count r g b a -- )
 
+0
+enum ALLEGRO_LINE_JOIN_NONE
+enum ALLEGRO_LINE_JOIN_BEVEL
+enum ALLEGRO_LINE_JOIN_ROUND
+enum ALLEGRO_LINE_JOIN_MITER
+drop
