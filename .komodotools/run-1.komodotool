@@ -3,7 +3,7 @@
   "parseRegex": "", 
   "doNotOpenOutputWindow": 1, 
   "keyboard_shortcut": "F5", 
-  "name": "sf include 000_main.", 
+  "name": "run", 
   "operateOnSelection": 0, 
   "value": [
     "sf include dev"

@@ -112,7 +112,7 @@ transform t
 
 : animated
   \ vx 2@ magnitude dup 1 < if drop 0 exit then  #frames 8 / * 1 and ;
-  vx 2v@ magnitude 13 / ac +!
+  vx 2v@ magnitude 1.5 + 15 / ac +!
   ac @ 1 and ;
 
 
