@@ -15,6 +15,7 @@
     pushpath cd lib\ffl-0.8.0
       decimal
       include xml
+      include xml-utils
       include base64
     poppath
   [then]
