@@ -12,13 +12,18 @@ decimal
 \    ...
 \    <value> class <static var> !
 
-0  xvar isize  xvar classSize  value /class
+0  xvar prevClass  xvar isize  xvar classSize  value /class
+
+variable lastClass
 
 package class-defs
-  : class   create ,  /class cell- /allot  class-defs -order ;                   ( super isize -- <name> )
+  : class   ( super isize -- <name> )
+    create
+    here  lastClass @ ,  lastClass !
+    ( isize ) ,  14 cells  /class cell- cell- max  /allot  class-defs -order ;
   aka class extend
 end-package
-: super  @  class-defs +order ;                                                 ( class -- super csize isize )
+: super  isize @  class-defs +order ;                                                 ( class -- super csize isize )
 \ : extend  !  class-defs -order ;
 
 
@@ -26,7 +31,7 @@ end-package
 
 0
   xvar class  xvar prev  xvar next  xvar parent
-create node  ( isize ) , 
+create node  here lastClass !  0 , ( isize ) , /class , 
 
 : sizeof  class @ isize @ ;                                                     ( obj -- i )
 : obj  here swap  dup ,  isize @ cell- /allot ;                                 ( class -- obj )
@@ -35,10 +40,12 @@ create node  ( isize ) ,
 0  xvar length  xvar first  xvar tail   drop                                    \ internal
 
 fixed
+
 : (unlink)  ( node -- )
   dup prev @ if  dup next @  over prev @ next !  then
   dup next @ if  dup prev @  over next @ prev !  then
   dup prev off  next off ;
+
 : remove  ( node list -- )
   dup 0= if  2drop exit  then
   over parent @ 0= if  2drop exit  then  \ not already in any list
@@ -73,7 +80,8 @@ fixed
 : <itterate
   tail @  begin  dup while  dup prev @ >r  over >r  swap execute  r> r> repeat  2drop ;
 
-:noname  ( list node -- list )  over swap parent ! ;
+:noname  ( list node -- list )  over swap parent ! ; ( xt )
+
 : append  ( list1 list2 -- )  \ move the contents of list2 to list1
   locals| b a |
   b length @  ?dup -exit  a length +!  b length off
@@ -83,12 +91,15 @@ fixed
            then
   b tail @ a tail ! 
   b first off  b tail off
-  a literal over itterate drop  \ change the parent of each one
+  a ( xt ) LITERAL over itterate drop  \ change the parent of each one
   ;
 
 : popNode  ( list -- node )  dup tail @ dup rot remove ;
 
-\ test:
+
+
+\ --- test ---
+
 marker dispose
 node obj constant a
 node obj constant b

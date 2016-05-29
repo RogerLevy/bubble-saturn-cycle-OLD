@@ -1,3 +1,5 @@
+fixed
+
 actor super
   var w            \ hitbox dimensions
   var h
@@ -76,7 +78,7 @@ actor super class box
 actor super
   var sc  \ shoot counter
   var ac  \ animation counter
-class explorer
+class traveler
 
 \ 14 f constant radius#
 94 100 / constant fric#
@@ -97,18 +99,19 @@ class explorer
 
 
 transform t
-
+transform oldm
 : transformed
   r>
-  al_get_current_transform >r
-  t al_identity_transform
-  t w 2v@ 2negate 2af al_translate_transform
-  t vx 2v@ angle 1f d>r 1sf al_rotate_transform
-  t x 2v@ 2af al_translate_transform
-  t r@ al_compose_transform
-  t al_use_transform
+  0 0 at  
+  al_get_current_transform oldm /transform move
+  t  al_identity_transform
+  t  -32 -16 2af al_translate_transform
+  t  vx 2v@ angle 1f d>r 1sf al_rotate_transform
+  t  x 2v@ 8 8 2+ 2af al_translate_transform
+  t  oldm al_compose_transform
+  t  al_use_transform
   call
-  r> al_use_transform ;
+  oldm al_use_transform ;
 
 : animated
   \ vx 2@ magnitude dup 1 < if drop 0 exit then  #frames 8 / * 1 and ;
@@ -116,10 +119,14 @@ transform t
   ac @ 1 and ;
 
 
-explorer start:
+traveler start:
   18 18 w 2v!
   act>  controls  clampVel  do-x do-y
-  show>  0 0 at ( x 2v@ -14 -7 2+ at )  transformed  animated SPR_EARWIG drawSprite
+  show>  transformed  animated SPR_EARWIG drawSprite
 ;
 
 
+actor super  class homearea
+homearea start:
+  show>  area000.image bmp @  x 2v@ 390 - 2af  0  al_draw_bitmap
+;

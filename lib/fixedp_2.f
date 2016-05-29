@@ -187,6 +187,8 @@ END-PACKAGE
 decimal
 
 package fixpointing
+: include   fixed include ;
+: included  fixed included ;
 : cells  1i cells ;
 : bytes  1i ;
 : hwords 1i 1 lshift ;

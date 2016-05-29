@@ -1,7 +1,7 @@
 fixed
 
 actor single cam
-explorer single player
+traveler single player
 
 \ generate random boxes
 \ : /boxes  ( -- )
@@ -30,7 +30,6 @@ create m  16 cells /allot
   camTransform
   dup  factor @ dup 2af  al_scale_transform
     al_use_transform
-  area000.image bmp @ 0 0 2af 0 al_draw_bitmap
   0 all>  show  drawCbox ;
 
 
@@ -46,6 +45,3 @@ create m  16 cells /allot
   drop  cleanup  boxGrid resetCgrid  " data\maps\test-coldata.f" included ;
 : newGame ( -- )  0 loadMap  dropPlayer ;
 
-
-\ initialization
-newGame

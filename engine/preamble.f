@@ -10,6 +10,15 @@
     requires fpmath
     cr .( loaded: fpmath)
   [then]
+
+  [undefined] ffl.version [if]
+    pushpath cd lib\ffl-0.8.0
+      decimal
+      include xml
+      include base64
+    poppath
+  [then]
+  
   [undefined] 1sf [if]
     include lib\fpext
     cr .( loaded: fpext)
