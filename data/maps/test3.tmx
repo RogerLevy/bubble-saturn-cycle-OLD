@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" nextobjectid="25">
+ <tileset firstgid="1" name="homearea" tilewidth="947" tileheight="390" tilecount="1">
+  <image source="../images/Hpz6lWy.png" width="947" height="390"/>
+ </tileset>
+ <tileset firstgid="2" name="traveler" tilewidth="64" tileheight="32" tilecount="2">
+  <image source="../images/earwig.png" width="128" height="32"/>
+ </tileset>
+ <objectgroup name="BG">
+  <object id="1" name="homearea" gid="1" x="66" y="631" width="947" height="390"/>
+ </objectgroup>
+ <objectgroup name="COLLISION">
+  <object id="5" x="571" y="352" width="15" height="58"/>
+  <object id="6" x="568" y="234" width="34" height="133"/>
+  <object id="7" x="374" y="359" width="198" height="57"/>
+  <object id="8" x="192" y="342" width="183" height="48"/>
+  <object id="9" x="176" y="390" width="23.5" height="62"/>
+  <object id="10" x="190" y="435" width="29" height="90"/>
+  <object id="13" x="214" y="525" width="221" height="52"/>
+  <object id="14" x="435" y="525" width="221" height="52"/>
+  <object id="16" x="656" y="525" width="221" height="52"/>
+  <object id="17" x="877" y="525" width="221" height="52"/>
+  <object id="18" type="s" x="687" y="366" width="53" height="162"/>
+  <object id="19" type="s" x="739" y="366" width="119" height="47"/>
+ </objectgroup>
+ <objectgroup name="OBJ">
+  <object id="3" type="player" gid="2" x="301" y="477" width="64" height="32"/>
+ </objectgroup>
+</map>

@@ -11,4 +11,13 @@ include dev\export
 : ;;  postpone ; execute ; immediate
 
 gamedev
-ok
+\ newGame
+
+
+
+\ include ogmo-level.f
+
+
+
+
+\ ok

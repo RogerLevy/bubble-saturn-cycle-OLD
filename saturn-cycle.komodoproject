@@ -4,6 +4,6 @@
 <preference-set idref="8fa0c397-9c30-4570-8b05-3e9b6290a10c" id="project" preftype="project">
   <string relative="path" id="import_dirname"></string>
   <string id="import_exclude_matches">/.hg/*; /.komodotools/*;/.hg/;/.hg</string>
-  <string id="import_include_matches">*.f; *.txt; *.png; *.mp3; *.ogg; *.wav</string>
+  <string id="import_include_matches">*.f;*.txt;*.png;*.mp3;*.ogg;*.wav;*.fs;*.oel;*.tmx</string>
 </preference-set>
 </project>

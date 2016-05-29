@@ -11,15 +11,13 @@ include engine\preamble.f
 include gameorama  \ load standard game services (core)
 
 \ load other game services
-include modules\safetables
 include modules\collision-grid
-
-\ game systems
-include sprites
-\ include tilesets
-\ include tilemap
-\ include tilemap-collision
-\ include gpu
+include swes\safetables
+include swes\sprites
+\ include swes\tilesets
+\ include swes\tilemap
+\ include swes\tilemap-collision
+\ include swes\gpu
 
 \ global constants, variables, and assets
 include data
@@ -29,6 +27,8 @@ include modules\gameutils
 include scripting
 include objects
 include saturn
+
+include tiled-level.f
 
 \ ========================= end main load sequence ============================
 

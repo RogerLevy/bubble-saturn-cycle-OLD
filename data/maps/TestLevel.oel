@@ -1,0 +1,22 @@
+<level width="1024" height="1024">
+  <PARALLAX1/>
+  <BGCOLLISION>
+    <Climbable id="0" x="170" y="425" width="170" height="30" />
+    <Climbable id="1" x="138" y="457" width="33" height="53" />
+    <Climbable id="2" x="153" y="497" width="31" height="111" />
+    <Climbable id="3" x="168" y="586" width="242" height="53" />
+    <Climbable id="4" x="339" y="426" width="213" height="54" />
+    <Climbable id="5" x="522" y="306" width="46" height="124" />
+    <Climbable id="6" x="650" y="418" width="60" height="200" />
+    <Climbable id="7" x="711" y="419" width="112" height="58" />
+    <Climbable id="8" x="408" y="586" width="242" height="53" />
+    <Climbable id="9" x="712" y="586" width="242" height="53" />
+    <Climbable id="10" x="952" y="586" width="242" height="53" />
+  </BGCOLLISION>
+  <BG>
+    <HomeTunnel_TEST id="0" x="32" y="304" />
+  </BG>
+  <OBJ>
+    <Traveler id="0" x="304" y="544" />
+  </OBJ>
+</level>
