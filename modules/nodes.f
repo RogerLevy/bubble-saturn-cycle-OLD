@@ -12,26 +12,34 @@ decimal
 \    ...
 \    <value> class <static var> !
 
-0  xvar prevClass  xvar isize  xvar classSize  value /class
+0  xvar prevClass  xvar nextClass  xvar isize  xvar classSize  value /class
 
+variable firstClass
 variable lastClass
 
 package class-defs
+  : (class-min-size)  14 cells  /class cell- cell- max ;
   : class   ( super isize -- <name> )
     create
-    here  lastClass @ ,  lastClass !
-    ( isize ) ,  14 cells  /class cell- cell- max  /allot  class-defs -order ;
+    here  lastClass @ , 0 ,  dup  lastClass @ nextClass !  lastClass !
+    ( isize ) ,
+    cell+ cell+   here  (class-min-size)  move  (class-min-size)  /allot
+    class-defs -order ;
   aka class extend
 end-package
-: super  isize @  class-defs +order ;                                                 ( class -- super csize isize )
+: super  dup isize @  class-defs +order ;        ( class -- super isize )
 \ : extend  !  class-defs -order ;
 
 
 : staticvar  ( -- <name> )  /class xvar to /class ;
 
+
+
 0
   xvar class  xvar prev  xvar next  xvar parent
-create node  here lastClass !  0 , ( isize ) , /class , 
+
+create node  here dup firstClass ! lastClass !
+  0 , ( isize ) , /class ,  14 cells /allot
 
 : sizeof  class @ isize @ ;                                                     ( obj -- i )
 : obj  here swap  dup ,  isize @ cell- /allot ;                                 ( class -- obj )
