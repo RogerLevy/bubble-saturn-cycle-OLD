@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" nextobjectid="25">
- <tileset firstgid="1" name="homearea" tilewidth="947" tileheight="390" tilecount="1">
+ <tileset firstgid="1" name="homearea" tilewidth="947" tileheight="390" tilecount="1" columns="1">
   <image source="../images/Hpz6lWy.png" width="947" height="390"/>
  </tileset>
- <tileset firstgid="2" name="traveler" tilewidth="64" tileheight="32" tilecount="2">
+ <tileset firstgid="2" name="traveler" tilewidth="64" tileheight="32" tilecount="2" columns="2">
   <image source="../images/earwig.png" width="128" height="32"/>
  </tileset>
  <objectgroup name="BG">
@@ -24,6 +24,10 @@
   <object id="19" type="s" x="739" y="366" width="119" height="47"/>
  </objectgroup>
  <objectgroup name="OBJ">
-  <object id="3" type="player" gid="2" x="301" y="477" width="64" height="32"/>
+  <object id="3" name="player start" gid="2" x="301" y="477" width="64" height="32">
+   <properties>
+    <property name="existing" value="player"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
