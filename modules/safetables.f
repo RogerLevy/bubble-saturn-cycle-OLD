@@ -10,7 +10,7 @@ fixed
 : id>  ( n table -- entry )
   >r  r@ nextid @ ?fallback  r@ entrysize @ * r> m @ + ;
 
-: id ( table -- entry id )
+: *id ( table -- entry id )
   dup nextid @ >r   dup nextid ++
   r@ 1 + 3 and 0= if
     dup 2v@ 4 + third entrysize @ * resize throw over m !
@@ -22,6 +22,6 @@ fixed
   r@ entrysize !
   r@ entrysize @ 4 * allocate throw r> m ! ;
 
-: entry  ( table -- <name> entry )  id ( id )  constant  ( entry ) ;
+: entry  ( table -- <name> entry )  *id ( entry id )  constant  ( entry ) ;
 
-: FreeSafetable  m @ free drop ;
+\ : FreeSafetable  m @ free drop ;
