@@ -1,3 +1,5 @@
+[undefined] safetable [if] include modules/safetables [then]
+
 fixed
 
 /image safetable spritesets

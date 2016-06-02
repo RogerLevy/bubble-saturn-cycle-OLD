@@ -1,3 +1,5 @@
+[undefined] safetable [if] include modules/safetables [then]
+
 fixed
 
 \ NTS: later add attributes like collision
