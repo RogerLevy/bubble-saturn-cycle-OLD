@@ -12,23 +12,26 @@ include gameorama  \ load standard game services (core)
 
 \ load other game services
 include modules\collision-grid
-include swes\safetables
+
 include swes\sprites
 \ include swes\tilesets
 \ include swes\tilemap
 \ include swes\tilemap-collision
-\ include swes\gpu
+\ include swes\layers
+
+include modules\gameutils
+include modules\wallpaper
 
 \ global constants, variables, and assets
 include data
 
 \ game definitions
-include modules\gameutils
+
 include scripting
 include objects
 include saturn
-
 include tiled-level.f
+
 
 \ ========================= end main load sequence ============================
 
