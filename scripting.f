@@ -1,5 +1,5 @@
-: start:  ( class -- ) :noname swap onstart ! ;
-: single  one me constant  persistent flags or! ;
+: start:  ( class -- ) :noname swap 'onstart ! ;
+: single  one me constant  persistent# flags or! ;
 \ : 's  " me >r  me! " evaluate  bl parse evaluate  " r> me!" evaluate ; immediate
 : 's  " me swap me! " evaluate  bl parse evaluate  " swap me!" evaluate ; immediate
 : halt  0 0 vx 2v! ;
@@ -18,9 +18,9 @@
   down? if   1 +   then ;
 
 
-: /ones  ( ... xt n class -- ... )
-  swap 0 do  dup one >r dup >r execute r> r>  loop  2drop ;
-
-: ones  ( n class -- )  .. -rot /ones ;
+\ : /ones  ( ... xt n class -- ... )
+\   swap 0 do  dup one >r dup >r execute r> r>  loop  2drop ;
+\
+\ : ones  ( n class -- )  .. -rot /ones ;
 
 : put  ( x y actor -- )  's x 2v! ;

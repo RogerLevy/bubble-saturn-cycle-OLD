@@ -1,3 +1,4 @@
+
 fixed
 
 actor super
@@ -10,22 +11,49 @@ actor super
   var ATK
   var DEF
 
+  var flip         \ allegro flip flags
+
+  staticvar 'onMapLoad
+\  staticvar initData  \ see commonInit config below for param order.
 extend actor
 
+\ -----------------------------------------------------------------------------
+
+\ : initData:  ( class -- <data,> ) here swap initData ! ;
+\
+\ actor initData: 16 , 16 ,
+\
+\ :noname  [ is commonInit ]
+\   me class @ initData @  @+ w !  @+ h !  drop ;
+
+\ -----------------------------------------------------------------------------
+
+: onMapLoad  ( -- )  me class @ 'onMapLoad @ execute ;
+: onMapLoad:  ( class -- <code;> )  :noname swap 'onMapLoad ! ;
+
+\ -----------------------------------------------------------------------------
+
 actorBit
-bit top#
-bit bottom#
-bit left#
-bit right#
+  bit top#
+  bit bottom#
+  bit left#
+  bit right#
 to actorBit
 
+\ -----------------------------------------------------------------------------
 
 : clampVel  x 2v@  vx 2v@  2+  extents  w 2v@ 2-  2clamp  x 2v@ 2-  vx 2v! ;
 
 : ahb>actor  [ ahb me - ]# - ;
-: drawCbox    info @ -exit  ahb cbox@ 2over 2+ 4af  1 1 1 1 4af  1 1af  al_draw_rectangle ;
+: drawCbox    ahb cbox@ 1 1 2- 2over 2+ 4af  1 1 1 1 4af  1 1af  al_draw_rectangle ;
 : updateCbox  x 2v@  w 2v@  ahb cbox! ;
 
+\ -----------------------------------------------------------------------------
+
+\ : drawImage  hex  bmp @  x 2v@ 2af  0  .s al_draw_bitmap  fixed ;
+: drawImage  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
+
+\ -----------------------------------------------------------------------------
 
 cgridding +order
 decimal
@@ -33,24 +61,23 @@ decimal
   : ?lr  ( ahb -- )
     [ right# left# or invert ]# flags and!
     vx @ 0> if
-      x1 @  ahb x2 @ -  1 +  x +!  right#
+      x1 @  ahb x2 @ 1 + -  x +!  right#
     else
-      x2 @  ahb x1 @ -  1 -  x +!  left#
+      x2 @ 1 +  ahb x1 @ -  x +!  left#
     then
     flags or!  0 vx !  ;
 
   : ?tb  ( ahb - )
     [ bottom# top# or invert ]# flags and!
     vy @ 0> if
-      y1 @  ahb y2 @ -  1 +  y +!  bottom#
+      y1 @  ahb y2 @ 1 + -  y +!  bottom#
     else
-      y2 @  ahb y1 @ -  1 -  y +!  top#
+      y2 @ 1 +  ahb y1 @ -  y +!  top#
     then
     flags or!  0 vy !  ;
 
 cgridding -order
 fixed
-
 
 :noname  nip ?lr  drop false ;
 : do-x  ( -- )
@@ -65,6 +92,7 @@ fixed
   ahb literal boxGrid checkCbox
 ;
 
+\ -----------------------------------------------------------------------------
 
 actor super class box
 
@@ -72,8 +100,7 @@ actor super class box
 
 : *randomBox  extents somewhere at  box one ~dims ;
 
-
-
+\ -----------------------------------------------------------------------------
 
 actor super
   var sc  \ shoot counter
@@ -97,7 +124,6 @@ class traveler
 \ : loc 512 2/ 384 2/ 30 + 2f x 2! ;
 \ : initship ship loc controls draw radius> i circ ;
 
-
 transform t
 transform oldm
 : transformed
@@ -105,9 +131,9 @@ transform oldm
   0 0 at  
   al_get_current_transform oldm /transform move
   t  al_identity_transform
-  t  -32 -16 2af al_translate_transform
+  t  -32 -12 2af al_translate_transform
   t  vx 2v@ angle 1f d>r 1sf al_rotate_transform
-  t  x 2v@ 8 8 2+ 2af al_translate_transform
+  t  x 2v@ 8 8 2+ 2pfloor 2af al_translate_transform
   t  oldm al_compose_transform
   t  al_use_transform
   call
@@ -125,8 +151,43 @@ traveler start:
   show>  transformed  animated SPR_EARWIG drawSprite
 ;
 
+\ -----------------------------------------------------------------------------
 
-actor super  class homearea
-homearea start:
-  show>  area000.image bmp @  x 2v@ 390 - 2af  0  al_draw_bitmap
-;
+actor super class homearea
+homearea start:  show>  area000.image drawImage ;
+
+
+create w01a02bgObj
+  w01_a02_bg001.image ,
+  w01_a02_bg002.image ,
+  w01_a02_bg003.image ,
+  w01_a02_bg004.image ,
+  w01_a02_bg005.image ,
+  w01_a02_bg006.image ,
+  w01_a02_bg007.image ,
+  w01_a02_bg008.image ,
+  w01_a02_bg009.image ,
+  w01_a02_bg010.image ,
+  w01_a02_bg011.image ,
+  w01_a02_bg012.image ,
+  w01_a02_bg013.image ,
+  w01_a02_bg014.image ,
+  w01_a02_bg015.image ,
+  w01_a02_bg016.image ,
+  w01_a02_bg017.image ,
+  w01_a02_bg018.image ,
+
+create bgObjTables
+  w01a02bgObj , w01a02bgObj ,
+
+actor super
+  var subtype  \ index into current bg object table (pointed to by tbl)
+  var tbl  \ index into bgObjTables
+class bgobj
+
+: img>  bgObjTables tbl @ th @  subtype @ th @ ;
+
+bgobj start:  show>  img>  drawImage ;
+
+
+actor super class trilobite

@@ -21,7 +21,7 @@ decimal
 : or!  ( n adr -- )  dup @ rot or swap ! ;
 : and!  ( n adr -- ) dup @ rot and swap ! ;
 : xor!  ( n adr -- ) dup @ rot xor swap ! ;
-: unset  ( n adr -- ) dup @ rot invert and swap ! ;
+: not!  ( n adr -- ) dup @ rot invert and swap ! ;
 [undefined] third [if] : third  >r over r> swap ; [then]
 [undefined] @+ [if] : @+  dup @ swap cell+ swap ; [then]
 : u+  rot + swap ;  \ "under plus"
@@ -40,8 +40,9 @@ decimal
 : 2mod  rot swap mod >r mod r> ;
 : 2negate  negate swap negate swap ;
 : 2rnd  rnd swap rnd swap ; 
-aka ?do do immediate
+: do postpone ?do ; immediate
 : allotment  here swap /allot ;
+: copy,      here over allot swap move ;
 \ : ?next  @+ dup 0 >= ;
 : h?  @ h. ;
 : validate  ( id -- id true | false )  dup 0< not dup ?exit nip ;
@@ -49,8 +50,8 @@ aka ?do do immediate
 : include   fixed include ;
 : included  fixed included ;
 : ]#  ] postpone literal ;
-aka lshift <<
-aka rshift >>
+: << lshift ;
+: >> rshift ;
 fixed
 : th  cells + ;
 : bit  dup constant  1 << ;
@@ -64,4 +65,3 @@ fixed
 : clamp  ( n low high -- n ) -rot max min ;
 : 2clamp  ( x y lowx lowy highx highy -- x y ) 2>r 2max 2r> 2min ;
 
-aka locate l 

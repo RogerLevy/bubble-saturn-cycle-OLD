@@ -10,6 +10,7 @@ include dev\export
 : :now  :noname ;  \ execute a nameless definition immediately
 : ;;  postpone ; execute ; immediate
 
+: l locate ; 
 gamedev
 \ newGame
 

@@ -12,6 +12,16 @@ traveler single player
 
 : *box  ( x y w h -- )  box one  w 2v! x 2v!  updateCbox  ahb boxGrid addCbox ;
 
+
+\ baseline matrix
+transform baseline
+
+: /baseline
+  baseline  al_identity_transform
+  baseline  factor @ dup 2af  al_scale_transform
+  baseline  al_use_transform  ;
+
+
 \ camera
 create m  16 cells /allot
 
@@ -21,16 +31,23 @@ create m  16 cells /allot
   m ;
 
 : camTrack  ( -- )
-  player 's x 2v@  player 's w 2v@ 2halve 2+
+  player 's x 2v@  player 's w 2v@ 2halve  2+
   gfxw gfxh 2halve  2-  extents 2clamp  cam 's x 2v! ;
 
+
+: cls  0 0 0 1 clear-to-color ;
+
+: showAll  0 all>  show ;
+: showBoxes  info @ -exit  0 all>  drawCbox ;
 : camRender  ( -- )
+  cls
+  /baseline
+  parared.image  cam 's x 2v@ 0.4 0.4 2*  drawWallpaper
   camTrack
-  0.5 0.5 0.5 1.0 clear-to-color
-  camTransform
-  dup  factor @ dup 2af  al_scale_transform
+  camTransform  dup  factor @ dup 2af  al_scale_transform
     al_use_transform
-  0 all>  show  drawCbox ;
+  showAll
+  showBoxes ;
 
 
 \ piston config
@@ -40,8 +57,8 @@ create m  16 cells /allot
 
 
 \ new game
-: dropPlayer  player stage add  252 238 player put ;
-: loadMap  ( n -- )
-  drop  cleanup  boxGrid resetCgrid  " data\maps\test-coldata.f" included ;
-: newGame ( -- )  0 loadMap  dropPlayer ;
+\ : dropPlayer  player stage add  252 238 player put ;
+\ : loadMap  ( n -- )
+\   drop  cleanup  boxGrid resetCgrid  " data\maps\test-coldata.f" included ;
+\ : newGame ( -- )  0 loadMap  dropPlayer ;
 

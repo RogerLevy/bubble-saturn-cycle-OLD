@@ -133,41 +133,46 @@ node super
   var zdepth   \ not to be confused with z position - it's for drawing order.
   var 'act  var 'show  \ <-- internal
   var flags
-  staticvar onstart
+  staticvar 'onStart  \ kick off script
+  staticvar 'onInit   \ initialize any default vars that onStart expects.
+                      \ We need this because loading from a map file
+                      \ can override some default values.
 class actor
 
-1 1i
-bit persistent
+#1
+  bit persistent#
+  bit restart#
 value actorBit
 
-defer defaults  ' noop is defaults
+variable info  \ enables debugging mode display
+defer commonInit  ' noop is commonInit
 
-variable info
 
+: start  restart# flags not!  me class @ 'onStart @ execute ;
 : show>  r> code> 'show !  vis on ;                                             ( -- <code> )
 : act>   r> code> 'act ! ;                                                      ( -- <code> )
+: act   flags @ restart# and if  start  then  'act @ execute ;
 : show  'show @ execute ;
-: itterateActors  ( xt list -- )
+: init  commonInit  me class @ 'onInit @ execute ;
+: itterateActors  ( xt list -- )  ( ... -- ... )
   me >r
   first @  begin  dup while  dup next @ >r  over >r  me! execute  r> r> repeat
   2drop
   r> me! ;
-: all>  ( n -- )  r> code>  stage itterateActors  drop ;
-\ : goto   penx 2v@ x 2v! ;                                                     ( -- )
+: all>  ( n -- )  ( n -- n )  r> code>  stage itterateActors  drop ;
 : (recycle)  dup >r backstage popnode dup r> isize @ erase ;
 : one                                                                           ( class -- me=obj )
   backstage length @ if  (recycle)  else  here /actorslot /allot  then
   dup stage add
   me!
-  dup  me class !  at@ x 2v!
-      defaults
-      onstart @ execute  noop ;
+  me class !  at@ x 2v!  restart# flags or!
+  init ;
 
 : unload  backstage add ;                                                       ( -- )
-:noname  flags @ persistent and -exit  me stage add ;
+:noname  flags @ persistent# and -exit  me stage add ;
 : (preserve)  literal backstage itterateActors ;  \ put persistent actors back
 : cleanup  backstage stage append  (preserve) ;
-:noname  flags @ persistent and -exit  me backstage remove ;
+:noname  flags @ persistent# and -exit  me backstage remove ;
 : (orphan)  literal backstage itterateActors ;  \ orphan persistent actors
 : clear  backstage stage append  (orphan) ;
 
@@ -198,7 +203,7 @@ transform outputm
 
 \ -------------------------------- defaults -----------------------------------
 0 value #frames
-: step1  0 all>  'act @ execute ;
+: step1  0 all>  act ;
 : step2  0 all>  vx 2v@ x 2v+! ;
 :noname  [ is sim ]  step1  step2  1 +to #frames ;
 : cls  0.5 0.5 0.5 1.0 clear-to-color ;
