@@ -160,7 +160,7 @@ defer commonInit  ' noop is commonInit
   2drop
   r> me! ;
 : all>  ( n -- )  ( n -- n )  r> code>  stage itterateActors  drop ;
-: (recycle)  dup >r backstage popnode dup r> isize @ erase ;
+: (recycle)  dup >r backstage popnode dup r> sizeof erase ;
 : one                                                                           ( class -- me=obj )
   backstage length @ if  (recycle)  else  here /actorslot /allot  then
   dup stage add
@@ -171,10 +171,10 @@ defer commonInit  ' noop is commonInit
 : unload  backstage add ;                                                       ( -- )
 :noname  flags @ persistent# and -exit  me stage add ;
 : (preserve)  literal backstage itterateActors ;  \ put persistent actors back
-: cleanup  backstage stage append  (preserve) ;
+: cleanup  ( -- ) backstage stage append  (preserve) ;
 :noname  flags @ persistent# and -exit  me backstage remove ;
 : (orphan)  literal backstage itterateActors ;  \ orphan persistent actors
-: clear  backstage stage append  (orphan) ;
+: clear  ( -- ) backstage stage append  (orphan) ;
 
 : #actors  stage length @ ;
 

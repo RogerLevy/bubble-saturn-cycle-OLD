@@ -41,7 +41,7 @@ end-package
 create node  here dup firstClass ! lastClass !
   0 , ( isize ) , /class ,  14 cells /allot
 
-: sizeof  class @ isize @ ;                                                     ( obj -- i )
+: sizeof  isize @ ;                                                     ( obj -- i )
 : obj  here swap  dup ,  isize @ cell- /allot ;                                 ( class -- obj )
 : list  create  0 ( length ) , 0 ( first ) , 0 ( tail ) , ;
 
