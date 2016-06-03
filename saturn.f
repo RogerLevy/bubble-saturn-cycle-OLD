@@ -10,7 +10,6 @@ traveler single player
 \
 \ /boxes
 
-: *box  ( x y w h -- )  box one  w 2v! x 2v!  updateCbox  ahb boxGrid addCbox ;
 
 
 \ baseline matrix

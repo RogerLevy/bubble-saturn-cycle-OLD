@@ -21,6 +21,7 @@ include swes\sprites
 
 include modules\gameutils
 include modules\wallpaper
+include modules\tiled-level
 
 \ global constants, variables, and assets
 include data
@@ -30,7 +31,6 @@ include data
 include scripting
 include objects
 include saturn
-include tiled-level.f
 
 
 \ ========================= end main load sequence ============================

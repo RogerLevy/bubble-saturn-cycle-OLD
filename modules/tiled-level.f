@@ -2,8 +2,24 @@ include lib\files
 fixed
 
 staticvar firstgid
+defer onLoadBox  ' noop is onLoadBox
+
 
 doming +order
+
+[undefined] flip [if]  actor super  var flip  extend actor  [then]
+
+[undefined] onMapLoad [if]
+  staticvar 'onMapLoad
+  : onMapLoad:  ( class -- <code;> )  :noname swap 'onMapLoad ! ;
+  decimal
+    create lookupTbl  0 , 2 , 1 , 3 ,
+    : tmx>aflip  cells lookupTbl + @ ;
+  fixed
+  : onMapLoad  ( -- )
+    decimal " gid" @attr 30 >> tmx>aflip flip ! fixed
+    me class @ 'onMapLoad @ execute ;
+[then]
 
 : gid>class  ( n -- class )
   locals| n |
@@ -27,26 +43,20 @@ doming +order
 
 : (instance)  ( x y -- )
   cr ." ...CREATING INSTANCE"
-  at  " gid" @attr gid>class one  onMapLoad ;
-
-
-decimal
-create lookupTbl  0 , 2 , 1 , 3 ,
-: tmx>aflip  cells lookupTbl + @ ;
-fixed
+  at  " gid" @attr gid>class one  ;
 
 : gidObject  ( x y -- )
   cr ." GID OBJECT!!!"
   .node
   " existing" ?@prop if  me!  ( x y ) x 2v!  cr ." ...EXISTING REPOSITIONED"
                      else  (instance)  then
-  decimal " gid" @attr 30 >> tmx>aflip flip ! fixed
+  onMapLoad   
 ;
 
 : readObject
   " x" @attr " y" @attr
   " gid" attr? if  " height" @attr -  gidObject
-               else  " width" @attr " height" @attr *box  then
+               else  onLoadBox  then
 ;
   \ read object.
   \  collision rectangles have no gid.  some have a type, to make it slippery or dangerous.
@@ -79,15 +89,6 @@ fixed
   nest  " map" ?sib not abort" File is not TMX format!"
   fixed  ['] mapKids drill  done ;
 
-\ TEMPORARY.  need to refactor.  the problem is onMapLoad.
-: /subtype  ( -- )  " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
-bgobj onMapLoad:  /subtype  ;
-
 
 doming -order
-
-cleanup
-boxGrid resetCgrid
-\ " data\maps\test3.tmx" loadTMX
-" data\maps\W01_A02_v01.tmx" loadTMX
 
