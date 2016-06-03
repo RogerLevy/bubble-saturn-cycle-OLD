@@ -1,3 +1,4 @@
+doming +order
 
 fixed
 
@@ -13,7 +14,6 @@ actor super
 
   var flip         \ allegro flip flags
 
-  staticvar 'onMapLoad
 \  staticvar initData  \ see commonInit config below for param order.
 extend actor
 
@@ -25,11 +25,6 @@ extend actor
 \
 \ :noname  [ is commonInit ]
 \   me class @ initData @  @+ w !  @+ h !  drop ;
-
-\ -----------------------------------------------------------------------------
-
-: onMapLoad  ( -- )  me class @ 'onMapLoad @ execute ;
-: onMapLoad:  ( class -- <code;> )  :noname swap 'onMapLoad ! ;
 
 \ -----------------------------------------------------------------------------
 
@@ -50,7 +45,6 @@ to actorBit
 
 \ -----------------------------------------------------------------------------
 
-\ : drawImage  hex  bmp @  x 2v@ 2af  0  .s al_draw_bitmap  fixed ;
 : drawImage  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
 
 \ -----------------------------------------------------------------------------
@@ -96,9 +90,7 @@ fixed
 
 actor super class box
 
-: ~dims  128 128 2rnd 5 5 2max w 2v! ;
-
-: *randomBox  extents somewhere at  box one ~dims ;
+: *box  ( x y w h -- )  box one  w 2v! x 2v!  updateCbox  ahb boxGrid addCbox ;
 
 \ -----------------------------------------------------------------------------
 
@@ -189,5 +181,13 @@ class bgobj
 
 bgobj start:  show>  img>  drawImage ;
 
+: /subtype  ( -- )
+  " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
+bgobj onMapLoad:  /subtype  ;
+
 
 actor super class trilobite
+
+:noname [ is onLoadBox ]  " width" @attr " height" @attr *box ;
+
+doming -order

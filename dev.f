@@ -18,7 +18,12 @@ gamedev
 
 \ include ogmo-level.f
 
+cleanup
+boxGrid resetCgrid
+\ " data\maps\test3.tmx" loadTMX
+" data\maps\W01_A02_v01.tmx" loadTMX
 
 
 
-\ ok
+
+ok
