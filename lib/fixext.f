@@ -10,6 +10,7 @@ fixed
 : asin  ( n -- deg )  1f fasin r>d f>p ;
 : acos  ( n -- deg )  1f facos r>d f>p ;
 : lerp  ( src dest factor -- )  >r over - r> * + ;
+: anglerp  ( src dest factor -- )  >r  over -  180 + 360 mod 180 -  r> * + ;
 : sqrt  ( n -- n )  1f fsqrt f>p ;
 : atan  ( n -- n )  1f fatan f>p ;
 : atan2 ( n n -- n )  2f fatan2 f>p ;

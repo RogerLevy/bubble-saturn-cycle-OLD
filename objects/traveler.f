@@ -28,12 +28,17 @@ transform oldm
   al_get_current_transform oldm /transform move
   t  al_identity_transform
   t  -32 -12 2af al_translate_transform
-  t  vx 2v@ angle 1f d>r 1sf al_rotate_transform
+  t  ang @ 1f d>r 1sf al_rotate_transform
   t  x 2v@ 8 8 2+ 2pfloor 2af al_translate_transform
   t  oldm al_compose_transform
   t  al_use_transform
   call
   oldm al_use_transform ;
+ 
+: orient
+  flags @ hitflags# and not if
+    ang @  vx 2v@ angle  0.3 anglerp  ang !
+  then ;
 
 : animated
   \ vx 2@ magnitude dup 1 < if drop 0 exit then  #frames 8 / * 1 and ;
@@ -41,10 +46,9 @@ transform oldm
   ac @ 1 and ;
 
 
-
 traveler start:
   18 18 w 2v!
   act>  controls  clampVel
-  physics>  dynamicBoxPhysics
+  physics>  dynamicBoxPhysics  orient
   show>  transformed  animated SPR_EARWIG drawSprite
 ;
