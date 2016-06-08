@@ -41,14 +41,6 @@ transform oldm
   ac @ 1 and ;
 
 
-: ?0vx
-  flags @ right# left# or and if  0 vx !  then
-  flags @ top# bottom# or and if  0 vy !  then ;
-
-: dynamicBoxPhysics
-  right# left# bottom# top# or or or flags not!
-  moveX  moveY  ?0vx  vx 2v@ x 2v+!
-  updateCbox ;
 
 traveler start:
   18 18 w 2v!

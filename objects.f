@@ -90,6 +90,15 @@ to actorBit
   ahb literal boxGrid checkCbox
 ;
 
+: ?0vx
+  flags @ right# left# or and if  0 vx !  then
+  flags @ top# bottom# or and if  0 vy !  then ;
+
+: dynamicBoxPhysics
+  right# left# bottom# top# or or or flags not!
+  moveX  moveY  ?0vx  vx 2v@ x 2v+!
+  updateCbox ;
+
 \ -----------------------------------------------------------------------------
 \ load game object scripts
 \  keep these as uncoupled as possible.
