@@ -51,7 +51,6 @@ create m  16 cells /allot
 
 \ piston config
 ' camRender is render
-: step2  0 all>  vx 2v@ x 2v+!  updateCbox ;
 :noname  [ is sim ]  step1  step2  1 +to #frames ;
 
 

@@ -17,6 +17,13 @@ actor super
 \  staticvar initData  \ see commonInit config below for param order.
 extend actor
 
+decimal
+  create lookupTbl  0 , 2 , 1 , 3 ,
+  : tmx>aflip  cells lookupTbl + @ ;
+  : /flip  decimal " gid" @attr 30 >> tmx>aflip flip ! fixed ;
+  actor onMapLoad:  /flip ;
+fixed
+
 \ -----------------------------------------------------------------------------
 
 \ : initData:  ( class -- <data,> ) here swap initData ! ;
@@ -48,39 +55,36 @@ to actorBit
 : drawImage  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
 
 \ -----------------------------------------------------------------------------
+\ simple bounding box physics
 
-cgridding +order
-decimal
-  \ push current actor out of given ahb and set appropriate flags
-  : ?lr  ( ahb -- )
-    [ right# left# or invert ]# flags and!
-    vx @ 0> if
-      x1 @  ahb x2 @ 1 + -  x +!  right#
-    else
-      x2 @ 1 +  ahb x1 @ -  x +!  left#
-    then
-    flags or!  0 vx !  ;
+\ push current actor out of given ahb and set appropriate flags
+: ?lr  ( box -- )
+  [ right# left# or invert ]# flags and!
+  vx @ 0> if
+    x1 @  ahb x2 @ #1 + -  vx @ +  x +!  right#
+  else
+    x2 @ #1 +  ahb x1 @ -  vx @ +  x +!  left#
+  then
+  flags or! ;
 
-  : ?tb  ( ahb - )
-    [ bottom# top# or invert ]# flags and!
-    vy @ 0> if
-      y1 @  ahb y2 @ 1 + -  y +!  bottom#
-    else
-      y2 @ 1 +  ahb y1 @ -  y +!  top#
-    then
-    flags or!  0 vy !  ;
+: ?tb  ( box -- )
+  [ bottom# top# or invert ]# flags and!
+  vy @ 0> if
+    y1 @  ahb y2 @ #1 + -  vy @ +  y +!  bottom#
+  else
+    y2 @ #1 +  ahb y1 @ -  vy @ +  y +!  top#
+  then
+  flags or! ;
 
-cgridding -order
-fixed
 
 :noname  nip ?lr  drop false ;
-: do-x  ( -- )
+: moveX  ( -- )
   vx @ -exit
   x 2v@  vx @ u+  w 2v@  ahb cbox!
   ahb literal boxGrid checkCbox
 ;
 :noname  nip ?tb  drop false ;
-: do-y  ( -- )
+: moveY  ( -- )
   vy @ -exit
   x 2v@  vy @ +  w 2v@  ahb cbox!
   ahb literal boxGrid checkCbox
@@ -137,9 +141,19 @@ transform oldm
   ac @ 1 and ;
 
 
+: ?0vx
+  flags @ right# left# or and if  0 vx !  then
+  flags @ top# bottom# or and if  0 vy !  then ;
+
+: dynamicBoxPhysics
+  right# left# bottom# top# or or or flags not!
+  moveX  moveY  ?0vx  vx 2v@ x 2v+!
+  updateCbox ;
+
 traveler start:
   18 18 w 2v!
-  act>  controls  clampVel  do-x do-y
+  act>  controls  clampVel
+  physics>  dynamicBoxPhysics
   show>  transformed  animated SPR_EARWIG drawSprite
 ;
 
@@ -183,7 +197,7 @@ bgobj start:  show>  img>  drawImage ;
 
 : /subtype  ( -- )
   " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
-bgobj onMapLoad:  /subtype  ;
+bgobj onMapLoad:  /subtype  /flip ;
 
 
 actor super class trilobite

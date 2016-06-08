@@ -2,24 +2,14 @@ include lib\files
 fixed
 
 staticvar firstgid
-defer onLoadBox  ' noop is onLoadBox
+defer onLoadBox  ( x y -- ) ' 2drop is onLoadBox
 
 
 doming +order
 
-[undefined] flip [if]  actor super  var flip  extend actor  [then]
-
-[undefined] onMapLoad [if]
-  staticvar 'onMapLoad
-  : onMapLoad:  ( class -- <code;> )  :noname swap 'onMapLoad ! ;
-  decimal
-    create lookupTbl  0 , 2 , 1 , 3 ,
-    : tmx>aflip  cells lookupTbl + @ ;
-  fixed
-  : onMapLoad  ( -- )
-    decimal " gid" @attr 30 >> tmx>aflip flip ! fixed
-    me class @ 'onMapLoad @ execute ;
-[then]
+staticvar 'onMapLoad
+: onMapLoad:  ( class -- <code;> )  :noname swap 'onMapLoad ! ;
+: onMapLoad  ( -- )  me class @ 'onMapLoad @ execute ;
 
 : gid>class  ( n -- class )
   locals| n |
