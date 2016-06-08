@@ -27,11 +27,9 @@ private
   struct /cbox
 public aka /cbox /cbox
 
-decimal
-: cbox!  ( x y w h cbox -- )  with  2over 2+  1 1 2-  o x2 2v!  o x1 2v! ;
-: cbox@  ( cbox -- x y w h ) dup >r x1 2v@ r> x2 2v@  2over 2-  1 1 2+ ;
+: cbox!  ( x y w h cbox -- )  with  2over 2+  #1 #1 2-  o x2 2v!  o x1 2v! ;
+: cbox@  ( cbox -- x y w h ) dup >r x1 2v@ r> x2 2v@  2over 2-  #1 #1 2+ ;
 : 4@  ( cbox -- x1 y1 x2 y2 ) dup 2v@ rot cell+ cell+ 2v@ ;
-fixed
 
 private
 
@@ -95,7 +93,7 @@ private
     repeat
     r> 2drop
     flag
-    info @ if cr cnt . then
+\    info @ if cr cnt . then
     ;
 
   : ?checkSector  ( cbox1 sector|0 -- flag )  \ check a cbox against a sector
@@ -103,10 +101,11 @@ private
 
   : ?corner  ( x y -- 0 | sector )  \ see what sector the given coords are in & cull already checked corners
     sector
-    dup lastsector @ = if  drop 0  exit  then
-    dup lastsector2 @ = if  drop 0  exit  then
-    lastsector @ lastsector2 !
-    dup  lastsector ! ;
+    ;
+    \ dup lastsector @ = if  drop 0  exit  then
+    \ dup lastsector2 @ = if  drop 0  exit  then
+    \ lastsector @ lastsector2 !
+    \ dup  lastsector ! ;
 
 public
 : resetCgrid ( cgrid -- )
