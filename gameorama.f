@@ -132,6 +132,7 @@ node super
   var vis  var x  var y    var vx  var vy
   var zdepth   \ not to be confused with z position - it's for drawing order.
   var 'act  var 'show  \ <-- internal
+  var 'physics \ internal
   var flags
   staticvar 'onStart  \ kick off script
   staticvar 'onInit   \ initialize any default vars that onStart expects.
@@ -148,12 +149,14 @@ variable info  \ enables debugging mode display
 defer commonInit  ' noop is commonInit
 
 
+: physics  'physics @ execute ;
+: physics>  r> code> 'physics ! ;
 : start  restart# flags not!  me class @ 'onStart @ execute ;
 : show>  r> code> 'show !  vis on ;                                             ( -- <code> )
 : act>   r> code> 'act ! ;                                                      ( -- <code> )
 : act   flags @ restart# and if  start  then  'act @ execute ;
 : show  'show @ execute ;
-: init  commonInit  me class @ 'onInit @ execute ;
+: init  commonInit  me class @ 'onInit @ execute  physics> vx 2v@ x 2v+! ;
 : itterateActors  ( xt list -- )  ( ... -- ... )
   me >r
   first @  begin  dup while  dup next @ >r  over >r  me! execute  r> r> repeat
@@ -204,7 +207,7 @@ transform outputm
 \ -------------------------------- defaults -----------------------------------
 0 value #frames
 : step1  0 all>  act ;
-: step2  0 all>  vx 2v@ x 2v+! ;
+: step2  0 all>  physics ;
 :noname  [ is sim ]  step1  step2  1 +to #frames ;
 : cls  0.5 0.5 0.5 1.0 clear-to-color ;
 :noname  [ is render ] cls  0 all> show ;
