@@ -37,7 +37,7 @@ transform oldm
  
 : orient
   flags @ hitflags# and not if
-    ang @  vx 2v@ angle  0.3 anglerp  ang !
+    ang @  vx 2v@ angle  0.2 anglerp  ang !
   then ;
 
 : animated
