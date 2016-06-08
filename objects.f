@@ -13,6 +13,8 @@ actor super
   var DEF
 
   var flip         \ allegro flip flags
+  var ang          \ angle
+
 
 \  staticvar initData  \ see commonInit config below for param order.
 extend actor
@@ -42,6 +44,8 @@ actorBit
   bit right#
 to actorBit
 
+top# bottom# left# right# or or or constant hitflags#
+
 \ -----------------------------------------------------------------------------
 
 : clampVel  x 2v@  vx 2v@  2+  extents  w 2v@ 2-  2clamp  x 2v@ 2-  vx 2v! ;
@@ -52,7 +56,12 @@ to actorBit
 
 \ -----------------------------------------------------------------------------
 
-: drawImage  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
+: drawImage  ( image -- )
+  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
+
+\ : drawImageR  ( image -- )
+\   dup bmp @  swap imageDims 2af  x 2v@ 2af  ang @ 1af  flip @  al_draw_rotated_bitmap ;
+
 
 \ -----------------------------------------------------------------------------
 \ simple bounding box physics
@@ -95,7 +104,7 @@ to actorBit
   flags @ top# bottom# or and if  0 vy !  then ;
 
 : dynamicBoxPhysics
-  right# left# bottom# top# or or or flags not!
+  hitflags# flags not!
   moveX  moveY  ?0vx  vx 2v@ x 2v+!
   updateCbox ;
 
