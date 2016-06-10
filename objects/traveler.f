@@ -21,7 +21,8 @@ class traveler
 \ : initship ship loc controls draw radius> i circ ;
  
 : orient
-  flags @ hitflags# and not if
+  flags @ hitflags# and not
+  udlrvec or and if
     ang @  vx 2v@ angle  0.2 anglerp  ang !
   then ;
 
