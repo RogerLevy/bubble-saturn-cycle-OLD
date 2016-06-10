@@ -30,7 +30,7 @@ class bgobj
 
 : img>  bgObjTables tbl @ th @  subtype @ th @ ;
 
-bgobj start:  show>  img>  drawImage ;
+bgobj start:  show>  img>  showImage ;
 
 : /subtype  ( -- )
   " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;

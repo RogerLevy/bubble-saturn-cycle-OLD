@@ -37,7 +37,7 @@ create m  16 cells /allot
 : cls  0 0 0 1 clear-to-color ;
 
 : showAll  0 all>  show ;
-: showBoxes  info @ -exit  0 all>  drawCbox ;
+: showBoxes  info @ -exit  0 all>  showCbox ;
 : camRender  ( -- )
   cls
   /baseline

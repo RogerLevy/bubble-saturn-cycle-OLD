@@ -19,36 +19,19 @@ class traveler
 
 \ : loc 512 2/ 384 2/ 30 + 2f x 2! ;
 \ : initship ship loc controls draw radius> i circ ;
-
-transform t
-transform oldm
-: transformed
-  r>
-  0 0 at
-  al_get_current_transform oldm /transform move
-  t  al_identity_transform
-  t  -32 -12 2af al_translate_transform
-  t  ang @ 1f d>r 1sf al_rotate_transform
-  t  x 2v@ 8 8 2+ 2pfloor 2af al_translate_transform
-  t  oldm al_compose_transform
-  t  al_use_transform
-  call
-  oldm al_use_transform ;
  
 : orient
   flags @ hitflags# and not if
     ang @  vx 2v@ angle  0.2 anglerp  ang !
   then ;
 
-: animated
-  \ vx 2@ magnitude dup 1 < if drop 0 exit then  #frames 8 / * 1 and ;
-  vx 2v@ magnitude 1.5 + 15 / ac +!
-  ac @ 1 and ;
-
+: anmfrm>  ( -- n )  vx 2v@ magnitude 1.5 + 15 / ac +!  ac @ 1 and ;
 
 traveler start:
+  -9 -9 boxx 2v!
   18 18 w 2v!
+  32 12 orgx 2v!
   act>  controls  clampVel
   physics>  dynamicBoxPhysics  orient
-  show>  transformed  animated SPR_EARWIG drawSprite
+  show>  anmfrm> SPR_EARWIG showSprite'
 ;
