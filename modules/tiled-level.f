@@ -2,7 +2,7 @@ include lib\files
 fixed
 
 staticvar firstgid
-defer onLoadBox  ( x y -- ) ' 2drop is onLoadBox
+defer onLoadBox  ( pen=xy -- ) ' noop is onLoadBox
 
 
 doming +order
@@ -46,7 +46,7 @@ staticvar 'onMapLoad
 : readObject
   " x" @attr " y" @attr
   " gid" attr? if  " height" @attr -  gidObject
-               else  onLoadBox  then
+               else  at  onLoadBox  then
 ;
   \ read object.
   \  collision rectangles have no gid.  some have a type, to make it slippery or dangerous.
