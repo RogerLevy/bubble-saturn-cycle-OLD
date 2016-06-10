@@ -10,6 +10,9 @@ include engine\preamble.f
 
 include gameorama  \ load standard game services (core)
 
+\ libraries
+include modules\stride2d
+
 \ load other game services
 include modules\collision-grid
 
@@ -27,11 +30,16 @@ include modules\tiled-level
 include data
 
 \ game definitions
-
 include scripting
 include objects
 include saturn
 
 
 \ ========================= end main load sequence ============================
+
+
+cleanup
+boxGrid resetCgrid
+\ " data\maps\test3.tmx" loadTMX
+" data\maps\W01_A02_v01.tmx" loadTMX
 
