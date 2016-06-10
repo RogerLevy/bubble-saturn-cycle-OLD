@@ -6,6 +6,8 @@ actor super
   var w            \ hitbox dimensions
   var h
   /cbox field ahb  \ Actor Hit Box
+  var boxx
+  var boxy 
 
   var HP           \ hit points
   var maxHP        \ max hit points
@@ -14,10 +16,14 @@ actor super
 
   var flip         \ allegro flip flags
   var ang          \ angle
+  var orgx         \ display origin (normally positive)
+  var orgy
 
 
 \  staticvar initData  \ see commonInit config below for param order.
 extend actor
+
+: disporg  orgx 2v@ ;
 
 decimal
   create lookupTbl  0 , 2 , 1 , 3 ,
@@ -51,17 +57,24 @@ top# bottom# left# right# or or or constant hitflags#
 : clampVel  x 2v@  vx 2v@  2+  extents  w 2v@ 2-  2clamp  x 2v@ 2-  vx 2v! ;
 
 : ahb>actor  [ ahb me - ]# - ;
-: drawCbox    ahb cbox@ 1 1 2- 2over 2+ 4af  1 1 1 1 4af  1 1af  al_draw_rectangle ;
-: updateCbox  x 2v@  w 2v@  ahb cbox! ;
+
+: putCbox  boxx 2v@ 2+  w 2v@  ahb cbox! ;
+
+: updateCbox  x 2v@  putCbox ;
+
+\ : boxXY  x 2v@  boxx 2v@ 2+ ;
 
 \ -----------------------------------------------------------------------------
 
-: drawImage  ( image -- )
-  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
+: showImage  ( image -- )  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
 
-\ : drawImageR  ( image -- )
-\   dup bmp @  swap imageDims 2af  x 2v@ 2af  ang @ 1af  flip @  al_draw_rotated_bitmap ;
+: showSprite'  ( spr# set# -- )
+  sprite>af
+    1 1 1 1 4af  disporg 2af  x 2v@ 2af  1 1 2af  ang @ radians 1af  flip @
+    al_draw_tinted_scaled_rotated_bitmap_region ;
 
+: showCbox
+  ahb cbox@ 1 1 2- 2over 2+ 4af  1 1 1 1 4af  1 1af  al_draw_rectangle ;
 
 \ -----------------------------------------------------------------------------
 \ simple bounding box physics
@@ -89,13 +102,13 @@ top# bottom# left# right# or or or constant hitflags#
 :noname  nip ?lr  drop false ;
 : moveX  ( -- )
   vx @ -exit
-  x 2v@  vx @ u+  w 2v@  ahb cbox!
+  x 2v@  vx @ u+  putCbox
   ahb literal boxGrid checkCbox
 ;
 :noname  nip ?tb  drop false ;
 : moveY  ( -- )
   vy @ -exit
-  x 2v@  vy @ +  w 2v@  ahb cbox!
+  x 2v@  vy @ +  putCbox
   ahb literal boxGrid checkCbox
 ;
 
