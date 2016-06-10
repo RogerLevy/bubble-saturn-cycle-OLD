@@ -70,6 +70,8 @@
     : game-starter  null-personality open-personality " include toc ok" evaluate ;
     \ Turnkey starter
 
+    : refresh  " rld ok" evaluate ;
+
     gild
   [then]
 
