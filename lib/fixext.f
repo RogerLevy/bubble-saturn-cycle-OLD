@@ -47,3 +47,5 @@ aka 2* 2scale
 
 : radians  1f  d>r  f>p ;
 
+: c>p  ( c - n )  \ convert from 0...255 (byte) to 0...1.0 (fixed)
+  4 <<  1 $ff0 */ ;
