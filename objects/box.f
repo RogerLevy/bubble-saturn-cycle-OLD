@@ -2,9 +2,23 @@ doming +order
 
 actor super class box
 
-: *box  ( w h -- )  box one  w 2v!  updateCbox  ahb boxGrid addCbox ;
+: either0  over 0= over 0= or ;
 
-: ?box  over 0= over 0= or not if  *box  else  2drop  then ;
+: /cbox  updateCbox  ahb boxGrid addCbox ;
+: *box  ( w h -- )  box one  w 2v!  /cbox ;
+: ?box  ( w h -- ) either0 not if  *box  else  2drop  then ;
+
+\ box super class colorbox
+\
+\ 0 value (hex)
+\
+\ : *colorbox  ( w h hexcolor -- )  colorbox one  !hex  w 2v! ;
+\
+\ : ?colorbox  ( w h -- ) either0 not if  *colorbox  else  2drop  then ;
+\
+\ : ?boxmaker  ( -- xt )
+\   " color" ?@prop if  to (hex)  ['] ?colorbox  else  ['] ?box  then ;
+
 
 cgridding +order
 :noname [ is onLoadBox ]  ( pen=xy -- )

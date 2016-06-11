@@ -20,6 +20,14 @@ actor super
   var orgy
 
 
+  \ Allegro color
+
+  var fcolor
+  : fr  fcolor ;
+  var fg
+  var fb
+  var fa
+
 \  staticvar initData  \ see commonInit config below for param order.
 extend actor
 
@@ -66,7 +74,17 @@ top# bottom# left# right# or or or constant hitflags#
 
 \ -----------------------------------------------------------------------------
 
+
 : showImage  ( image -- )  bmp @  x 2v@ 2af  flip @  al_draw_bitmap ;
+
+\ : af-fit  ( w h w h -- af-sx af-sy )
+\   1f rot 1f f/ 1f rot 1f f/ 2sf swap ;
+
+: fitImage  ( image -- )
+  with  o bmp @  0 0 2af  o imageDims 2af  x 2v@ 2af  w 2v@ 2af  flip @  al_draw_scaled_bitmap ;
+
+
+
 
 : showSprite'  ( spr# set# -- )
   sprite>af
@@ -120,6 +138,22 @@ top# bottom# left# right# or or or constant hitflags#
   hitflags# flags not!
   moveX  moveY  ?0vx  vx 2v@ x 2v+!
   updateCbox ;
+
+\ -----------------------------------------------------------------------------
+
+
+: !color   ( r g b a -- )  4af fcolor !+ !+ !+ !+ drop ;
+
+: 8b dup $ff and c>p ;
+: hex>color  8b >r 8 >> 8b >r 8 >> 8b >r 8 >> 8b nip r> r> r> ;
+: !hex    ( i -- )  hex>color !color ;
+
+\ : red!  ( n allegro-color -- ) >r 1af r> ! ;
+\ : green!  ( n allegro-color -- ) >r 1af r> cell+ ! ;
+\ : blue!  ( n allegro-color -- ) >r 1af r> cell+ cell+ ! ;
+\ : alpha!  ( n allegro-color -- ) >r 1af r> cell+ cell+ cell+ ! ;
+
+
 
 \ -----------------------------------------------------------------------------
 \ load game object scripts

@@ -5,8 +5,7 @@ fixed
       image area000.image     data/images/Hpz6lWy.png
       image parared.image     data/images/parallax_darkred.png
 
-      image parared.image     data/images/parallax_darkred.png
-
+      image w01_a02_bg000.image  data/images/W01_A02_BG000.png
       image w01_a02_bg001.image  data/images/W01_A02_BG001.png
       image w01_a02_bg002.image  data/images/W01_A02_BG002.png
       image w01_a02_bg003.image  data/images/W01_A02_BG003.png
@@ -26,7 +25,10 @@ fixed
       image w01_a02_bg017.image  data/images/W01_A02_BG017.png
       image w01_a02_bg018.image  data/images/W01_A02_BG018.png
 
+      image trilobite.image      data/images/trilobite.png
+
   64 32 spriteset SPR_EARWIG  data/images/earwig.png
+
 \ 16 16 tileset   TILESET0      data/images/longhouse 16x16 bgtiles.png
 
 

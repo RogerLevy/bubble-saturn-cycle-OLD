@@ -19,6 +19,8 @@ create w01a02bgObj
   w01_a02_bg016.image ,
   w01_a02_bg017.image ,
   w01_a02_bg018.image ,
+  w01_a02_bg000.image ,
+
 
 create bgObjTables
   w01a02bgObj , w01a02bgObj ,
@@ -30,10 +32,14 @@ class bgobj
 
 : img>  bgObjTables tbl @ th @  subtype @ th @ ;
 
-bgobj start:  show>  img>  showImage ;
+bgobj start:  show>  img>  fitImage ;
+
+: /dims  ( -- )
+  " width" @attr " height" @attr w 2v! ;
 
 : /subtype  ( -- )
   " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
-bgobj onMapLoad:  /subtype  /flip ;
+
+bgobj onMapLoad:  /dims  /subtype  /flip ;
 
 doming -order

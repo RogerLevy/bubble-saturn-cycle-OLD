@@ -1,4 +1,4 @@
-include lib\files
+
 fixed
 
 staticvar firstgid
@@ -33,12 +33,12 @@ staticvar 'onMapLoad
 
 : (instance)  ( x y -- )
   cr ." ...CREATING INSTANCE"
-  at  " gid" @attr gid>class one  ;
-
+  at  " gid" @attr gid>class one ;
+  
 : gidObject  ( x y -- )
   cr ." GID OBJECT!!!"
   .node
-  " existing" ?@prop if  me!  ( x y ) x 2v!  cr ." ...EXISTING REPOSITIONED"
+  " existing" ?@prop if  me!  ( x y ) x 2v!  cr ." ...EXISTING OBJ REPOSITIONED"
                      else  (instance)  then
   onMapLoad   
 ;

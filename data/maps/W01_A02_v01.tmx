@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" backgroundcolor="#000000" nextobjectid="181">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" backgroundcolor="#a1a1a1" nextobjectid="204">
  <properties>
   <property name="parallax" value="paraDarkRed"/>
  </properties>
- <tileset firstgid="1" name="bgobj" tilewidth="186" tileheight="228" tilecount="18" columns="0">
+ <tileset firstgid="1" name="bgobj" tilewidth="186" tileheight="228" tilecount="19" columns="0">
   <tile id="0">
    <properties>
     <property name="class" value="test"/>
@@ -112,13 +112,31 @@
    </properties>
    <image width="70" height="183" source="../images/W01_A02_BG018.png"/>
   </tile>
+  <tile id="18">
+   <image width="32" height="32" source="../images/W01_A02_BG000.png"/>
+  </tile>
  </tileset>
- <tileset firstgid="19" name="traveler" tilewidth="64" tileheight="32" tilecount="2" columns="2">
+ <tileset firstgid="20" name="traveler" tilewidth="64" tileheight="32" tilecount="2" columns="2">
   <image source="../images/earwig.png" width="128" height="32"/>
  </tileset>
- <tileset firstgid="21" name="trilobite" tilewidth="44" tileheight="22" tilecount="1" columns="1">
+ <tileset firstgid="22" name="trilobite" tilewidth="44" tileheight="22" tilecount="1" columns="1">
   <image source="../images/trilobite.png" width="44" height="22"/>
  </tileset>
+ <objectgroup name="NEG">
+  <object id="185" gid="19" x="-161" y="557" width="351" height="212"/>
+  <object id="186" gid="19" x="0" y="288" width="183" height="229"/>
+  <object id="187" gid="19" x="-88" y="860" width="556" height="309"/>
+  <object id="188" gid="19" x="441" y="918" width="301" height="298"/>
+  <object id="189" gid="19" x="542" y="1116" width="246" height="292"/>
+  <object id="190" gid="19" x="658" y="1290" width="220" height="250"/>
+  <object id="191" gid="19" x="839" y="1285" width="142" height="212"/>
+  <object id="192" gid="19" x="916" y="1323" width="142" height="212"/>
+  <object id="193" gid="19" x="967" y="1365" width="142" height="212"/>
+  <object id="194" gid="19" x="1065" y="1393" width="520" height="212"/>
+  <object id="195" gid="19" x="1490" y="1374" width="314" height="695"/>
+  <object id="196" gid="19" x="1478" y="1224" width="45" height="65"/>
+  <object id="197" gid="19" x="1041" y="861" width="452" height="787"/>
+ </objectgroup>
  <objectgroup name="BG">
   <object id="1" name="problem?" gid="1" x="330" y="528" width="68" height="130"/>
   <object id="2" gid="13" x="297" y="555" width="114" height="37"/>
@@ -201,12 +219,16 @@
   <object id="169" gid="1073741837" x="1094" y="896" width="114" height="37"/>
   <object id="170" gid="1073741837" x="1436" y="896" width="114" height="37"/>
   <object id="171" gid="1073741837" x="1322" y="896" width="114" height="37"/>
+  <object id="198" gid="2147483657" x="1019" y="297" width="29" height="58"/>
+  <object id="199" gid="2147483657" x="1019" y="241" width="29" height="58"/>
+  <object id="200" gid="2147483657" x="1019" y="186" width="29" height="58"/>
+  <object id="201" gid="2147483657" x="1020" y="131" width="29" height="58"/>
  </objectgroup>
  <objectgroup name="COLLISION" visible="0">
   <object id="86" x="210" y="116" width="55" height="49"/>
   <object id="87" x="243" y="83" width="27" height="31"/>
-  <object id="88" x="175" y="59" width="34" height="229"/>
-  <object id="90" x="172" y="345" width="34" height="211"/>
+  <object id="88" x="0" y="59" width="209" height="229"/>
+  <object id="90" x="0" y="345" width="208" height="211"/>
   <object id="91" x="206" y="517" width="252" height="73"/>
   <object id="93" x="458" y="543" width="14" height="13"/>
   <object id="94" x="458" y="555" width="30" height="36"/>
@@ -236,15 +258,16 @@
   <object id="178" x="938" y="946" width="10" height="49"/>
   <object id="179" x="809" y="869" width="62" height="35"/>
   <object id="180" x="871" y="882" width="35" height="24"/>
+  <object id="203" x="0" y="266" width="1" height="95"/>
  </objectgroup>
  <objectgroup name="OBJ">
-  <object id="149" gid="21" x="949" y="761" width="44" height="22"/>
-  <object id="151" gid="21" x="795" y="598" width="44" height="22"/>
-  <object id="152" gid="21" x="879" y="556" width="44" height="22"/>
-  <object id="154" gid="21" x="599" y="387" width="44" height="22"/>
-  <object id="155" gid="21" x="653" y="548" width="44" height="22"/>
-  <object id="157" gid="21" x="1421" y="1106" width="44" height="22"/>
-  <object id="159" name="player drop" gid="19" x="181" y="334" width="64" height="32">
+  <object id="149" gid="22" x="949" y="761" width="44" height="22"/>
+  <object id="151" gid="22" x="795" y="598" width="44" height="22"/>
+  <object id="152" gid="22" x="879" y="556" width="44" height="22"/>
+  <object id="154" gid="22" x="599" y="387" width="44" height="22"/>
+  <object id="155" gid="22" x="653" y="548" width="44" height="22"/>
+  <object id="157" gid="22" x="1421" y="1106" width="44" height="22"/>
+  <object id="159" name="player drop" gid="20" x="181" y="334" width="64" height="32">
    <properties>
     <property name="existing" value="player"/>
    </properties>
