@@ -30,6 +30,9 @@
   [undefined] zstring [if]
     include lib\string-operations
   [then]
+  [undefined] file@ [if]
+    include lib\files
+  [then]
   [undefined] fixedp [if]
     true constant fixedp
     include lib\fixedp_2
