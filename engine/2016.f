@@ -1,5 +1,5 @@
 decimal
-aka s" " immediate
+: "  postpone s" ; immediate
 \ -----------------------------------------------------------------------------
 : alert  ( addr c -- )  \ show windows OS message box
   zstring 0 swap z" Alert" MB_OK MessageBox drop ;

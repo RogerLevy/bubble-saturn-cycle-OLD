@@ -232,7 +232,7 @@ constant /ALLEGRO_DISPLAY_MODE
 \ display object stuff
 function: al_get_display_flags ( display -- n )
 function: al_set_display_flag ( display flag bool -- f )
-aka al_set_display_flag al_toggle_display_flag
+: al_toggle_display_flag  al_set_display_flag ;
 function: al_get_display_width ( display -- w )
 function: al_get_display_height ( display -- h )
 

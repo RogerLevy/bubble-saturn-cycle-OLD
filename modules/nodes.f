@@ -25,7 +25,7 @@ package class-defs
     ( isize ) ,
     cell+ cell+   here  (class-min-size)  move  (class-min-size)  /allot
     class-defs -order ;
-  aka class extend
+  : extend  class ; 
 end-package
 : super  dup isize @  class-defs +order ;        ( class -- super isize )
 \ : extend  !  class-defs -order ;

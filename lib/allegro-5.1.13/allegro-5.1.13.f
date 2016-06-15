@@ -51,7 +51,7 @@ constant ALLEGRO_VERSION_INT
 
 : void ;
 
-aka \ /*
+: /* postpone \ ; immediate
 
 \ ----------------------------- load files --------------------------------
 
