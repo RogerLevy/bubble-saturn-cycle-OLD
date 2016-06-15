@@ -19,12 +19,12 @@ class traveler
 
 \ : loc 512 2/ 384 2/ 30 + 2f x 2! ;
 \ : initship ship loc controls draw radius> i circ ;
- 
-: orient
+
+: orientation
   flags @ hitflags# and not
-  udlrvec or and if
-    ang @  vx 2v@ angle  0.2 anglerp  ang !
-  then ;
+  udlrvec or and if  vx 2v@  angle  else
+  udlrvec or if  udlrvec  angle  else  ang @  then  then ;
+: orient  ang @  orientation  0.2 anglerp  ang ! ;
 
 : anmfrm>  ( -- n )  vx 2v@ magnitude 1.5 + 15 / ac +!  ac @ 1 and ;
 
