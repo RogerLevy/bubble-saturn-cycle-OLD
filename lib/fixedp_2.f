@@ -62,7 +62,7 @@ package fixpointing public
 : 3i  rot 1i rot 1i rot 1i ;
 : 4i  2i 2swap 2i 2swap ;
 : f  s>f FPGRAN f/ ;
-aka f 1f  \ not recommended, looks very similar to "if"
+: 1f  f ;  \ not recommended, looks very similar to "if"
 : 2f  swap f f ;
 : 3f  rot f 2f ;
 : 4f  2swap 2f 2f ;
@@ -75,7 +75,8 @@ aka f 1f  \ not recommended, looks very similar to "if"
 private
 \ NTS: keep these as one-liners, I might make them macros...
 : *  ( n n -- n )  1f s>f f* f>s ;
-public  aka * p*
+public
+: p*  * ;
 private
 : /  ( n n -- n )  swap s>f 1f f/ f>s ;
 : /mod  ( n n -- r q ) 2dup mod -rot / ;
@@ -195,8 +196,8 @@ package fixpointing
 : loop  " 1.0 +loop" evaluate ; immediate
 : lshift  1i lshift ;
 : rshift  1i rshift ;
-aka lshift <<
-aka rshift >>
+: << lshift ;
+: >> rshift ; 
 end-package
 
 

@@ -38,7 +38,7 @@ fixed
 : dotp  ( x y x y - n )  -rot ( b.x a.y ) * >r  ( a.x b.y ) *  r> - ;
 
 
-aka 2* 2scale
+: 2scale  2* ;
 : uscale  dup 2* ;
 : 2rotate  ( x y deg -- x y )
   dup cos  swap sin  locals| sin(ang) cos(ang) y x |

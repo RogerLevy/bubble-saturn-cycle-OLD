@@ -1,4 +1,4 @@
-aka s" " immediate
+: " postpone s" ; immediate
 
 \ ------------------------------------------------------------------------------
 \ string concatenation

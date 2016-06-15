@@ -25,7 +25,7 @@ private
     xvar s3  \  ...
     xvar s4  \  ...
   struct /cbox
-public aka /cbox /cbox
+public : /cbox /cbox ;
 
 : cbox!  ( x y w h cbox -- )  with  2over 2+  #1 #1 2-  o x2 2v!  o x1 2v! ;
 : cbox@  ( cbox -- x y w h ) dup >r x1 2v@ r> x2 2v@  2over 2-  #1 #1 2+ ;
