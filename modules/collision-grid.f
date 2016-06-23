@@ -8,6 +8,9 @@ fixed
 \  - Doesn't support hitboxes bigger than sectw x secth
 
 
+\ Todo:
+\ [ ] add cmask and cflag vars to cbox struct?
+
 package cgridding public
 
 0 value cgrid  \ current cgrid
@@ -49,6 +52,7 @@ private
   variable lastsector2
 
   defer collide  ( ... true cbox1 cbox2 -- ... keepgoing? )
+  \ defer cfilter  ( cbox1 cbox2 ... cbox1 cbox2 flag )  ' true is cfilter
 
 public
 0
@@ -76,24 +80,24 @@ private
 
   : box>box?  ( box1 box2 -- box1 box2 flag )
     2dup = if  false  exit  then                                                \ boxes can't collide with themselves!
+    \ cfilter not if  false exit  then
     2dup >r  4@  r> 4@   overlap? ;
 
   0 value cnt
   : checkSector  ( cbox1 sector -- flag )
     0 to cnt
-    true locals| flag |
-    swap >r
-    begin @ dup  flag and while
-      dup cell+ @  r@  swap  box>box? if
+    swap true locals| flag cbox1 |
+    begin ( sector ) @ ( link|0 ) dup flag and while
+      ( link ) >r  cbox1  r@ cell+ @  box>box? if
         flag -rot  collide  to flag
       else
-        2drop
+        ( box box ) 2drop
       then
+      r> ( link )
       1 +to cnt
     repeat
-    r> 2drop
+    ( link|0 ) drop
     flag
-\    info @ if cr cnt . then
     ;
 
   : ?checkSector  ( cbox1 sector|0 -- flag )  \ check a cbox against a sector
@@ -108,7 +112,7 @@ private
     \ dup  lastsector ! ;
 
 public
-: resetCgrid ( cgrid -- )
+: resetGrid ( cgrid -- )
   to cgrid
   sectors @ cols 2v@ * ierase
   links @ i.link ! ;
@@ -124,7 +128,7 @@ public
 
 \ perform collision checks.  assumes box has already been added to the cgrid.
 \   this avoids unnecessary work for the CPU.
-: checkCgrid  ( cbox1 xt cgrid -- )  \ xt is the response
+: checkGrid  ( cbox1 xt cgrid -- )  \ xt is the response; see COLLIDE
   to cgrid  is collide
   with
   o dup s1 @ ?checkSector -exit
@@ -133,7 +137,7 @@ public
   o dup s4 @ ?checkSector drop ;
 
 \ this doesn't require the box to be added to the cgrid
-: checkCbox  ( cbox1 xt cgrid -- )  \ xt is the response
+: checkCbox  ( cbox1 xt cgrid -- )  \ xt is the response; see COLLIDE
   to cgrid  is collide
   with  lastsector off lastsector2 off
     o dup x1 2v@       ?corner  ?checkSector -exit

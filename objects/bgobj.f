@@ -34,11 +34,7 @@ class bgobj
 
 bgobj start:  show>  img>  fitImage ;
 
-: /dims  ( -- )
-  " width" @attr " height" @attr w 2v! ;
-
-: /subtype  ( -- )
-  " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
+: /subtype  ( -- )  " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
 
 bgobj onMapLoad:  /dims  /subtype  /flip ;
 
