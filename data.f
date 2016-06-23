@@ -4,6 +4,7 @@ fixed
       image testcard.image    data/images/test_up_down_32x32.png
       image area000.image     data/images/Hpz6lWy.png
       image parared.image     data/images/parallax_darkred.png
+      image talk-icon.image   data/images/talk-icon.png
 
       image w01_a02_bg000.image  data/images/W01_A02_BG000.png
       image w01_a02_bg001.image  data/images/W01_A02_BG001.png
@@ -34,9 +35,12 @@ fixed
 
 \ constants
 : extents  0 0 4096 4096 ;
-1000 constant #boxes
 
 \ variables
-#boxes extents 2nip collisionGrid boxGrid
-0 value world#
+1000 extents 2nip collisionGrid boxGrid
+2000 extents 2nip collisionGrid dynGrid
+
 0 value area#
+
+0 value you  \ for collisions
+#1 value cbit  \ collision flag counter

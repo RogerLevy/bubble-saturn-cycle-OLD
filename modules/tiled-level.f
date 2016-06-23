@@ -2,8 +2,8 @@
 fixed
 
 staticvar firstgid
-defer onLoadBox  ( pen=xy -- ) ' noop is onLoadBox
-
+defer onLoadBox  ( pen=xy -- )
+:noname [ is onLoadBox ] cr ." WARNING: onLoadBox is not defined!" ;
 
 doming +order
 
@@ -16,37 +16,42 @@ staticvar 'onMapLoad
   lastClass @
   begin  dup firstgid @ 1 - n u<  over prevClass @ 0 =  or  not while
     prevClass @
-  repeat  cr dup body> >name count type ;
+  repeat  ; \ cr dup body> >name count type ;
 
-: readTileset  " firstgid" @attr ( n )  " name" @attr ( class ) firstgid ! ;
+: readTileset  ( -- )
+  " firstgid" @attr ( n )  " name" @attr$ script ( class ) firstgid ! ;
 
-
-
+\ utility word @PROP: read custom object property
 :noname  ( addr c type -- addr c flag )  \ check the name attribute of each property element til we find a match
+  dom.element = -exit  2dup " name" @attr compare 0=
+;
   \ only consists of elements called "property" so no need to check the names of the elements
-  dom.element = -exit  2dup " name" @attr compare 0= ;
   : ?@prop  ( addr c -- false | val true )
     nest
     " properties" ?sib  not if  unnest ( addr c ) 2drop false exit  then
     [ literal ] search   nip nip if  " value" @attr  true  else  false then
     unnest  unnest ;
 
-: (instance)  ( x y -- )
-  cr ." ...CREATING INSTANCE"
-  at  " gid" @attr gid>class one ;
+: *instance  ( -- )
+  cr ." ...CREATING INSTANCE "
+  " gid" @attr gid>class one
+  ." $" me h.
+  onMapLoad ;
   
-: gidObject  ( x y -- )
-  cr ." GID OBJECT!!!"
-  .node
-  " existing" ?@prop if  me!  ( x y ) x 2v!  cr ." ...EXISTING OBJ REPOSITIONED"
-                     else  (instance)  then
-  onMapLoad   
-;
+: gidObject  ( -- )
+  cr ." GID OBJECT!!!"  .node  *instance ;
+
+: fixY  " height" @attr negate peny +! ;
 
 : readObject
-  " x" @attr " y" @attr
-  " gid" attr? if  " height" @attr -  gidObject
-               else  at  onLoadBox  then
+  " x" @attr " y" @attr  at
+  " name" attr? if
+    " gid" attr? if  fixY  then
+    " name" @attr$ cr ." EXECUTING: " 2dup type  evaluate
+  else
+    " gid" attr? if  " height" @attr negate peny +! gidObject
+                 else  cr ." BOX!!!!" .node onLoadBox  then
+  then
 ;
   \ read object.
   \  collision rectangles have no gid.  some have a type, to make it slippery or dangerous.
@@ -74,10 +79,12 @@ staticvar 'onMapLoad
   firstClass @  begin  ?dup while  #-1 over firstGID ! nextClass @  repeat ;
 
 : loadTMX  ( path count -- )
+  me >r
   clearGIDs
   file@  2dup read drop free throw
   nest  " map" ?sib not abort" File is not TMX format!"
-  fixed  ['] mapKids drill  done ;
+  fixed  ['] mapKids drill  done
+  r> as ;
 
 
 doming -order

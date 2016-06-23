@@ -36,7 +36,7 @@ $f0000000 constant DEPTHMASK
 
 : show  'show @ execute ;
 : enqueue  me , ;
-: ddraw  ( addr -- addr )  here over ?do  i @ me!  show  cell +loop ;
+: ddraw  ( addr -- addr )  here over ?do  i @ as  show  cell +loop ;
 : @zdepth  [ zdepth me - ]# + @ [ DEPTHMASK invert ]# and ;
 : dsort  dup here over - cell/ s>p ['] @zdepth irsort
          ; \ dup here over - .s idump ;

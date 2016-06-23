@@ -29,17 +29,32 @@ include modules\tiled-level
 \ global constants, variables, and assets
 include data
 
+\ -----------------------------------------------------------------------------
 \ game definitions
+
 include scripting
 include objects
-include saturn
+include physics
+include objects\box  \ needed to define onLoadBox
 
+\ Because tiled-level automatically loads object scripts,
+\ it's not necessary to manually load object scripts.  (6/16/2016)
+\ If some code depends on a script being loaded, use ?OBJECT
+
+include saturn
+include map-tokens
 
 \ ========================= end main load sequence ============================
 
 
-cleanup
-boxGrid resetCgrid
-\ " data\maps\test3.tmx" loadTMX
-" data\maps\W01_A02_v01.tmx" loadTMX
+: cleanup  ( -- )  cleanup  boxGrid resetGrid  dynGrid resetGrid ;
+
+: map  ( tmxpath c area# -- <name> )  ( -- )  \ area# points to an entry in a table
+  create  , string, 
+  does>  @+ to area#  count  cleanup  loadTMX ;
+
+
+" data\maps\W01_A02_v01.tmx" 0 map sfw0
+
+sfw0
 

@@ -122,7 +122,7 @@ fixed
 list stage
 list backstage
 0 value me
-: me!  to me ;
+: as  to me ;
 \ : var  create dup , cell +  does> @ me + ;                                      ( total -- <name> total+cell )
 : field  create over , + immediate does> @ " me ?lit + " evaluate ;             ( total -- <name> total+cell )
          \ faster but less debuggable version
@@ -132,7 +132,6 @@ node super
   var vis  var x  var y    var vx  var vy
   var zdepth   \ not to be confused with z position - it's for drawing order.
   var 'act  var 'show  \ <-- internal
-  var 'physics \ internal
   var flags
   staticvar 'onStart  \ kick off script
   staticvar 'onInit   \ initialize any default vars that onStart expects.
@@ -149,25 +148,23 @@ variable info  \ enables debugging mode display
 defer commonInit  ' noop is commonInit
 
 
-: physics  'physics @ execute ;
-: physics>  r> code> 'physics ! ;
 : start  restart# flags not!  me class @ 'onStart @ execute ;
 : show>  r> code> 'show !  vis on ;                                             ( -- <code> )
 : act>   r> code> 'act ! ;                                                      ( -- <code> )
 : act   flags @ restart# and if  start  then  'act @ execute ;
 : show  'show @ execute ;
-: init  commonInit  me class @ 'onInit @ execute  physics> vx 2v@ x 2v+! ;
+: init  commonInit  me class @ 'onInit @ execute ;
 : itterateActors  ( xt list -- )  ( ... -- ... )
   me >r
-  first @  begin  dup while  dup next @ >r  over >r  me! execute  r> r> repeat
+  first @  begin  dup while  dup next @ >r  over >r  as execute  r> r> repeat
   2drop
-  r> me! ;
+  r> as ;
 : all>  ( n -- )  ( n -- n )  r> code>  stage itterateActors  drop ;
 : (recycle)  dup >r backstage popnode dup r> sizeof erase ;
 : one                                                                           ( class -- me=obj )
   backstage length @ if  (recycle)  else  here /actorslot /allot  then
   dup stage add
-  me!
+  as
   me class !  at@ x 2v!  restart# flags or!
   init ;
 
@@ -181,6 +178,9 @@ defer commonInit  ' noop is commonInit
 
 : #actors  stage length @ ;
 
+: script  ( adr c -- class )  \ load actor script if not loaded
+  2dup forth-wordlist search-wordlist if  nip nip execute  else
+  2dup " objects/" s[ +s " .f" +s ]s included  evaluate  then ;
 
 \ -------------------------------- piston -------------------------------------
 fixed
@@ -190,8 +190,7 @@ defer frame         ' noop is frame   \ the body of the loop.  can bypass RENDER
 variable lag                                                                    \ completed ticks
 include engine\piston
 : time?  ucounter 2>r  execute  ucounter 2r> d-  d>s  i. ;                      ( xt - )  \ print time given XT takes in microseconds
-: dev-ok  clearkb >gfx +timer  begin  ['] frame catch ?dup until  -timer >ide  throw ;
-: ok  dev-ok ;
+: ok  clearkb >gfx +timer  begin  frame  breaking?  until  -timer >ide ;
 
 \ -------------------------------- border -------------------------------------
 fixed
@@ -206,9 +205,9 @@ transform outputm
 
 \ -------------------------------- defaults -----------------------------------
 0 value #frames
-: step1  0 all>  act ;
-: step2  0 all>  physics ;
-:noname  [ is sim ]  step1  step2  1 +to #frames ;
+: physics  0 all>  vx 2v@ x 2v+! ;
+: logic  0 all>  act ;
+:noname  [ is sim ]  physics  logic  1 +to #frames ;
 : cls  0.5 0.5 0.5 1.0 clear-to-color ;
 :noname  [ is render ] cls  0 all> show ;
 
