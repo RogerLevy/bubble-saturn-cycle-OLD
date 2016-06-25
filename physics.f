@@ -76,7 +76,7 @@ to cbit
 
 0 value xt
 :noname  nip  ahb>actor to you  xt execute  ;
-: check  ( ... me=actor xt -- ... ) ( true you=other -- keepgoing? )
+: detect  ( ... me=actor xt -- ... ) ( true you=other -- keepgoing? )
   x 2v@ putCbox  xt >r  to xt  ahb literal dynGrid checkCbox  r> to xt ;
 
 :noname  nip  ahb>actor to you  cmask @ cfilter -exit  hit ;
@@ -93,11 +93,6 @@ to cbit
 
 : physics  /dynamic /static /pos ;
 
-\ 0 value xt
-\ :noname
-\ : check  ( xt -- )  ( true you=other -- continue? )
-\
-\   to xt  ahb literal dynGrid  checkCbox ;
 
 
 cgridding -order

@@ -65,6 +65,8 @@ fixed
 : clamp  ( n low high -- n ) -rot max min ;
 : 2clamp  ( x y lowx lowy highx highy -- x y ) 2>r 2max 2r> 2min ;
 
+: jumptable  create does> swap th @ execute ;
+
 
 \ Swiftforth-specific?
 : l locate ;

@@ -29,3 +29,7 @@
 
 : put  ( x y actor -- )  's x 2v! ;
 
+: is?  swap class @ = ;
+
+create dummy  /actorslot /allot
+

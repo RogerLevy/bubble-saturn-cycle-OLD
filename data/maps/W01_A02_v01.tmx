@@ -220,6 +220,6 @@
   <object id="159" name="player-drop" gid="20" x="181" y="334" width="64" height="32"/>
  </objectgroup>
  <objectgroup name="ZONE">
-  <object id="204" name="eagle-dialog" type="zone" x="867" y="900" width="121" height="127"/>
+  <object id="204" name="eagle-dialog" type="zone" x="867" y="888" width="150" height="139"/>
  </objectgroup>
 </map>

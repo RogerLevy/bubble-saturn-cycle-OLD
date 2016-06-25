@@ -36,6 +36,7 @@ include scripting
 include objects
 include physics
 include objects\box  \ needed to define onLoadBox
+include zones
 
 \ Because tiled-level automatically loads object scripts,
 \ it's not necessary to manually load object scripts.  (6/16/2016)
