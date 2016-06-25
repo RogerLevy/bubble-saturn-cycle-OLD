@@ -1,4 +1,3 @@
-" zone" script drop
 
 \ tokens all have stack diagram ( -- )
 : player-drop  at@ player put ;
