@@ -124,7 +124,7 @@ public
 
 : cls  ( -- )  focus @ if  0.4 0.4 0.4 1  else  0 0.3 0 1  then clear-to-color ;
 
-: (render)  me >r  ?fs  cls  ['] render framed  ui  al_flip_display  ?pause  r> as ;
+: (render)  me >r  ?fs  cls  ['] render framed  ui  al_flip_display  r> as ;
 
 : ?redraw
   pause @ not if
@@ -133,7 +133,7 @@ public
     (render)
   then ;
 
-: ide-frame  wait  ['] events epump  ?redraw ;
+: ide-frame  wait  ?pause  ['] events epump  ?redraw ;
 
 : ide-ui
   /baseline
