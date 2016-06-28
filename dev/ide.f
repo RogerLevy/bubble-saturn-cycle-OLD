@@ -135,9 +135,22 @@ public
 
 : ide-frame  wait  ?pause  ['] events epump  ?redraw ;
 
+\ baseline matrix
+transform baseline
+
+: /baseline  ( -- )
+  baseline  al_identity_transform
+  baseline  factor @ dup 2af  al_scale_transform
+  baseline  al_use_transform  ;
+
+: ?_  focus @ -exit  #frames 16 and -exit  s[ [char] _ c+s ]s ;
+
+: ?greyed  focus @ if 1 else 0.5 then ;
+
 : ide-ui
   /baseline
-  defaultFont  1 1 1 1 4af  320 0 2af  0  testbuffer count zstring  al_draw_text ;
+  defaultFont  ?greyed dup dup 1 4af  320 0 2af  0  testbuffer count ?_ zstring  al_draw_text
+  ;
 
 : ide
   ['] ide-ui is ui
@@ -152,6 +165,21 @@ ide
   ['] noop is ui
   ['] game-frame is frame
   game ;
+
+\ now redefine all prompt-y words.  we're going to need to hook into
+\  SwiftForth's personality system to do this properly ...
+
+: cr ;
+: ." [char] " parse 2drop ; immediate
+: type  2drop ;
+: .  drop ;
+: i. drop ;
+: 2. 2drop ;
+: h. drop ;
+: .s ;
+: space ;
+: emit  drop ;
+
 
 
 end-package

@@ -8,31 +8,23 @@ actor super
   var w            \ hitbox dimensions
   var h
   /cbox field ahb  \ Actor Hit Box
-  var boxx
+  var boxx         \ typically negative
   var boxy 
 
-  var HP           \ hit points
-  var maxHP        \ max hit points
+  var HP           \ health points
+  var maxHP        \ max health points
   var ATK
   var DEF
 
   var flip         \ allegro flip flags
   var ang          \ angle
-  var orgx         \ display origin (normally positive)
+  var orgx         \ display origin (normally positive, from top-left of image)
   var orgy
 
   var cflags
   var cmask
 
   var 'hit         \ ( you=other -- )
-
-  \ Allegro color
-
-  var fcolor
-  : fr  fcolor ;
-  var fg
-  var fb
-  var fa
 
 \  staticvar initData  \ see commonInit config below for param order.
 extend actor
@@ -97,21 +89,6 @@ top# bottom# left# right# or or or constant hitflags#
 
 : showCbox
   ahb cbox@ 1 1 2- 2over 2+ 4af  1 1 1 1 4af  1 1af  al_draw_rectangle ;
-
-
-\ -----------------------------------------------------------------------------
-
-
-: !color   ( r g b a -- )  4af fcolor !+ !+ !+ !+ drop ;
-
-: 8b dup $ff and c>p ;
-: hex>color  8b >r 8 >> 8b >r 8 >> 8b >r 8 >> 8b nip r> r> r> ;
-: !hex    ( i -- )  hex>color !color ;
-
-\ : red!  ( n allegro-color -- ) >r 1af r> ! ;
-\ : green!  ( n allegro-color -- ) >r 1af r> cell+ ! ;
-\ : blue!  ( n allegro-color -- ) >r 1af r> cell+ cell+ ! ;
-\ : alpha!  ( n allegro-color -- ) >r 1af r> cell+ cell+ cell+ ! ;
 
 \ -----------------------------------------------------------------------------
 \ some map data utilities
