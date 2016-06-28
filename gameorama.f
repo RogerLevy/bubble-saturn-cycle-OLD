@@ -42,7 +42,7 @@ include engine/bootstrap/timerevent
 
 
 \ some meta-compilation systems management stuff
-: teardown  display al_destroy_display  al_uninstall_system ;
+: teardown  display al_destroy_display ; \ al_uninstall_system ;
 : empty   teardown only forth empty ;
 
 \ --------------------------------- keyboard ----------------------------------
@@ -126,10 +126,8 @@ fixed
 
 al_install_audio not [if] " Allegro: Couldn't initialize audio." alert -1 abort [then]
 al_init_acodec_addon not [if] " Allegro: Couldn't initialize audio codec addon." alert -1 abort [then]
+16 al_reserve_samples not [if] " Allegro: Error reserving samples." alert -1 abort [then]
 al_restore_default_mixer  al_get_default_mixer value mixer
-
-
-16 al_reserve_samples drop
 
 : sfx  ( -- <name> <path> )
   create  <zfilespec> al_load_sample ,
