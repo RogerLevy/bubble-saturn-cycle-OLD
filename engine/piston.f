@@ -1,22 +1,39 @@
 \ piston internals
 0 value breaking?
-: poll  pollKeyboard  pollJoysticks ;
-: ?refresh  ( -- )  <f5> kpressed if  refresh  then ;
-: ?break  ( -- )  <escape> kpressed to breaking? ;
+variable fs
+
+: poll  pollKB  pollJoys ;
+
+: ?wpos  fs @ ?exit  display #0 #0 al_set_window_position ;
+: ?fs  display ALLEGRO_FULLSCREEN_WINDOW fs @ al_toggle_display_flag drop  ?wpos ;
+: break  ( -- )  true to breaking? ;
 cr .( Press ALT-TILDE to toggle hitboxes etc. )
-: ?info  <tilde> kpressed alt? and if  info @ not info !  then ;
-: tick  poll  ?info  ?break  ?refresh  sim  lag ++ ;
+: tick  poll  sim  lag ++ ;
+
 : switch-event
   etype ALLEGRO_EVENT_DISPLAY_SWITCH_OUT = if  -timer  then
   etype ALLEGRO_EVENT_DISPLAY_SWITCH_IN = if  clearkb  +timer  then ;
-: close-event  etype ALLEGRO_EVENT_DISPLAY_CLOSE = if  0 ExitProcess  then ;
-: common-events  ( kbstate-events )  close-event switch-event ;
-: timer-event  etype ALLEGRO_EVENT_TIMER = if  tick  then ;
-: game-events  common-events  timer-event ;
+: close-event  etype ALLEGRO_EVENT_DISPLAY_CLOSE = -exit  0 ExitProcess ;
+
+: kb-events
+  etype ALLEGRO_EVENT_KEY_DOWN = if
+    e ALLEGRO_KEYBOARD_EVENT-keycode @ case
+      <enter> of  alt? -exit  fs toggle  endof
+      <f5> of  refresh  endof
+      <escape> of  break  endof
+      <tilde> of  alt? -exit  info toggle  endof
+    endcase
+  then ;
+
+: common-events  close-event switch-event kb-events ;
+: tick-event  etype ALLEGRO_EVENT_TIMER = -exit  tick  ;
+: game-events  common-events  tick-event ;
+
 : need-update?  eventq al_is_event_queue_empty  lag @ 4 >=  or ;                ( -- flag )
 : wait  eventq e al_wait_for_event ;
-: consume  begin  dup execute  eventq e al_get_next_event not until  drop ;     ( xt -- )  ( -- )
-: (render)  me >r  render  al_flip_display  r> as ;
+: epump  begin  dup >r  execute  r>  eventq e al_get_next_event not  until  drop ;     ( xt -- )  ( -- )
+: (render)  me >r  ?fs  render  al_flip_display  r> as ;
 : ?redraw  lag @ -exit  need-update? -exit  (render)  0 lag ! ;   ( -- )
-: game-frame  wait  ['] game-events consume  ?redraw ;
+
+: game-frame  wait  ['] game-events epump  ?redraw ;
 ' game-frame is frame

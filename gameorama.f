@@ -13,16 +13,17 @@ fixed
 variable factor  2 factor !
 320 value gfxw                                                                  \ doesn't necessarily reflect the window size.
 240 value gfxh
+0 value #frames
 
 \ -----------------------------------------------------------------------------
 include engine/createDisplay
 include engine/bootstrap/init-allegro
 
 fixed
-gfxw gfxh factor @ dup 2* createDisplay value display                          \ actually create the display
-al_create_builtin_font value default-font
+gfxw gfxh factor @ dup 2* createDisplay value display                           \ actually create the display
+al_create_builtin_font value defaultFont
 create native  /ALLEGRO_DISPLAY_MODE /allot
-  al_get_num_display_modes 1 - native al_get_display_mode
+  al_get_num_display_modes #1 -  native  al_get_display_mode
 
 include engine/bootstrap/timerevent
 
@@ -36,6 +37,9 @@ include engine/bootstrap/timerevent
 \ --------------------------------- utilities ---------------------------------
 : nativew   native x@ ;
 : nativeh   native y@ ;
+: displayw  display al_get_display_width s>p ;
+: displayh  display al_get_display_height s>p ;
+
 
 \ some meta-compilation systems management stuff
 : teardown  display al_destroy_display  al_uninstall_system ;
@@ -171,10 +175,10 @@ defer commonInit  ' noop is commonInit
 : unload  backstage add ;                                                       ( -- )
 :noname  flags @ persistent# and -exit  me stage add ;
 : (preserve)  literal backstage itterateActors ;  \ put persistent actors back
-: cleanup  ( -- ) backstage stage append  (preserve) ;
+: cleanup  ( -- ) backstage stage graft  (preserve) ;
 :noname  flags @ persistent# and -exit  me backstage remove ;
 : (orphan)  literal backstage itterateActors ;  \ orphan persistent actors
-: clear  ( -- ) backstage stage append  (orphan) ;
+: clear  ( -- ) backstage stage graft  (orphan) ;
 
 : #actors  stage length @ ;
 
@@ -184,13 +188,13 @@ defer commonInit  ' noop is commonInit
 
 \ -------------------------------- piston -------------------------------------
 fixed
-defer render        ' noop is render
-defer sim           ' noop is sim
-defer frame         ' noop is frame   \ the body of the loop.  can bypass RENDER and SIM if desired.
+defer render        \ render frame of the game
+defer sim           \ run one step of the simulation of the game
+defer frame         \ the body of the loop.  can bypass RENDER and SIM if desired.
 variable lag                                                                    \ completed ticks
 include engine\piston
 : time?  ucounter 2>r  execute  ucounter 2r> d-  d>s  i. ;                      ( xt - )  \ print time given XT takes in microseconds
-: ok  clearkb >gfx +timer  begin  frame  breaking?  until  -timer >ide ;
+: ok  clearkb >gfx +timer  begin  frame  breaking?  until  -timer >ide  false to breaking? ;
 
 \ -------------------------------- border -------------------------------------
 fixed
@@ -204,7 +208,6 @@ transform outputm
 /output
 
 \ -------------------------------- defaults -----------------------------------
-0 value #frames
 : physics  0 all>  vx 2v@ x 2v+! ;
 : logic  0 all>  act ;
 :noname  [ is sim ]  physics  logic  1 +to #frames ;

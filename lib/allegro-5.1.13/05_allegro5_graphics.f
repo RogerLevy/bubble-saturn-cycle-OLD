@@ -139,6 +139,7 @@ void function: al_draw_tinted_scaled_rotated_bitmap_region (  ALLEGRO_BITMAP-*bi
 
 
 void function: al_set_clipping_rectangle ( int-x int-y int-width int-height -- )
+void function: al_get_clipping_rectangle ( a b c d -- )
 void function: al_reset_clipping_rectangle ( -- )
 void function: al_set_blender ( int-op int-source int-dest -- )
 void function: al_set_separate_blender ( int-op int-source int-dest int-alpha_op int-alpha_source int-alpha_dest -- )
@@ -297,21 +298,21 @@ macro: rp16]   (rp) @ rp! ;
 
 \ i am not even sure which ones have the problem.  so i am just doing
 \ a bunch of them.
-: al_draw_rectangle               [rp16 al_draw_rectangle               rp16] ;
-: al_draw_rounded_rectangle       [rp16 al_draw_rounded_rectangle       rp16] ;
-: al_draw_ellipse                 [rp16 al_draw_ellipse                 rp16] ;
-: al_draw_triangle                [rp16 al_draw_triangle                rp16] ;
-: al_draw_filled_rectangle        [rp16 al_draw_filled_rectangle        rp16] ;
-: al_draw_filled_ellipse          [rp16 al_draw_filled_ellipse          rp16] ;
-: al_draw_filled_triangle         [rp16 al_draw_filled_triangle         rp16] ;
-: al_draw_filled_rounded_rectangle [rp16 al_draw_filled_rounded_rectangle rp16] ;
-: al_draw_prim                    [rp16 al_draw_prim rp16] ;
-: al_draw_indexed_prim            [rp16 al_draw_indexed_prim rp16] ;
-: al_draw_line                    [rp16 al_draw_line rp16] ;
-: al_draw_ribbon                  [rp16 al_draw_ribbon rp16] ;
-: al_draw_spline                  [rp16 al_draw_spline rp16] ;
-: al_calculate_ribbon             [rp16 al_calculate_ribbon rp16] ;
-: al_calculate_arc                [rp16 al_calculate_arc rp16] ;
+\ : al_draw_rectangle               [rp16 al_draw_rectangle               rp16] ;
+\ : al_draw_rounded_rectangle       [rp16 al_draw_rounded_rectangle       rp16] ;
+\ : al_draw_ellipse                 [rp16 al_draw_ellipse                 rp16] ;
+\ : al_draw_triangle                [rp16 al_draw_triangle                rp16] ;
+\ : al_draw_filled_rectangle        [rp16 al_draw_filled_rectangle        rp16] ;
+\ : al_draw_filled_ellipse          [rp16 al_draw_filled_ellipse          rp16] ;
+\ : al_draw_filled_triangle         [rp16 al_draw_filled_triangle         rp16] ;
+\ : al_draw_filled_rounded_rectangle [rp16 al_draw_filled_rounded_rectangle rp16] ;
+\ : al_draw_prim                    [rp16 al_draw_prim rp16] ;
+\ : al_draw_indexed_prim            [rp16 al_draw_indexed_prim rp16] ;
+\ : al_draw_line                    [rp16 al_draw_line rp16] ;
+\ : al_draw_ribbon                  [rp16 al_draw_ribbon rp16] ;
+\ : al_draw_spline                  [rp16 al_draw_spline rp16] ;
+\ : al_calculate_ribbon             [rp16 al_calculate_ribbon rp16] ;
+\ : al_calculate_arc                [rp16 al_calculate_arc rp16] ;
 
 function: al_draw_polygon  ( vertices count joinstyle r g b a thickness miterlimit -- )
 function: al_draw_filled_polygon  ( vertices count r g b a -- )

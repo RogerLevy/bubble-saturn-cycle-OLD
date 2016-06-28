@@ -90,7 +90,7 @@ fixed
 
 :noname  ( list node -- list )  over swap parent ! ; ( xt )
 
-: append  ( list1 list2 -- )  \ move the contents of list2 to list1
+: graft  ( list1 list2 -- )  \ move the contents of list2 to list1
   locals| b a |
   b length @  ?dup -exit  a length +!  b length off
   a tail @ b first @ prev !

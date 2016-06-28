@@ -22,6 +22,7 @@ decimal
 : and!  ( n adr -- ) dup @ rot and swap ! ;
 : xor!  ( n adr -- ) dup @ rot xor swap ! ;
 : not!  ( n adr -- ) dup @ rot invert and swap ! ;
+: toggle  dup @ not swap ! ;
 [undefined] third [if] : third  >r over r> swap ; [then]
 [undefined] @+ [if] : @+  dup @ swap cell+ swap ; [then]
 : u+  rot + swap ;  \ "under plus"

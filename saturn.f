@@ -74,10 +74,10 @@ create m  16 cells /allot
 : para  parared.image  cam 's x 2v@ 0.4 0.4 2*  drawWallpaper ;
 
 : cls  ( -- )  0 0 0 1 clear-to-color ;
-: ui ( -- )  drawEmoticons  ;
+: overlays ( -- )  drawEmoticons  ;
 : all  ( -- ) 0 all>  show ;
 : boxes ( -- )  info @ -exit  0 all>  showCbox ;
-: camRender  ( -- )  cls  /baseline  para  track  camview  all ui boxes ;
+: camRender  ( -- )  cls  /baseline  para  track  camview  all  overlays boxes ;
 
 : logic  ( -- )  0 all> act ;
 
