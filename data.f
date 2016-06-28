@@ -30,6 +30,8 @@ fixed
 
   64 32 spriteset SPR_EARWIG  data/images/earwig.png
 
+      sfx *moan*  data/sounds/moan.ogg
+
 \ 16 16 tileset   TILESET0      data/images/longhouse 16x16 bgtiles.png
 
 
