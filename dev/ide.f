@@ -60,7 +60,7 @@ variable pause
 variable focus
 
 
-
+\ doesn't seem to function in fullscreen.  (Allegro bug?)
 : ?pause  pause @ if  -timer  else  +timer  then ;
 
 : keycode  e ALLEGRO_KEYBOARD_EVENT-keycode @ ;

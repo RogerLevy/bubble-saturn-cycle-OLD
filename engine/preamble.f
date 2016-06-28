@@ -73,7 +73,7 @@
     : game-starter  null-personality open-personality " include toc ok" evaluate ;
     \ Turnkey starter
 
-    : refresh  " rld ok" evaluate ;
+    : refresh  " eventq al_flush_event_queue  rld  ok" evaluate ;
 
     gild
   [then]
