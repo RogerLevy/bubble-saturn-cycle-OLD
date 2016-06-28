@@ -8,12 +8,14 @@ include engine\preamble.f
 
 /RND
 
+\ standard game services (core game lexicon)
+include engine\saturn\gameorama
 [defined] dev [if] include dev\ide.f [then]
 
 \ libraries
-include modules\stride2d
 
 \ load other game services
+include modules\stride2d
 include modules\collision-grid
 
 include modules\swes\sprites

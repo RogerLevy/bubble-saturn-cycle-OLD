@@ -81,5 +81,3 @@
 \ some more entitlements
 include engine\2016
 
-\ standard game services (core game lexicon)
-include engine\gameorama

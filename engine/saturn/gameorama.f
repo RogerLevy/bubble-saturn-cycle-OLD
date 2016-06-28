@@ -63,11 +63,6 @@ decimal
   cells swap joystick[] ALLEGRO_JOYSTICK_STATE-buttons + @  PGRAN 32767 */ ;
 
 \ --------------------------- graphics services -------------------------------
-create penx  0 ,  here 0 ,  constant peny
-: at   ( x y -- )  penx 2v! ;
-: +at  ( x y -- )  penx 2v+! ;
-: at@  ( -- x y )  penx 2v@ ;
-: -at  ( x y -- )  2negate +at ;
 \ NTS: the pen should always function as a final translation stage
 \ NTS: add matrix words (as of 2/21 i'm going to keep things very basic.)
 : clear-to-color  ( r g b a -- ) 4af al_clear_to_color ;
