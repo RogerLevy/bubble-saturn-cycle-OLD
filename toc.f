@@ -8,7 +8,7 @@ include engine\preamble.f
 
 /RND
 
-include gameorama  \ load standard game services (core)
+[defined] dev [if] include dev\ide.f [then]
 
 \ libraries
 include modules\stride2d
@@ -16,46 +16,35 @@ include modules\stride2d
 \ load other game services
 include modules\collision-grid
 
-include swes\sprites
-\ include swes\tilesets
-\ include swes\tilemap
-\ include swes\tilemap-collision
-\ include swes\layers
+include modules\swes\sprites
+\ include modules\swes\tilesets
+\ include modules\swes\tilemap
+\ include modules\swes\tilemap-collision
+\ include modules\swes\layers
 
 include modules\gameutils
 include modules\wallpaper
 include modules\tiled-level
 
+\ -----------------------------------------------------------------------------
+\ game-specific definitions
+
 \ global constants, variables, and assets
 include data
 
-\ -----------------------------------------------------------------------------
-\ game definitions
-
-include scripting
-include objects
-include physics
+include engine\saturn\scripting.f
+include engine\saturn\objects.f
+include engine\saturn\physics.f
 include objects\box  \ needed to define onLoadBox
-include zones
+include engine\saturn\zones.f
 
 \ Because tiled-level automatically loads object scripts,
 \ it's not necessary to manually load object scripts.  (6/16/2016)
 \ If some code depends on a script being loaded, use ?OBJECT
 
-include saturn
+include engine\saturn\saturn.f
 include map-tokens
 
 \ ========================= end main load sequence ============================
 
-
-: cleanup  ( -- )  cleanup  boxGrid resetGrid  dynGrid resetGrid ;
-
-: map  ( tmxpath c area# -- <name> )  ( -- )  \ area# points to an entry in a table
-  create  , string, 
-  does>  @+ to area#  count  cleanup  loadTMX ;
-
-
-" data\maps\W01_A02_v01.tmx" 0 map sfw0
-
-sfw0
-
+include startup.f

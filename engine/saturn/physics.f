@@ -89,7 +89,9 @@ to cbit
 
 : /static  0 all>  cmask @ CSOLID# and -exit  /boxes ;
 
-: /pos   vx 2v@ x 2v+!  x 2v@ putCbox ;
+: corral  x 2v@ boxx 2v@ 2- 32 32 2max 4064 4064 w 2v@ 2- 2min boxx 2v@ 2+ x 2v! ;
+
+: /pos   vx 2v@ x 2v+!  corral  x 2v@ putCbox ;
 
 : physics  /dynamic /static /pos ;
 
