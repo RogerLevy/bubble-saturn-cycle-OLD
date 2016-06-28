@@ -5,7 +5,7 @@ create kbstate  /ALLEGRO_KEYBOARD_STATE /allot \ current frame's state
 create kblast  /ALLEGRO_KEYBOARD_STATE /allot  \ last frame's state
 \ create ikbstate  /ALLEGRO_KEYBOARD_STATE /allot  \ fixes modifier key bug
 \ -----------------------------------------------------------------------------
-: pollKeyboard
+: pollKB
   kbstate kblast /ALLEGRO_KEYBOARD_STATE move
   kbstate al_get_keyboard_state ;
 \ : poll-keyboard                                                                 \ poll keyboard device
@@ -17,7 +17,8 @@ create kblast  /ALLEGRO_KEYBOARD_STATE /allot  \ last frame's state
   kblast /ALLEGRO_KEYBOARD_STATE erase
   kbstate /ALLEGRO_KEYBOARD_STATE erase
   al_uninstall_keyboard
-  al_install_keyboard  not abort" Error re-establishing the keyboard :/" ;
+  al_install_keyboard  not abort" Error re-establishing the keyboard :/"
+  eventq  al_get_keyboard_event_source al_register_event_source ;
 \ -----------------------------------------------------------------------------
 \ : bitloc  >r 32 /mod cells r> cell+ + swap  1 swap << ;
 \ : setkey  ( keycode state )  bitloc  swap or! ;
@@ -44,7 +45,7 @@ create joysticks   MAX_JOYSTICKS /ALLEGRO_JOYSTICK_STATE * /allot
 : joy ( joy# stick# - vector )  \ get stick position (fixed point)
   /ALLEGRO_JOYSTICK_STATE_STICK *  swap joystick[]
   ALLEGRO_JOYSTICK_STATE-sticks + ;
-: pollJoysticks  ( - )
+: pollJoys ( -- )
   al_get_num_joysticks 0 do
     i >joyhandle i joystick[] al_get_joystick_state
     _AL_MAX_JOYSTICK_STICKS 0 do  j i joy convert-coords  drop  loop

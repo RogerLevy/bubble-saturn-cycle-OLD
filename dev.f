@@ -5,6 +5,8 @@ include toc
 include dev\gameprompt
 include dev\export
 
+include dev\ide
+
 \ some development helpers
 : s   sim ;  \ single-step!
 
@@ -12,3 +14,5 @@ include dev\export
 : ;;  postpone ; execute ; immediate
 
 gamedev
+
+ok

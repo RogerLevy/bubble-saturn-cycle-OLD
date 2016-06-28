@@ -9,14 +9,8 @@ fixed
   f f/ 1df al_create_timer
     value displaytimer
 
-variable (timer)
-
-: +timer  ( -- )
-  al_flip_display                                                               \ do this to sync up
-  (timer) ++  displaytimer al_start_timer ;
-
-: -timer  ( -- )
-  (timer) --  (timer) @ 0 <= if  displaytimer al_stop_timer  then ;
+: +timer  displaytimer al_start_timer ;
+: -timer  displaytimer al_stop_timer ;
 
 \ init event objects
 al_create_event_queue  value  eventq
