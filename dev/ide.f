@@ -1,3 +1,5 @@
+marker game
+
 package ideing
 public
 
@@ -71,7 +73,7 @@ variable focus
   endcase ;
 
 private
-: ctrl?  e ALLEGRO_KEYBOARD_EVENT-modifiers @ ALLEGRO_KEYMOD_CTRL and ;
+  : ctrl?  e ALLEGRO_KEYBOARD_EVENT-modifiers @ ALLEGRO_KEYMOD_CTRL and ;
 public
 
 : kb-events
@@ -84,11 +86,11 @@ public
       endcase
     endof
     ALLEGRO_EVENT_KEY_CHAR of
-      focus @ -exit
 
       ctrl? if
           unichar $60 + special
       else
+        focus @ -exit
         unichar #32 >= unichar #126 <= and if
             unichar typechar  exit
         then
@@ -144,6 +146,12 @@ public
   fs on ;
 
 ide
+
+\ unload the IDE.
+: game
+  ['] noop is ui
+  ['] game-frame is frame
+  game ;
 
 
 end-package
