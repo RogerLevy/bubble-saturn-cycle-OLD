@@ -39,8 +39,8 @@
     include lib\fixext
   [then]
   [undefined] ALLEGRO_VERSION_INT [if]
-    pushpath cd lib\allegro-5.1.13
-      include allegro-5.1.13.f
+    pushpath cd lib\allegro-5.2
+      include allegro-5.2.f
     poppath
   [then]
 
