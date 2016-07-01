@@ -34,15 +34,3 @@ fixed
 
 \ 16 16 tileset   TILESET0      data/images/longhouse 16x16 bgtiles.png
 
-
-\ constants
-: extents  0 0 4096 4096 ;
-
-\ variables
-1000 extents 2nip collisionGrid boxGrid
-2000 extents 2nip collisionGrid dynGrid
-
-0 value area#
-
-0 value you  \ for collisions
-#1 value cbit  \ collision flag counter
