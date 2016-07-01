@@ -1,4 +1,3 @@
-marker game
 
 package ideing
 public
@@ -159,12 +158,6 @@ transform baseline
   fs on ;
 
 ide
-
-\ unload the IDE.
-: game
-  ['] noop is ui
-  ['] game-frame is frame
-  game ;
 
 \ now redefine all prompt-y words.  we're going to need to hook into
 \  SwiftForth's personality system to do this properly ...
