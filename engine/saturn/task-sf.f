@@ -28,6 +28,7 @@ extend actor
 actor obj constant main
 
 
+\ important: this word must not CALL anything or use the return stack until the bottom part.
 : yield
     \ save state
     dup \ ensure TOS is on stack
@@ -55,7 +56,15 @@ actor obj constant main
     sp@ main 's sp !
     rp@ main 's rp !
     main as
-    ['] yield catch throw
+    ['] yield catch
+    ?dup if
+        main as
+        rp @ rp!
+        sp @ sp!
+        drop
+        throw
+    then
     drop
     r> as
 ;
+
