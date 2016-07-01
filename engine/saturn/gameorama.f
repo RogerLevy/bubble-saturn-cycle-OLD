@@ -36,8 +36,8 @@ include engine/bootstrap/timerevent
 >ide
 
 \ --------------------------------- utilities ---------------------------------
-: nativew   native x@ ;
-: nativeh   native y@ ;
+: nativew   native x@ s>p ;
+: nativeh   native y@ s>p ;
 : displayw  display al_get_display_width s>p ;
 : displayh  display al_get_display_height s>p ;
 
@@ -133,7 +133,7 @@ al_restore_default_mixer  al_get_default_mixer value mixer
 list stage
 list backstage
 0 value me
-: as  to me ;
+: as  " to me" evaluate ; immediate
 \ : var  create dup , cell +  does> @ me + ;                                      ( total -- <name> total+cell )
 : field  create over , + immediate does> @ " me ?lit + " evaluate ;             ( total -- <name> total+cell )
          \ faster but less debuggable version
