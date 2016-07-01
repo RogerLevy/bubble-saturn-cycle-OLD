@@ -78,3 +78,11 @@ create penx  0 ,  here 0 ,  constant peny
 : +at  ( x y -- )  penx 2v+! ;
 : at@  ( -- x y )  penx 2v@ ;
 : -at  ( x y -- )  2negate +at ;
+
+
+[undefined] src [if]
+0 value src
+0 value dest
+: src!  to src ;
+: dest!  to dest ;
+[then]

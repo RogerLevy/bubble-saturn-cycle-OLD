@@ -10,6 +10,7 @@
 
 include modules\rects-generics
 
+marker dispose
 1 2 3 4 rect r
 include modules\rects-tests
-
+dispose

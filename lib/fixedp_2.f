@@ -47,9 +47,7 @@ variable ints  ints on  \ set/disable integer mode on both display and interpret
 package fixpointing public
 
 : fixed   fixpointing +order  ints off decimal ;
-: fix  fixed ;  \ shorthand
 : decimal fixpointing -order  ints on  decimal ;
-: dec  decimal ;  \ shorthand
 : binary  fixpointing -order  ints on  binary ;
 : hex     fixpointing -order  ints on  hex ;
 : octal   fixpointing -order  ints on  octal ;

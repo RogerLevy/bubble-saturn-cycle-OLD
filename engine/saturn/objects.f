@@ -2,7 +2,6 @@ doming +order
 
 fixed
 
-staticvar current  \ "current" object of a certain class, such as the zone under the player
 
 actor super
   var w            \ hitbox dimensions
