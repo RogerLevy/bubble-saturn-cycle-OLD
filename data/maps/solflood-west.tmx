@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" backgroundcolor="#a1a1a1" nextobjectid="214">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" backgroundcolor="#a1a1a1" nextobjectid="222">
  <properties>
+  <property name="bggfx" value="purplegree"/>
   <property name="parallax" value="paraDarkRed"/>
  </properties>
  <tileset firstgid="1" name="bgobj" tilewidth="186" tileheight="228" tilecount="19" columns="0">
@@ -59,7 +60,7 @@
    <image width="70" height="183" source="../images/W01_A02_BG018.png"/>
   </tile>
   <tile id="18">
-   <image width="32" height="32" source="../images/W01_A02_BG000.png"/>
+   <image width="32" height="32" source="../images/W01_A02_BG019.png"/>
   </tile>
  </tileset>
  <tileset firstgid="20" name="traveler" tilewidth="64" tileheight="32" tilecount="2" columns="2">
@@ -169,25 +170,26 @@
   <object id="199" gid="2147483657" x="1019" y="241" width="29" height="58"/>
   <object id="200" gid="2147483657" x="1019" y="186" width="29" height="58"/>
   <object id="201" gid="2147483657" x="1020" y="131" width="29" height="58"/>
-  <object id="207" name="\ example of commenting out stuff.  this object will NOT appear in the game!!" gid="22" x="371" y="311" width="44" height="22"/>
+  <object id="218" x="838" y="446" width="65" height="69"/>
+  <object id="219" x="1139" y="976" width="69" height="70"/>
+  <object id="220" x="1029" y="849" width="17" height="18"/>
  </objectgroup>
  <objectgroup name="COLLISION">
-  <object id="86" x="210" y="116" width="55" height="49"/>
-  <object id="87" x="243" y="83" width="27" height="31"/>
+  <object id="86" x="210" y="106" width="55" height="66"/>
+  <object id="87" x="239" y="83" width="34" height="31"/>
   <object id="88" x="0" y="59" width="209" height="229"/>
   <object id="90" x="0" y="345" width="208" height="211"/>
   <object id="91" x="206" y="517" width="252" height="73"/>
-  <object id="93" x="458" y="543" width="14" height="13"/>
+  <object id="93" x="458" y="524" width="14" height="32"/>
   <object id="94" x="458" y="555" width="30" height="36"/>
-  <object id="96" x="338" y="404" width="57" height="115"/>
+  <object id="96" x="330" y="397" width="69" height="122"/>
   <object id="97" x="456" y="591" width="275" height="76"/>
   <object id="99" x="732" y="598" width="19" height="46"/>
   <object id="100" x="731" y="645" width="36" height="198"/>
-  <object id="101" x="599" y="279" width="49" height="49"/>
-  <object id="102" x="739" y="328" width="50" height="48"/>
-  <object id="104" x="700" y="394" width="50" height="48"/>
-  <object id="107" x="837" y="457" width="185" height="53"/>
-  <object id="108" x="969" y="508" width="52" height="21"/>
+  <object id="101" x="589" y="270" width="67" height="66"/>
+  <object id="102" x="731" y="318" width="65" height="67"/>
+  <object id="104" x="693" y="386" width="67" height="67"/>
+  <object id="107" x="899" y="457" width="123" height="64"/>
   <object id="109" x="1019" y="296" width="84" height="551"/>
   <object id="112" x="768" y="821" width="41" height="155"/>
   <object id="115" x="810" y="905" width="127" height="76"/>
@@ -199,10 +201,10 @@
   <object id="124" x="1019" y="1124" width="73" height="56"/>
   <object id="125" x="1050" y="1140" width="73" height="56"/>
   <object id="126" x="1123" y="1163" width="389" height="56"/>
-  <object id="127" x="1154" y="990" width="51" height="173"/>
+  <object id="127" x="1147" y="1047" width="58" height="116"/>
   <object id="145" x="1475" y="664" width="79" height="571"/>
   <object id="173" x="1045" y="847" width="543" height="50"/>
-  <object id="178" x="927" y="946" width="21" height="49"/>
+  <object id="178" x="927" y="946" width="21" height="59"/>
   <object id="179" x="809" y="869" width="62" height="35"/>
   <object id="180" x="871" y="882" width="35" height="24"/>
   <object id="203" x="0" y="266" width="1" height="95"/>
@@ -218,8 +220,9 @@
   <object id="155" gid="22" x="653" y="548" width="44" height="22"/>
   <object id="157" gid="22" x="1421" y="1106" width="44" height="22"/>
   <object id="159" name="player-drop" gid="20" x="181" y="334" width="64" height="32"/>
+  <object id="221" name="\ example of commenting out stuff.  this object will NOT appear in the game!!" gid="22" x="380" y="299" width="44" height="22"/>
  </objectgroup>
  <objectgroup name="ZONE">
-  <object id="204" name="eagle-dialog" type="zone" x="867" y="888" width="150" height="139"/>
+  <object id="204" name="eagle-dialog" x="867" y="888" width="150" height="139"/>
  </objectgroup>
 </map>

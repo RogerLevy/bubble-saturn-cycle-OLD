@@ -19,7 +19,7 @@ create w01a02bgObj
   w01_a02_bg016.image ,
   w01_a02_bg017.image ,
   w01_a02_bg018.image ,
-  w01_a02_bg000.image ,
+  w01_a02_bg019.image ,
 
 
 create bgObjTables
