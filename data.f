@@ -28,7 +28,9 @@ fixed
 
       image trilobite.image      data/images/trilobite.png
 
+
   64 32 spriteset SPR_EARWIG  data/images/earwig.png
+   8 8 spriteset SPR_BUBBLE   data/images/bubbles.png
 
       sfx *moan*  data/sounds/moan.ogg
 

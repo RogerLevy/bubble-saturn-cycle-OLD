@@ -85,6 +85,9 @@ top# bottom# left# right# or or or constant hitflags#
 : fitImage  ( image -- )
   with  o bmp @  0 0 2af  o imageDims 2af  x 2v@ 2af  w 2v@ 2af  flip @  al_draw_scaled_bitmap ;
 
+: showSprite  ( spr# set# -- )
+  sprite>af 2>r 2>r
+    1 1 1 1 4af  2r> 2r>  x 2v@ 2af  flip @   al_draw_tinted_bitmap_region ;
 
 : showSprite'  ( spr# set# -- )
   sprite>af
