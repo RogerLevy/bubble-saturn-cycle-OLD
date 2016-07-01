@@ -6,7 +6,6 @@ fixed
       image parared.image     data/images/parallax_darkred.png
       image talk-icon.image   data/images/talk-icon.png
 
-      image w01_a02_bg000.image  data/images/W01_A02_BG000.png
       image w01_a02_bg001.image  data/images/W01_A02_BG001.png
       image w01_a02_bg002.image  data/images/W01_A02_BG002.png
       image w01_a02_bg003.image  data/images/W01_A02_BG003.png
@@ -25,6 +24,7 @@ fixed
       image w01_a02_bg016.image  data/images/W01_A02_BG016.png
       image w01_a02_bg017.image  data/images/W01_A02_BG017.png
       image w01_a02_bg018.image  data/images/W01_A02_BG018.png
+      image w01_a02_bg019.image  data/images/W01_A02_BG019.png
 
       image trilobite.image      data/images/trilobite.png
 
