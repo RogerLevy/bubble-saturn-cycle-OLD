@@ -1,12 +1,5 @@
 : start:  ( class -- ) :noname swap 'onstart ! ;
 : single  one me constant  persistent# flags or! ;
-: 's
-  state @ if
-    " me >r  as " evaluate  bl parse evaluate  " r> as" evaluate
-  else
-    " me swap as " evaluate  bl parse evaluate  " swap as" evaluate
-  then
-  ; immediate
 : halt  0 0 vx 2v! ;
 
 \ 4-way input

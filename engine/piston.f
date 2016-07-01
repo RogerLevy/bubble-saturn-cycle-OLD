@@ -8,7 +8,7 @@ variable fs
 : ?fs  display ALLEGRO_FULLSCREEN_WINDOW fs @ al_toggle_display_flag drop  ?wpos ;
 : break  ( -- )  true to breaking? ;
 cr .( Press ALT-TILDE to toggle hitboxes etc. )
-: tick  poll  sim  lag ++ ;
+: tick  poll  sim  (sweep)  lag ++ ;
 
 : switch-event
   etype ALLEGRO_EVENT_DISPLAY_SWITCH_OUT = if  -timer  then
@@ -45,5 +45,3 @@ cr .( Press ALT-TILDE to toggle hitboxes etc. )
 : (render)  me >r  ?fs  render  al_flip_display  r> as ;
 : ?redraw  lag @ -exit  need-update? -exit  (render)  0 lag ! ;   ( -- )
 
-: game-frame  wait  ['] game-events epump  ?redraw ;
-' game-frame is frame
