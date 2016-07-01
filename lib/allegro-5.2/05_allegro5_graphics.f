@@ -5,14 +5,18 @@
 \ ========================= copyright 2014 Roger Levy ==========================
 
 
+function: al_set_target_bitmap ( ALLEGRO_BITMAP-*bitmap -- )
+function: al_get_target_bitmap ( -- ALLEGRO_BITMAP-*bitmap )
+function: al_set_target_backbuffer ( ALLEGRO_DISPLAY-*display -- )
+
 function: al_clear_to_color ( float-r float-g float-b float-a -- )
-void function: al_draw_pixel ( float-x float-y float-r float-g float-b float-a -- )
+function: al_draw_pixel ( float-x float-y float-r float-g float-b float-a -- )
 function: al_get_pixel ( dest-color bitmap x y -- )
 
 \ lock bitmap: allows pixel access
 function: al_lock_bitmap ( ALLEGRO_BITMAP-*bitmap, int-format, int-flags -- ALLEGRO_LOCKED_REGION )
 function: al_lock_bitmap_region ( ALLEGRO_BITMAP-*bitmap, int-x, int-y, int-width, int-height, int-format, int-flags -- ALLEGRO_LOCKED_REGION )
-void function: al_unlock_bitmap ( ALLEGRO_BITMAP-*bitmap -- )
+function: al_unlock_bitmap ( ALLEGRO_BITMAP-*bitmap -- )
 
 0
   enum  ALLEGRO_LOCK_READWRITE
@@ -38,27 +42,27 @@ constant /ALLEGRO_LOCK
 
 
 \ Deferred drawing
-void function: al_hold_bitmap_drawing ( bool-hold -- )
+function: al_hold_bitmap_drawing ( bool-hold -- )
 function: al_is_bitmap_drawing_held ( -- bool )
 
 \ Transformations
-void function: al_use_transform ( const-ALLEGRO_TRANSFORM*-trans -- )
-void function: al_copy_transform ( ALLEGRO_TRANSFORM*-dest const-ALLEGRO_TRANSFORM*-src -- )
-void function: al_identity_transform ( ALLEGRO_TRANSFORM*-trans -- )
-void function: al_build_transform ( ALLEGRO_TRANSFORM*-trans float-x float-y float-sx float-sy float-theta -- )
-void function: al_translate_transform ( ALLEGRO_TRANSFORM*-trans float-x float-y -- )
-void function: al_rotate_transform ( ALLEGRO_TRANSFORM*-trans float-theta -- )
-void function: al_scale_transform ( ALLEGRO_TRANSFORM*-trans float-sx float-sy -- )
-void function: al_transform_coordinates ( const-ALLEGRO_TRANSFORM*-trans float*-x float*-y -- )
-void function: al_compose_transform ( ALLEGRO_TRANSFORM*-trans const-ALLEGRO_TRANSFORM*-other -- )
+function: al_use_transform ( const-ALLEGRO_TRANSFORM*-trans -- )
+function: al_copy_transform ( ALLEGRO_TRANSFORM*-dest const-ALLEGRO_TRANSFORM*-src -- )
+function: al_identity_transform ( ALLEGRO_TRANSFORM*-trans -- )
+function: al_build_transform ( ALLEGRO_TRANSFORM*-trans float-x float-y float-sx float-sy float-theta -- )
+function: al_translate_transform ( ALLEGRO_TRANSFORM*-trans float-x float-y -- )
+function: al_rotate_transform ( ALLEGRO_TRANSFORM*-trans float-theta -- )
+function: al_scale_transform ( ALLEGRO_TRANSFORM*-trans float-sx float-sy -- )
+function: al_transform_coordinates ( const-ALLEGRO_TRANSFORM*-trans float*-x float*-y -- )
+function: al_compose_transform ( ALLEGRO_TRANSFORM*-trans const-ALLEGRO_TRANSFORM*-other -- )
 function: al_get_current_transform ( -- transform )
-void function: al_invert_transform ( ALLEGRO_TRANSFORM-*trans -- )
+function: al_invert_transform ( ALLEGRO_TRANSFORM-*trans -- )
 function: al_check_inverse ( const ALLEGRO_TRANSFORM-*trans float-tol -- )
 
 \ since 5.1.3
-\ void function: al_translate_transform_3d ( ALLEGRO_TRANSFORM*-trans float-x float-y z -- )
-\ void function: al_rotate_transform_3d ( ALLEGRO_TRANSFORM*-trans x y z angle -- )
-\ void function: al_scale_transform_3d ( ALLEGRO_TRANSFORM*-trans float-sx float-sy z -- )
+\ function: al_translate_transform_3d ( ALLEGRO_TRANSFORM*-trans float-x float-y z -- )
+\ function: al_rotate_transform_3d ( ALLEGRO_TRANSFORM*-trans x y z angle -- )
+\ function: al_scale_transform_3d ( ALLEGRO_TRANSFORM*-trans float-sx float-sy z -- )
 
 
 \ load/save bitmaps
@@ -122,6 +126,9 @@ enum   ALLEGRO_SRC_COLOR
 enum   ALLEGRO_DEST_COLOR
 enum   ALLEGRO_INVERSE_SRC_COLOR
 enum   ALLEGRO_INVERSE_DEST_COLOR
+enum   ALLEGRO_CONST_COLOR
+enum   ALLEGRO_INVERSE_CONST_COLOR
+enum   ALLEGRO_NUM_BLEND_MODES
 drop
 
 0
@@ -130,27 +137,30 @@ enum   ALLEGRO_SRC_MINUS_DEST
 enum   ALLEGRO_DEST_MINUS_SRC
 drop
 
-void function: al_draw_bitmap ( ALLEGRO_BITMAP-*bitmap, float-dx, float-dy, int-flags -- )
-void function: al_draw_scaled_bitmap ( ALLEGRO_BITMAP-*bitmap, float-sx, float-sy, float-sw, float-sh, float-dx, float-dy, float-dw, float-dh, int-flags -- )
-void function: al_draw_rotated_bitmap ( ALLEGRO_BITMAP-*bitmap, float-cx, float-cy, float-dx, float-dy, float-angle, int-flags -- )
-void function: al_draw_bitmap_region ( ALLEGRO_BITMAP-*bitmap, float-sx, float-sy, float-sw, float-sh, float-dx, float-dy, int-flags -- )
-void function: al_draw_tinted_bitmap_region (  ALLEGRO_BITMAP-*bitmap float-r float-g float-b float-a float-sx float-sy float-sw float-sh float-dx, float-dy, int-flags -- )
-void function: al_draw_tinted_scaled_rotated_bitmap_region (  ALLEGRO_BITMAP-*bitmap float-sx float-sy float-sw float-sh float-r float-g float-b float-a float-cx float-cy float-dx float-dy float-xscale float-yscale float-angle int-flags -- )
+function: al_draw_bitmap ( ALLEGRO_BITMAP-*bitmap, float-dx, float-dy, int-flags -- )
+function: al_draw_scaled_bitmap ( ALLEGRO_BITMAP-*bitmap, float-sx, float-sy, float-sw, float-sh, float-dx, float-dy, float-dw, float-dh, int-flags -- )
+function: al_draw_rotated_bitmap ( ALLEGRO_BITMAP-*bitmap, float-cx, float-cy, float-dx, float-dy, float-angle, int-flags -- )
+function: al_draw_tinted_bitmap ( ALLEGRO_BITMAP-*bitmap, float-r float-g float-b float-a float-dx, float-dy, int-flags -- )
+function: al_draw_bitmap_region ( ALLEGRO_BITMAP-*bitmap, float-sx, float-sy, float-sw, float-sh, float-dx, float-dy, int-flags -- )
+function: al_draw_tinted_bitmap_region (  ALLEGRO_BITMAP-*bitmap float-r float-g float-b float-a float-sx float-sy float-sw float-sh float-dx, float-dy, int-flags -- )
+function: al_draw_tinted_scaled_rotated_bitmap_region (  ALLEGRO_BITMAP-*bitmap float-sx float-sy float-sw float-sh float-r float-g float-b float-a float-cx float-cy float-dx float-dy float-xscale float-yscale float-angle int-flags -- )
 
 
-void function: al_set_clipping_rectangle ( int-x int-y int-width int-height -- )
-void function: al_get_clipping_rectangle ( a b c d -- )
-void function: al_reset_clipping_rectangle ( -- )
-void function: al_set_blender ( int-op int-source int-dest -- )
-void function: al_set_separate_blender ( int-op int-source int-dest int-alpha_op int-alpha_source int-alpha_dest -- )
+function: al_set_clipping_rectangle ( int-x int-y int-width int-height -- )
+function: al_get_clipping_rectangle ( a b c d -- )
+function: al_reset_clipping_rectangle ( -- )
+function: al_set_blender ( int-op int-source int-dest -- )
+function: al_set_separate_blender ( int-op int-source int-dest int-alpha_op int-alpha_source int-alpha_dest -- )
+function: al_get_blender ( int-op int-source int-dest -- )
+function: al_get_separate_blender ( int-op int-source int-dest int-alpha_op int-alpha_source int-alpha_dest -- )
 
 \ addon: opengl
 function: al_get_opengl_proc_address     ( const-char-*name -- addr )
 function: al_get_opengl_extension_list    ( -- addr )
 function:    al_get_opengl_texture        ( ALLEGRO_BITMAP-*bitmap -- gluint )
-void function: al_remove_opengl_fbo         ( ALLEGRO_BITMAP-*bitmap -- )
+function: al_remove_opengl_fbo         ( ALLEGRO_BITMAP-*bitmap -- )
 function:    al_get_opengl_fbo           ( ALLEGRO_BITMAP-*bitmap -- gluint )
-void function: al_set_current_opengl_context   ( ALLEGRO_DISPLAY-*display -- )
+function: al_set_current_opengl_context   ( ALLEGRO_DISPLAY-*display -- )
 
 \ addon: image
 function:  al_init_image_addon ( -- bool )
