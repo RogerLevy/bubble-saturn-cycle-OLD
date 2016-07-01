@@ -86,3 +86,7 @@ create penx  0 ,  here 0 ,  constant peny
 : src!  to src ;
 : dest!  to dest ;
 [then]
+
+[undefined] @+ [if] [then]
+[undefined] !+ [if] [then]
+[undefined] ~!+ [if] [then]

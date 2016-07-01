@@ -16,3 +16,5 @@
 
 : gamedev  ['] (game-prompt) is prompt ;
 : quit     (prompt) is prompt  quit ;
+
+gamedev

@@ -39,13 +39,32 @@ public
 \            - syntax coloring.  (includes defining word smartness)
 
 
+
+create oldblender  6 cells allot
+: blender>  ( op src dest aop asrc adest -- )
+  oldblender dup cell+ dup cell+ dup cell+ dup cell+ dup cell+ al_get_separate_blender  al_set_separate_blender  r> call
+  oldblender @+ swap @+ swap @+ swap @+ swap @+ swap @ al_set_separate_blender ;
+
+
+: write-rgba  ALLEGRO_ADD ALLEGRO_ONE ALLEGRO_ZERO ALLEGRO_ADD ALLEGRO_ONE ALLEGRO_ZERO ;
+: add-rgba    ALLEGRO_ADD ALLEGRO_ONE ALLEGRO_ONE  ALLEGRO_ADD ALLEGRO_ONE ALLEGRO_ONE  ;
+: blend-rgba  ALLEGRO_ADD ALLEGRO_ALPHA ALLEGRO_INVERSE_ALPHA  ALLEGRO_ADD ALLEGRO_ONE ALLEGRO_ONE  ;
+
+blend-rgba al_set_separate_blender
+
+
 create testbuffer #256 /allot
+create history  #256 /allot
+
+: recall  history count testbuffer place ;
+: store   testbuffer count history place ;
+
 
 : typechar  testbuffer count + c!  #1 testbuffer c+! ;
-: interp    testbuffer count 2dup type  evaluate  ;
+: interp    testbuffer count 2dup type space  evaluate  cr ;
 : rub       testbuffer c@  #-1 +  0 max  testbuffer c! ;
 
-: obey  ['] interp catch drop  testbuffer off ;
+: obey  ['] interp catch drop  store  testbuffer off ;
 
 include dev\win-clipboard.f
 
@@ -94,6 +113,7 @@ public
             unichar typechar  exit
         then
         keycode case
+          <up> of  recall  endof 
           <enter> of  alt? ?exit  obey  endof
           <backspace> of  rub  endof
         endcase
@@ -112,6 +132,99 @@ public
 
 
 : ide-events  common-events  kb-events  resize-event  pause @ not if  tick-event then ;
+
+
+\ ----------------------------- console output --------------------------------
+nativew nativeh 2i al_create_bitmap value output
+
+: ?half  focus @ if 1 else 0.5 then ;
+
+: console  output  1 1 1 ?half  4af  at@ 2af  0  al_draw_tinted_bitmap ;
+
+private
+0
+  xvar x
+  xvar y
+  4 cells xfield color
+struct /cursor
+public
+
+
+create ch  0 c, 0 c,
+variable lmargin  320 lmargin !
+variable rmargin  nativew 2 / rmargin !
+variable bmargin  nativeh 2 / 8 - 8 - bmargin !
+
+
+create cursor  /cursor /allot  lmargin @ cursor x !
+1 1 1 1 cursor color ~!+ ~!+ ~!+ ~!+ drop
+
+: console-get-xy  cursor x 2v@ 8 8 2/ 2i ;
+: console-at-xy   2s>p 8 8 2* cursor x 2v! ;
+
+: (scroll)
+  write-rgba blender>
+  al_get_target_bitmap
+    output al_set_target_bitmap
+    output 0 -8 2af 0 al_draw_bitmap
+  al_set_target_bitmap
+  -8 cursor y +!
+;
+
+: console-cr
+    lmargin @ cursor x !
+    8 cursor y +!
+    cursor y @ bmargin @ >= if  (scroll)  then
+;
+
+: (emit)
+  ch c!
+    defaultFont
+    cursor color @+ swap @+ swap @+ swap @+ nip 4af
+    cursor x 2v@ 2af
+    0
+    ch
+      al_draw_text
+
+    8 cursor x +!
+    cursor x @ rmargin @ >= if  console-cr  then
+;
+
+: console-emit
+  al_get_target_bitmap swap
+    output al_set_target_bitmap
+    (emit)
+  al_set_target_bitmap
+;
+
+decimal
+: console-type  0 ?do  dup c@ console-emit 1 +  loop  drop ;
+fixed
+
+
+create console-personality
+  4 cells , #19 , 0 , 0 ,
+  ' noop , \ INVOKE    ( -- )
+  ' noop , \ REVOKE    ( -- )
+  ' noop , \ /INPUT    ( -- )
+  ' console-emit , \ EMIT      ( char -- )
+  ' console-type , \ TYPE      ( addr len -- )
+  ' console-type , \ ?TYPE     ( addr len -- )
+  ' console-cr , \ CR        ( -- )
+  ' noop , \ PAGE      ( -- )
+  ' drop , \ ATTRIBUTE ( n -- )
+  ' dup , \ KEY       ( -- char )
+  ' dup , \ KEY?      ( -- flag )
+  ' dup , \ EKEY      ( -- echar )
+  ' dup , \ EKEY?     ( -- flag )
+  ' dup , \ AKEY      ( -- char )
+  ' 2drop , \ PUSHTEXT  ( addr len -- )
+  ' console-at-xy ,  \ AT-XY     ( x y -- )
+  ' console-get-xy , \ GET-XY    ( -- x y )
+  ' 2dup , \ GET-SIZE  ( -- x y )
+  ' drop , \ ACCEPT    ( addr u1 -- u2)
+
+\ -------------------------------- IDE display --------------------------------
 
 private  variable cx variable cy variable cw variable ch
 public
@@ -144,34 +257,28 @@ transform baseline
 
 : ?_  focus @ -exit  #frames 16 and -exit  s[ [char] _ c+s ]s ;
 
-: ?greyed  focus @ if 1 else 0.5 then ;
+: commandline
+  defaultFont  ?half dup dup 1 4af  at@ 2af  0  testbuffer count ?_ zstring  al_draw_text ;
 
 : ide-ui
   /baseline
-  defaultFont  ?greyed dup dup 1 4af  320 0 2af  0  testbuffer count ?_ zstring  al_draw_text
+  0  0 at  console
+  320  nativeh 2 / 8 -  at  commandline
   ;
 
 : ide
+  console-personality open-personality
   ['] ide-ui is ui
   ['] ide-events is events
   ['] ide-frame is frame
-  fs on ;
-
-ide
-
-\ now redefine all prompt-y words.  we're going to need to hook into
-\  SwiftForth's personality system to do this properly ...
-
-\ : cr ;
-\ : ." [char] " parse 2drop ; immediate
-\ : type  2drop ;
-\ : .  drop ;
-\ : i. drop ;
-\ : 2. 2drop ;
-\ : h. drop ;
-\ : .s ;
-\ : space ;
-\ : emit  drop ;
+  fs on
+  focus on
+  ok
+  ['] noop is ui
+  ['] game-events is events
+  ['] game-frame is frame
+  close-personality
+  ;
 
 
 

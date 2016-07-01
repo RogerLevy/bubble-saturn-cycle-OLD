@@ -37,6 +37,8 @@ include engine\saturn\zones.f
 
 fixed
 
+
+
 \ single objects
 " actor" script single cam
 " traveler" script single player
@@ -75,8 +77,10 @@ variable 'dialog  \ for now this is just a flag.
 
 : talk/  'dialog off ;
 jumptable zone/  ' noop , ' talk/ ,
+
 : ?talk  <a> kpressed -exit  player 's currentZone trigger ;
 jumptable ?trigger  ' noop , ' ?talk ,
+
 : ?talkicon  'dialog @ ?exit  drawTalkIcon ;
 jumptable emoticon  ' noop , ' ?talkicon ,
 
@@ -124,11 +128,11 @@ create m  16 cells /allot
 
 : batch  al_hold_bitmap_drawing ;
 
-: cls  ( -- )  0 0 0 1 clear-to-color ;
-: overlays ( -- )  drawEmoticons  ;
-: all  ( -- ) 0 all>  show ;
-: boxes ( -- )  info @ -exit  0 all>  showCbox ;
-: camRender  ( -- )
+: cls  0 0 0 1 clear-to-color ;
+: overlays  drawEmoticons  ;
+: all  0 all>  show ;
+: boxes  info @ -exit  0 all>  showCbox ;
+: camRender
   cls  /baseline  para  track  camview  1 batch  all  overlays  0 batch  boxes ;
 
 : logic  0 all> act ;
@@ -136,3 +140,5 @@ create m  16 cells /allot
 \ piston config
 ' camRender is render
 :noname  [ is sim ]  physics  zones  logic  multi  1 +to #frames ;
+
+

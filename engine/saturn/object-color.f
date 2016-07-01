@@ -8,7 +8,7 @@ actor super
   var fa
 extend actor
 
-: !color   ( r g b a -- )  4af fcolor !+ !+ !+ !+ drop ;
+: !color   ( r g b a -- )  4af fcolor ~!+ ~!+ ~!+ ~!+ drop ;
 : 8b dup $ff and c>p ;
 : hex>color  8b >r 8 >> 8b >r 8 >> 8b >r 8 >> 8b nip r> r> r> ;
 : !hex    ( i -- )  hex>color !color ;
