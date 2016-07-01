@@ -1,9 +1,3 @@
-[undefined] src [if]
-0 value src
-0 value dest
-: src!  to src ;
-: dest!  to dest ;
-[then]
 
 \ ----------------------------- 2d arrays support -----------------------------
 fixed
