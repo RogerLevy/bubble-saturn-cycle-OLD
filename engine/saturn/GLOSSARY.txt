@@ -1,0 +1,345 @@
+    trilobite
+
+SATURN: BGOBJ
+===
+
+/subtype
+img>
+bgobj
+tbl
+subtype
+
+    bgObjTables
+    w01a02bgObj
+    sfw0
+
+SATURN: GENERAL
+===
+
+map
+cleanup
+eagle-dialog
+player-drop
+logic
+camRender
+boxes
+all
+overlays
+cls
+para
+camview
+track
+camTransform
+m
+/baseline
+baseline
+drawEmoticons
+zones
+lastZone
+untrigger
+emoticon
+?talkicon
+?trigger
+?talk
+zone/
+talk/
+?zone
+currentZone
+which
+drawTalkIcon
+dialog>
+'dialog
+
+player
+
+    \ EARWIG (EXPLORER)
+    anmfrm>
+    thexder
+    orient
+    orientation
+    controls
+    accel
+    friction
+    limit
+    limit#
+    force#
+    fric#
+    traveler
+    mode
+    ac
+    sc
+cam
+
+SATURN: ZONES
+===
+
+trigger>
+trigger
+resetZone
+zone>
+zone
+'zonestart
+'trigger
+zonetype
+?box
+*box
+/cbox
+either0
+box
+
+
+SATURN: PHYSICS
+===
+
+physics
+/pos
+corral
+/static
+/dynamic
+detect
+xt
+cfilter
+!dyns
+/boxes
+?0vx
+moveY
+moveX
+ahead
+?tb
+?lr
+hitbox
+putCbox
+ahb>actor
+CZONE#
+CSPIKES#
+CSLIPPERY#
+CEMIS#
+CPMIS#
+CEDIBLE#
+CPICKUP#
+CNPC#
+CPLAYER#
+CSOLID#
+
+SATURN: OBJECTS (ACTOR EXTENSIONS)
+===
+
+clampVel
+/dims
+@dims
+showCbox
+showSprite'
+fitImage
+showImage
+hitflags#
+right#
+left#
+bottom#
+top#
+static#
+usable
+interest
+talky
+/flip
+tmx>aflip
+lookupTbl
+disporg
+hit
+hit>
+actor
+'hit
+cmask
+cflags
+orgy
+orgx
+ang
+flip
+DEF
+ATK
+maxHP
+HP
+boxy
+boxx
+ahb
+h
+w
+
+
+SATURN: SCRIPTING UTILITIES
+===
+
+dummy
+is?
+put
+udlrvec
+down?
+up?
+right?
+left?
+halt
+'s
+single
+start:
+cbit
+
+SATURN: VARIABLES
+===
+
+you
+area#
+dynGrid
+boxGrid
+extents
+
+
+
+
+SATURN ENGINE: CORE
+===
+
+cls
+logic
+physics
+/output
+outputm
+ok
+time?
+game-frame
+?redraw
+(render)
+epump
+wait
+need-update?
+game-events
+tick-event
+common-events
+kb-events
+alt?
+close-event
+switch-event
+tick
+break
+?fs
+?wpos
+poll
+fs
+breaking?
+lag
+frame
+sim
+render
+script
+#actors
+clear
+(orphan)
+cleanup
+(preserve)
+unload
+one
+(recycle)
+all>
+itterateActors
+init
+show
+act
+act>
+show>
+start
+commonInit
+info
+actorBit
+restart#
+persistent#
+actor
+'onInit
+'onStart
+flags
+'show
+'act
+zdepth
+vy
+vx
+y
+x
+vis
+var
+field
+as
+me
+backstage
+stage
+sfx
+mixer
+afsubimg
+>subxy
+subdivide
+imageDims
+imageH
+imageW
+image
+initImage
+/image
+numSubimages
+subrows
+subcols
+fsubh
+fsubw
+subh
+subw
+bmp
+FLIP_HV
+FLIP_V
+FLIP_H
+FLIP_NONE
+]hold
+hold[
+transform
+/transform
+crisp-bitmaps
+soft-bitmaps
+bitmapH
+bitmapW
+clear-to-color
+jstate
+shift?
+ctrl?
+alt?
+kreleased
+kpressed
+kdelta
+kstate
+klast
+pollJoys
+joy
+    >joyhandle
+    convert-coords
+    @f>p+
+    joystick[]
+    joysticks
+MAX_JOYSTICKS
+clearkb
+pollKB
+kblast
+kbstate
+empty
+teardown
+displayh
+displayw
+nativeh
+nativew
+>ide
+>gfx
+focus
+eventq
+-timer
++timer
+displaytimer
+fps
+native
+defaultFont
+display
+createDisplay
+#frames
+gfxh
+gfxw
+factor
