@@ -1,3 +1,6 @@
+1000 extents 2nip collisionGrid boxGrid
+2000 extents 2nip collisionGrid dynGrid
+
 cgridding +order
 
 \ physics rules
