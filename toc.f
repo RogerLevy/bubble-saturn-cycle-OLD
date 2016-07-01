@@ -7,4 +7,4 @@ include engine\preamble.f
 \ =========================== main load sequence ==============================
 include engine\saturn\saturn.f
 include tokens
-include startup.f
+include startup

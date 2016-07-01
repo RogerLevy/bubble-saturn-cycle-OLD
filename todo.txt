@@ -8,10 +8,11 @@
 [ ] stretched fullscreen in release exe
 
 [ ] finish dev console
-  [ ] output to console
+  [x] output to console
   [ ] stack display
-  [ ] use a bitmap for speed
+  [x] use a bitmap for speed
   [ ] display stack + commandline in windowed mode.
+  [x] one-level-deep history
 
 
 [ ] doubledip feature
