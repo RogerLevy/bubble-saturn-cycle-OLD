@@ -1,0 +1,29 @@
+crawl
+background bubbles
+bubble attack
+pincer grab
+
+
+stretched windowed
+
+stretched fullscreen in release exe
+
+finish dev console
+  output to console
+  stack display
+  use a bitmap for speed
+  display stack + commandline in windowed mode.
+
+
+doubledip feature
+
+
+fix refresh issue
+
+
+advanced scripts
+  6 cell data, 10 cell return
+
+tweens
+particles
+  same pool (2 lists, 16 cells per slot)

@@ -162,16 +162,16 @@ ide
 \ now redefine all prompt-y words.  we're going to need to hook into
 \  SwiftForth's personality system to do this properly ...
 
-: cr ;
-: ." [char] " parse 2drop ; immediate
-: type  2drop ;
-: .  drop ;
-: i. drop ;
-: 2. 2drop ;
-: h. drop ;
-: .s ;
-: space ;
-: emit  drop ;
+\ : cr ;
+\ : ." [char] " parse 2drop ; immediate
+\ : type  2drop ;
+\ : .  drop ;
+\ : i. drop ;
+\ : 2. 2drop ;
+\ : h. drop ;
+\ : .s ;
+\ : space ;
+\ : emit  drop ;
 
 
 

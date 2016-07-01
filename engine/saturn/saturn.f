@@ -1,13 +1,6 @@
 fixed
 /RND
 
-\ constants
-: extents  0 0 4096 4096 ;
-
-\ variables
-0 value you  \ for collisions
-#1 value cbit  \ collision flag counter
-
 \ standard game services (core game lexicon)
 include engine\saturn\gameorama
 [defined] dev [if] include dev\ide.f [then]
@@ -26,8 +19,16 @@ include modules\gameutils
 include modules\wallpaper
 include modules\tiled-level
 
+\ constants
+: extents  0 0 4096 4096 ;
+
+\ variables
+0 value you  \ for collisions
+#1 value cbit  \ collision flag counter
+
 include data
 
+\ engine specific stuff
 include engine\saturn\scripting.f
 include engine\saturn\objects.f
 include engine\saturn\physics.f
@@ -35,8 +36,6 @@ include engine\saturn\box.f
 include engine\saturn\zones.f
 
 fixed
-
-
 
 \ single objects
 " actor" script single cam
@@ -117,8 +116,8 @@ create m  16 cells /allot
 : boxes ( -- )  info @ -exit  0 all>  showCbox ;
 : camRender  ( -- )  cls  /baseline  para  track  camview  all  overlays boxes ;
 
-: logic  ( -- )  0 all> act ;
+: logic  0 all> act ;
 
 \ piston config
 ' camRender is render
-:noname  [ is sim ]  physics  zones  logic  1 +to #frames ;
+:noname  [ is sim ]  physics  zones  logic  multi  1 +to #frames ;
