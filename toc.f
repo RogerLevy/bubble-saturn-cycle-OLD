@@ -34,18 +34,12 @@ include modules\tiled-level
 \ global constants, variables, and assets
 include data
 
-include engine\saturn\scripting.f
-include engine\saturn\objects.f
-include engine\saturn\physics.f
-include objects\box  \ needed to define onLoadBox
-include engine\saturn\zones.f
-
 \ Because tiled-level automatically loads object scripts,
 \ it's not necessary to manually load object scripts.  (6/16/2016)
-\ If some code depends on a script being loaded, use ?OBJECT
+\ If some code depends on a script being loaded, use SCRIPT
 
 include engine\saturn\saturn.f
-include map-tokens
+include tokens
 
 \ ========================= end main load sequence ============================
 
