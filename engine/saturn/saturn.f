@@ -1,5 +1,13 @@
 fixed
 
+include engine\saturn\scripting.f
+include engine\saturn\objects.f
+include engine\saturn\physics.f
+include engine\saturn\box.f
+include engine\saturn\zones.f
+
+fixed
+
 \ single objects
 " actor" script single cam
 " traveler" script single player
