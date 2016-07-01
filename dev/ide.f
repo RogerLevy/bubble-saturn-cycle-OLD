@@ -107,7 +107,7 @@ public
   etype ALLEGRO_EVENT_DISPLAY_RESIZE = -exit
   display al_acknowledge_resize ;
 
-: tick  focus @ not if  poll  then  sim  lag ++ ;
+: tick  focus @ not if  poll  then  sim  (sweep)  lag ++ ;
 : tick-event  etype ALLEGRO_EVENT_TIMER = -exit  tick  ;
 
 

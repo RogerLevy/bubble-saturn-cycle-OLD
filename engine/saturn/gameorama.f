@@ -7,6 +7,7 @@ include modules/rects
 include modules/2d-arrays
 include modules/id-radixsort
 include modules/allegro-floats
+include modules/templist
 
 \ -----------------------------------------------------------------------------
 fixed
@@ -152,6 +153,7 @@ class actor
 #1
   bit persistent#
   bit restart#
+  bit unload#
 value actorBit
 
 variable info  \ enables debugging mode display
@@ -178,10 +180,23 @@ defer commonInit  ' noop is commonInit
   me class !  at@ x 2v!  restart# flags or!
   init ;
 
-: unload  backstage add ;                                                       ( -- )
+: 's
+  state @ if
+    " me >r  as " evaluate  bl parse evaluate  " r> as" evaluate
+  else
+    " me swap as " evaluate  bl parse evaluate  " swap as" evaluate
+  then
+  ; immediate
+
+\ templist deathrow
+
+: (sweep)  0 all>  flags @ unload# and -exit  me stage remove  me backstage add ;
+: unload  unload# swap 's flags or! ;
+
 :noname  flags @ persistent# and -exit  me stage add ;
 : (preserve)  literal backstage itterateActors ;  \ put persistent actors back
 : cleanup  ( -- ) backstage stage graft  (preserve) ;
+
 :noname  flags @ persistent# and -exit  me backstage remove ;
 : (orphan)  literal backstage itterateActors ;  \ orphan persistent actors
 : clear  ( -- ) backstage stage graft  (orphan) ;
@@ -202,6 +217,7 @@ include engine\piston
 : time?  ucounter 2>r  execute  ucounter 2r> d-  d>s  i. ;                      ( xt - )  \ print time given XT takes in microseconds
 : ok  clearkb >gfx +timer  begin  frame  breaking?  until  -timer >ide  false to breaking? ;
 
+
 \ -------------------------------- border -------------------------------------
 fixed
 
@@ -216,8 +232,10 @@ transform outputm
 \ -------------------------------- defaults -----------------------------------
 : physics  0 all>  vx 2v@ x 2v+! ;
 : logic  0 all>  act ;
-:noname  [ is sim ]  physics  logic  1 +to #frames ;
 : cls  0.5 0.5 0.5 1.0 clear-to-color ;
+
+:noname  [ is sim ]  physics  logic  1 +to #frames ;
 :noname  [ is render ] cls  0 all> show ;
 
+: game-frame  wait  ['] game-events epump  ?redraw ;
 ' game-frame is frame
