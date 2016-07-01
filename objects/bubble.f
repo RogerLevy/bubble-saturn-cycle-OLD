@@ -1,6 +1,6 @@
 actor super var frm class bubble
 
-: expire  perform> secs me unload begin yield again ;
+: expire  perform> secs me unload end ;
 
 bubble start:
     3 rnd frm !
