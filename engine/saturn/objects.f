@@ -26,7 +26,12 @@ actor super
   var 'hit         \ ( you=other -- )
 
 \  staticvar initData  \ see commonInit config below for param order.
+
 extend actor
+
+include engine\saturn\task-sf.f
+
+
 : hit>  r> code> 'hit ! ;
 : hit   'hit @ execute ;
 
