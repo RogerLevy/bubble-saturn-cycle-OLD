@@ -41,6 +41,18 @@ fixed
 " actor" script single cam
 " traveler" script single player
 
+
+
+: :proc  actor single :noname 'act ! ;
+: :task  actor single :noname 0 me perform ;
+
+" bubble" script drop
+\ :proc bubbly  player 's x 2v@ at  me  bubble one  -1 vy !  as ;
+:task bubbly
+  begin  player 's x 2v@ at  me  bubble one  -1 vy !  as  3 frames again ;
+
+
+
 \ dialog stuff
 
 variable 'dialog  \ for now this is just a flag.
@@ -110,11 +122,14 @@ create m  16 cells /allot
 
 : para  parared.image  cam 's x 2v@ 0.4 0.4 2*  drawWallpaper ;
 
+: batch  al_hold_bitmap_drawing ;
+
 : cls  ( -- )  0 0 0 1 clear-to-color ;
 : overlays ( -- )  drawEmoticons  ;
 : all  ( -- ) 0 all>  show ;
 : boxes ( -- )  info @ -exit  0 all>  showCbox ;
-: camRender  ( -- )  cls  /baseline  para  track  camview  all  overlays boxes ;
+: camRender  ( -- )
+  cls  /baseline  para  track  camview  1 batch  all  overlays  0 batch  boxes ;
 
 : logic  0 all> act ;
 

@@ -15,6 +15,15 @@ extend actor
     rs 7 cells + rp !
 ;
 
+: perform  ( xt n actor -- )
+    me >r as
+    ds 7 cells + !
+    ds 6 cells + sp !
+    >code rs 7 cells + !
+    rs 7 cells + rp !
+    r> as 
+;
+
 
 actor obj constant main
 
@@ -35,9 +44,9 @@ actor obj constant main
 
 : end  0 rp! yield ;
 
-: delay  0 do yield loop ;
+: frames  0 do yield loop ;
 
-: secs  60 * delay ;
+: secs  60 * frames ;
 
 : multi
     me >r
