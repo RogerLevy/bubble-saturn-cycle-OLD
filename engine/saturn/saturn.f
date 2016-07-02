@@ -130,12 +130,12 @@ create m  16 cells /allot
 
 : cls  0 0 0 1 clear-to-color ;
 : overlays  drawEmoticons  ;
-: all  0 all>  show ;
-: boxes  info @ -exit  0 all>  showCbox ;
+: all  0 stage all>  show ;
+: boxes  info @ -exit  0 stage all>  showCbox ;
 : camRender
   cls  /baseline  para  track  camview  1 batch  all  overlays  0 batch  boxes ;
 
-: logic  0 all> act ;
+: logic  0 stage all> act ;
 
 \ piston config
 ' camRender is render
