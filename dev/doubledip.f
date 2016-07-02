@@ -26,3 +26,5 @@ end-package
   dup redef @ = if  start:  (upd)  redef off  exit then
   start: ;
 
+: update  ( -- <objectname> )
+  " include obj/" s[ bl parse +s ]s evaluate  focus off  pause off ;
