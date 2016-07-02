@@ -15,10 +15,13 @@
   [x] one-level-deep history
 
 
-[ ] doubledip feature
+[x] doubledip feature
 
 [ ] fix refresh issue
 
+[ ] add any image (dynamic bgobj ID table)
+
+[ ] automatic hitboxes
 
 [x] multitasking
 
