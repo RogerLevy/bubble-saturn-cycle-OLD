@@ -25,6 +25,8 @@ actor super
 
   var 'hit         \ ( you=other -- )
 
+  var startx var starty
+
 \  staticvar initData  \ see commonInit config below for param order.
 
 extend actor
@@ -50,7 +52,9 @@ fixed
 \
 \ actor initData: 16 , 16 ,
 \
-\ :noname  [ is commonInit ]
+:noname  [ is oneInit ]
+  at@  startx 2v! ; 
+
 \   me class @ initData @  @+ w !  @+ h !  drop ;
 
 \ -----------------------------------------------------------------------------

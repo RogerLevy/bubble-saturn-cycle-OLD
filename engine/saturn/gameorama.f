@@ -157,7 +157,7 @@ class actor
 value actorBit
 
 variable info  \ enables debugging mode display
-defer commonInit  ' noop is commonInit
+defer oneInit  ' noop is oneInit
 
 
 : start  restart# flags not!  me class @ 'onStart @ execute ;
@@ -165,7 +165,6 @@ defer commonInit  ' noop is commonInit
 : act>   r> code> 'act ! ;                                                      ( -- <code> )
 : act   flags @ restart# and if  start  then  'act @ execute ;
 : show  'show @ execute ;
-: init  commonInit  me class @ 'onInit @ execute ;
 : itterateActors  ( xt list -- )  ( ... -- ... )
   me >r
   first @  begin  dup while  dup next @ >r  over >r  as execute  r> r> repeat
@@ -173,12 +172,16 @@ defer commonInit  ' noop is commonInit
   r> as ;
 : all>  ( n list -- )  ( n -- n )  r> code>  swap itterateActors  drop ;
 : (recycle)  dup >r backstage popnode dup r> sizeof erase ;
+: init  restart# flags or!  me class @ 'onInit @ execute ;
 : one                                                                           ( class -- me=obj )
   backstage length @ if  (recycle)  else  here /actorslot /allot  then
   dup stage add
   as
-  me class !  at@ x 2v!  restart# flags or!
-  init ;
+  at@ x 2v! 
+  me class !  oneInit  init ;
+: morph  ( class -- )  me class !  init ;
+
+
 
 : 's
   state @ if
@@ -205,7 +208,7 @@ defer commonInit  ' noop is commonInit
 
 : script  ( adr c -- class )  \ load actor script if not loaded
   2dup forth-wordlist search-wordlist if  nip nip execute  else
-  2dup " objects/" s[ +s " .f" +s ]s included  evaluate  then ;
+  2dup " obj/" s[ +s " .f" +s ]s included  evaluate  then ;
 
 \ -------------------------------- piston -------------------------------------
 fixed

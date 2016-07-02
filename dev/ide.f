@@ -276,6 +276,7 @@ transform baseline
   fs on
   focus on
   ok
+  fs off
   ['] noop is ui
   ['] game-events is events
   ['] game-frame is frame
@@ -283,6 +284,7 @@ transform baseline
   ;
 
 : rld
+  fs off
   ['] noop is ui
   ['] game-events is events
   ['] game-frame is frame

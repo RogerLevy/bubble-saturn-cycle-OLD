@@ -4,6 +4,7 @@ empty
 include toc
 \ include dev\gameprompt
 include dev\export
+include dev\doubledip
 
 \ some development helpers
 : s   sim ;  \ single-step!
