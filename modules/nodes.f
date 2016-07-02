@@ -17,18 +17,19 @@ decimal
 variable firstClass
 variable lastClass
 
-package class-defs
+package classing
   : (class-min-size)  14 cells  /class cell- cell- max ;
   : class   ( super isize -- <name> )
     create
     here  lastClass @ , 0 ,  dup  lastClass @ nextClass !  lastClass !
     ( isize ) ,
-    cell+ cell+   here  (class-min-size)  move  (class-min-size)  /allot
-    class-defs -order ;
+    ( super ) cell+ cell+   here  (class-min-size)  move  (class-min-size)  /allot
+    classing -order ;
   : extend  class ; 
 end-package
-: super  dup isize @  class-defs +order ;        ( class -- super isize )
-\ : extend  !  class-defs -order ;
+
+: super  dup isize @  classing +order ;        ( class -- super isize )
+\ : extend  !  classing -order ;
 
 
 : staticvar  ( -- <name> )  /class xvar to /class ;
@@ -41,7 +42,7 @@ end-package
 create node  here dup firstClass ! lastClass !
   0 , ( isize ) , /class ,  14 cells /allot
 
-: sizeof  isize @ ;                                                     ( obj -- i )
+: sizeof  isize @ ;                                                             ( obj -- i )
 : obj  here swap  dup ,  isize @ cell- /allot ;                                 ( class -- obj )
 : list  create  0 ( length ) , 0 ( first ) , 0 ( tail ) , ;
 
