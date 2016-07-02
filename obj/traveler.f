@@ -7,7 +7,7 @@ class traveler
 \ ------------------------------------------------------------------------------
 \ Thexder Controls
 94 100 / constant fric#
-1 4 / constant force#
+1 6 / constant force#
 8 3 / constant limit#
 : limit  ( -- ) vx 2v@ hypot limit# > if  vx 2v@ angle limit# vector vx 2v!  then ;
 : friction ( -- ) vx 2v@ fric# uscale vx 2v! ;
