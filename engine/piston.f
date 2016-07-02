@@ -10,13 +10,13 @@ variable fs
 cr .( Press ALT-TILDE to toggle hitboxes etc. )
 : tick  poll  sim  (sweep)  lag ++ ;
 
+0 value alt? \ fix alt-enter bug when game doesn't have focus
 : switch-event
   etype ALLEGRO_EVENT_DISPLAY_SWITCH_OUT = if  -timer  then
-  etype ALLEGRO_EVENT_DISPLAY_SWITCH_IN = if  clearkb  +timer  then ;
+  etype ALLEGRO_EVENT_DISPLAY_SWITCH_IN = if  clearkb  +timer  false to alt?  then ;
 
 : close-event  etype ALLEGRO_EVENT_DISPLAY_CLOSE = -exit  0 ExitProcess ;
 
-0 value alt? \ fix alt-enter bug when game doesn't have focus
 : kb-events
   etype ALLEGRO_EVENT_KEY_DOWN = if
     e ALLEGRO_KEYBOARD_EVENT-keycode @ case

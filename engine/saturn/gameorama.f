@@ -171,7 +171,7 @@ defer commonInit  ' noop is commonInit
   first @  begin  dup while  dup next @ >r  over >r  as execute  r> r> repeat
   2drop
   r> as ;
-: all>  ( n -- )  ( n -- n )  r> code>  stage itterateActors  drop ;
+: all>  ( n list -- )  ( n -- n )  r> code>  swap itterateActors  drop ;
 : (recycle)  dup >r backstage popnode dup r> sizeof erase ;
 : one                                                                           ( class -- me=obj )
   backstage length @ if  (recycle)  else  here /actorslot /allot  then
@@ -190,7 +190,7 @@ defer commonInit  ' noop is commonInit
 
 \ templist deathrow
 
-: (sweep)  0 all>  flags @ unload# and -exit  me stage remove  me backstage add ;
+: (sweep)  0 stage all>  flags @ unload# and -exit  me stage remove  me backstage add ;
 : unload  unload# swap 's flags or! ;
 
 :noname  flags @ persistent# and -exit  me stage add ;
@@ -230,12 +230,12 @@ transform outputm
 /output
 
 \ -------------------------------- defaults -----------------------------------
-: physics  0 all>  vx 2v@ x 2v+! ;
-: logic  0 all>  act ;
+: physics  0 stage all>  vx 2v@ x 2v+! ;
+: logic  0 stage all>  act ;
 : cls  0.5 0.5 0.5 1.0 clear-to-color ;
 
 :noname  [ is sim ]  physics  logic  1 +to #frames ;
-:noname  [ is render ] cls  0 all> show ;
+:noname  [ is render ] cls  0 stage all> show ;
 
 : game-frame  wait  ['] game-events epump  ?redraw ;
 ' game-frame is frame

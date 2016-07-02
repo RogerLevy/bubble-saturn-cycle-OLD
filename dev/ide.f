@@ -61,10 +61,11 @@ create history  #256 /allot
 
 
 : typechar  testbuffer count + c!  #1 testbuffer c+! ;
-: interp    testbuffer count 2dup type space  evaluate  cr ;
+: interp    testbuffer count 2dup type space  evaluate ;
 : rub       testbuffer c@  #-1 +  0 max  testbuffer c! ;
 
-: obey  ['] interp catch drop  store  testbuffer off ;
+: ?.catch  ?dup -exit .catch ;
+: obey  store  ['] interp catch ?.catch cr testbuffer off  ;
 
 include dev\win-clipboard.f
 
@@ -113,7 +114,8 @@ public
             unichar typechar  exit
         then
         keycode case
-          <up> of  recall  endof 
+          <up> of  recall  endof
+          <down> of  testbuffer off  endof
           <enter> of  alt? ?exit  obey  endof
           <backspace> of  rub  endof
         endcase
@@ -280,6 +282,11 @@ transform baseline
   close-personality
   ;
 
-
+: rld
+  ['] noop is ui
+  ['] game-events is events
+  ['] game-frame is frame
+  close-personality
+  rld ;
 
 end-package

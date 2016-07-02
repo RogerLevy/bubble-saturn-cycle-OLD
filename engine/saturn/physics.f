@@ -69,7 +69,7 @@ to cbit
 
 : !dyns
   dynGrid resetGrid
-  0 all>
+  0 stage all>
     cflags @ -exit
     x 2v@ vx 2v@ 2+ putCbox
     ahb dynGrid addCbox
@@ -85,16 +85,16 @@ to cbit
 :noname  nip  ahb>actor to you  cmask @ cfilter -exit  hit ;
 : /dynamic
   !dyns
-  0 all>
+  0 stage all>
     cmask @ -exit
     ahb literal dynGrid  cflags @ if  checkGrid  else  checkCbox  then
 ;
 
-: /static  0 all>  cmask @ CSOLID# and -exit  /boxes ;
+: /static  0 stage all>  cmask @ CSOLID# and -exit  /boxes ;
 
 : corral  x 2v@ boxx 2v@ 2+ 4 4 2max 4064 4064 w 2v@ 2- 2min boxx 2v@ 2- x 2v! ;
 
-: /pos   0 all>  vx 2v@ or -exit  vx 2v@ x 2v+!  corral  x 2v@ putCbox ;
+: /pos   0 stage all>  vx 2v@ or -exit  vx 2v@ x 2v+!  corral  x 2v@ putCbox ;
 
 : physics  /dynamic /static /pos ;
 
