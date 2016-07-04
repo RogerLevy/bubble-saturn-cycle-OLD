@@ -50,7 +50,27 @@ include obj\bubble
 
 \ :proc bubbly  player 's x 2v@ at  me  bubble one  -1 vy !  as ;
 :task bubbly
-  begin  player 's x 2v@ at  me  bubble one  -1 vy !  as  3 frames again ;
+  begin  player 's x 2v@ at  me  bubble one   1 2 rnd + expire
+    -1 vy !  as  3 frames again ;
+
+
+variable bgbubbles  bgbubbles on
+
+: *bgbubble
+  cam 's x 2v@  0 gfxh 2+  -70 10 2+  gfxw 140 + 0  somewhere at
+  me  bubble one  -1 vy !  1 0 0 1 !color
+  as ;
+
+:task bubblefx
+  begin  20 50 rnd + frames  bgbubbles @ if  *bgbubble  then  again ;
+
+: ?pointcull
+  x 2v@ 2dup  cam 's x 2v@ 80 80 2-  gfxw gfxh 160 160 2+  2over 2+
+  overlap? ?exit  me unload ;
+
+' ?pointcull bubble 'cull !
+
+: cull  0 stage all>  me class @ 'cull @ execute ;
 
 
 include engine\saturn\zones.f
@@ -98,4 +118,4 @@ create m  16 cells /allot
 
 \ piston config
 ' camRender is render
-:noname  [ is sim ]  physics  zones  logic  multi  1 +to #frames ;
+:noname  [ is sim ]  physics  zones  logic  multi  cull  1 +to #frames ;

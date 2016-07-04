@@ -35,5 +35,5 @@ traveler start:
   csolid# cedible# or cpickup# or cemis# or cnpc# or cmask !
     cplayer# cflags !
   thexder
-  show>  anmfrm> SPR_EARWIG showSprite'
+  show>  anmfrm> SPR_EARWIG showSpriteRS
 ;

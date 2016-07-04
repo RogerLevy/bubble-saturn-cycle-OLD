@@ -1,7 +1,7 @@
 \ game engine 0.5 (versioned 4/22/2016)
 
 fixed
-64 cells struct /actorslot
+64 16 + cells struct /actorslot
 include modules/nodes
 include modules/rects
 include modules/id-radixsort

@@ -92,7 +92,7 @@
   <object id="222" gid="23" x="231" y="228" width="32" height="32"/>
   <object id="224" gid="24" x="298" y="332" width="32" height="32"/>
  </objectgroup>
- <objectgroup name="OBJ">
+ <objectgroup name="OBJ" visible="0">
   <object id="149" gid="22" x="949" y="761" width="44" height="22"/>
   <object id="151" gid="22" x="795" y="598" width="44" height="22"/>
   <object id="152" gid="22" x="879" y="556" width="44" height="22"/>
@@ -217,7 +217,11 @@
     <property name="nobox" value="1"/>
    </properties>
   </object>
-  <object id="49" gid="2" x="742" y="771" width="72" height="55"/>
+  <object id="49" gid="2" x="742" y="771" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
   <object id="50" gid="2" x="967" y="588" width="72" height="55">
    <properties>
     <property name="nobox" value="1"/>
