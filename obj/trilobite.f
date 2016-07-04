@@ -1,7 +1,7 @@
 actor super class trilobite
 
-: forth  -0.5 vx !    0 flip ! dup frames ;
-: back  0.5 vx ! FLIP_H flip ! dup frames ;
+: forth  -0.5 vx !    FLIP_H  flip ! dup frames ;
+: back  0.5 vx !      0       flip ! dup frames ;
 
 : patrol  40 80 rnd + 3 * perform>  begin back forth again ;
 
