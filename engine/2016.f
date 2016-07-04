@@ -90,3 +90,10 @@ create penx  0 ,  here 0 ,  constant peny
 [undefined] @+ [if] [then]
 [undefined] !+ [if] [then]
 [undefined] ~!+ [if] [then]
+
+: ifill  ( c-addr count val - )  -rot  0 do  over !+  loop  2drop ;
+: ierase   0 ifill ;
+: imove  ( from to count - )  cells move ;
+
+\ fixed point extensions
+include engine/fixext

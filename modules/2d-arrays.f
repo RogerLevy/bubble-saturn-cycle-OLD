@@ -3,9 +3,6 @@
 fixed
 : clip  ( col row #cols #rows #destcols #destrows -- col row #cols #rows )
   2>r  2over 2+  0 0 2r@ 2clamp  2swap  0 0 2r> 2clamp  2swap 2over 2- ;
-: ifill  ( c-addr count val - )  -rot  0 do  over !+  loop  2drop ;
-: ierase   0 ifill ;
-: imove  ( from to count - )  cells move ;
 : batch  ( ... addr #cells xt -- ... )  ( ... addr -- ... )
   >code -rot  cells bounds do  i swap dup >r call  r>  cell +loop  drop ;
 : `batch  ( ... addr xt -- ... )  ( ... addr -- ... )  \ -1 is terminator
