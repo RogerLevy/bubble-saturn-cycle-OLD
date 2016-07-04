@@ -3,7 +3,7 @@
 [ ] bubble attack
 [ ] pincer grab
 
-[ ] stretched windowed
+[x] stretched windowed (works in release exe)
 
 [ ] stretched fullscreen in release exe
 
@@ -21,7 +21,7 @@
 
 [ ] add any image (dynamic bgobj ID table)
 
-[ ] automatic hitboxes
+[x] automatic hitboxes
 
 [x] multitasking
 

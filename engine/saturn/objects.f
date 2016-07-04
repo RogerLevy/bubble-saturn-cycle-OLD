@@ -28,10 +28,17 @@ actor super
   var startx var starty
 
 \  staticvar initData  \ see commonInit config below for param order.
+  staticvar 'cull
 
 extend actor
 
+include engine\object-color.f
 include engine\saturn\task-sf.f
+
+:noname  [ is oneInit ]
+  at@  startx 2v!
+  1 1 1 1 !color
+  ;
 
 
 : hit>  r> code> 'hit ! ;
@@ -52,8 +59,8 @@ fixed
 \
 \ actor initData: 16 , 16 ,
 \
-:noname  [ is oneInit ]
-  at@  startx 2v! ; 
+
+
 
 \   me class @ initData @  @+ w !  @+ h !  drop ;
 
@@ -87,15 +94,29 @@ top# bottom# left# right# or or or constant hitflags#
 \   1f rot 1f f/ 1f rot 1f f/ 2sf swap ;
 
 : fitImage  ( image -- )
-  with  o bmp @  0 0 2af  o imageDims 2af  x 2v@ 2af  w 2v@ 2af  flip @  al_draw_scaled_bitmap ;
+  with  o bmp @  0 0 2af  o imageDims 2af  x 2v@ 2af  w 2v@ 2af  flip @
+    al_draw_scaled_bitmap ;
 
 : showSprite  ( spr# set# -- )
-  sprite>af 2>r 2>r
-    1 1 1 1 4af  2r> 2r>  x 2v@ 2af  flip @   al_draw_tinted_bitmap_region ;
+  sprite>af  x 2v@ 2af  flip @   al_draw_bitmap_region ;
 
-: showSprite'  ( spr# set# -- )
+: 4@  @+ swap @+ swap @+ swap @ ;
+
+: showSpriteT  ( spr# set# -- )
+  sprite>af
+    fcolor 4@  0 0 2af  x 2v@ 2af  1 1 2af  0 1af  flip @
+    al_draw_tinted_scaled_rotated_bitmap_region ;
+\  sprite>af
+\    fcolor 4@   x 2v@ 2af  flip @  al_draw_tinted_bitmap_region ;
+
+: showSpriteRS  ( spr# set# -- )
   sprite>af
     1 1 1 1 4af  disporg 2af  x 2v@ 2af  1 1 2af  ang @ radians 1af  flip @
+    al_draw_tinted_scaled_rotated_bitmap_region ;
+
+: showSpriteTRS  ( spr# set# -- )
+  sprite>af
+    fcolor 4@  disporg 2af  x 2v@ 2af  1 1 2af  ang @ radians 1af  flip @
     al_draw_tinted_scaled_rotated_bitmap_region ;
 
 : showCbox
