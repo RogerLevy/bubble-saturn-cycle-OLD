@@ -36,7 +36,6 @@
   [undefined] fixedp [if]
     true constant fixedp
     include lib\fixedp_2
-    include lib\fixext
   [then]
   [undefined] ALLEGRO_VERSION_INT [if]
     pushpath cd lib\allegro-5.2
