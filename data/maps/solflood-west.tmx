@@ -119,7 +119,7 @@
   <object id="16" gid="9" x="737" y="846" width="29" height="58"/>
   <object id="17" gid="5" x="766" y="1047" width="186" height="228">
    <properties>
-    <property name="nobox" value=""/>
+    <property name="nobox" value="1"/>
    </properties>
   </object>
   <object id="18" gid="17" x="836" y="552" width="183" height="105">
@@ -246,7 +246,7 @@
   <object id="77" gid="2147483657" x="1475" y="1106" width="29" height="58"/>
   <object id="78" gid="2" x="1423" y="994" width="72" height="55">
    <properties>
-    <property name="nobox" value=""/>
+    <property name="nobox" value="1"/>
    </properties>
   </object>
   <object id="79" gid="2147483657" x="1475" y="1048" width="29" height="58"/>
@@ -254,7 +254,7 @@
   <object id="81" gid="2147483657" x="1475" y="932" width="29" height="58"/>
   <object id="82" gid="2" x="1428" y="1043" width="72" height="55">
    <properties>
-    <property name="nobox" value=""/>
+    <property name="nobox" value="1"/>
    </properties>
   </object>
   <object id="83" gid="2147483657" x="1475" y="874" width="29" height="58"/>
