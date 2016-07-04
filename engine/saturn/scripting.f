@@ -15,14 +15,9 @@
   up? if    -1 +   then
   down? if   1 +   then ;
 
-\ : /ones  ( ... xt n class -- ... )
-\   swap 0 do  dup one >r dup >r execute r> r>  loop  2drop ;
-\
-\ : ones  ( n class -- )  .. -rot /ones ;
-
 : put  ( x y actor -- )  's x 2v! ;
 
 : is?  swap class @ = ;
 
-create dummy  /actorslot /allot
+actor single dummy
 

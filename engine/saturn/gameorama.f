@@ -4,7 +4,6 @@ fixed
 64 cells struct /actorslot
 include modules/nodes
 include modules/rects
-include modules/2d-arrays
 include modules/id-radixsort
 include modules/allegro-floats
 include modules/templist
@@ -179,7 +178,7 @@ defer oneInit  ' noop is oneInit
   as
   at@ x 2v! 
   me class !  oneInit  init ;
-: morph  ( class -- )  me class !  init ;
+: become  ( class -- )  me class !  init ;
 
 
 
@@ -220,17 +219,6 @@ include engine\piston
 : time?  ucounter 2>r  execute  ucounter 2r> d-  d>s  i. ;                      ( xt - )  \ print time given XT takes in microseconds
 : ok  clearkb >gfx +timer  begin  frame  breaking?  until  -timer >ide  false to breaking? ;
 
-
-\ -------------------------------- border -------------------------------------
-fixed
-
-transform outputm
-
-: /output
-  outputm  factor @ dup 2af  al_scale_transform
-  outputm  al_use_transform  ;
-
-/output
 
 \ -------------------------------- defaults -----------------------------------
 : physics  0 stage all>  vx 2v@ x 2v+! ;

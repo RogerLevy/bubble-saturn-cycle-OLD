@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" backgroundcolor="#a1a1a1" nextobjectid="224">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="4096" height="4096" tilewidth="1" tileheight="1" backgroundcolor="#a1a1a1" nextobjectid="225">
  <properties>
   <property name="bggfx" value="purplegree"/>
   <property name="parallax" value="paraDarkRed"/>
@@ -72,6 +72,9 @@
  <tileset firstgid="23" name="taskly" tilewidth="32" tileheight="32" tilecount="1" columns="1">
   <image source="../images/test_up_down_32x32.png" width="32" height="32"/>
  </tileset>
+ <tileset firstgid="24" name="waveytest" tilewidth="32" tileheight="32" tilecount="1" columns="1">
+  <image source="../images/test_up_down_32x32.png" width="32" height="32"/>
+ </tileset>
  <objectgroup name="NEG">
   <object id="185" gid="19" x="-161" y="557" width="351" height="212"/>
   <object id="186" gid="19" x="0" y="288" width="183" height="229"/>
@@ -87,6 +90,7 @@
   <object id="196" gid="19" x="1478" y="1224" width="45" height="65"/>
   <object id="197" gid="19" x="1041" y="861" width="452" height="787"/>
   <object id="222" gid="23" x="231" y="228" width="32" height="32"/>
+  <object id="224" gid="24" x="298" y="332" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="OBJ">
   <object id="149" gid="22" x="949" y="761" width="44" height="22"/>
@@ -113,8 +117,16 @@
   <object id="14" gid="9" x="737" y="730" width="29" height="58"/>
   <object id="15" gid="9" x="737" y="788" width="29" height="58"/>
   <object id="16" gid="9" x="737" y="846" width="29" height="58"/>
-  <object id="17" gid="5" x="766" y="1047" width="186" height="228"/>
-  <object id="18" gid="17" x="836" y="552" width="183" height="105"/>
+  <object id="17" gid="5" x="766" y="1047" width="186" height="228">
+   <properties>
+    <property name="nobox" value=""/>
+   </properties>
+  </object>
+  <object id="18" gid="17" x="836" y="552" width="183" height="105">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
   <object id="19" gid="2147483657" x="1019" y="816" width="29" height="58"/>
   <object id="20" gid="2147483657" x="1019" y="758" width="29" height="58"/>
   <object id="21" gid="2147483657" x="1019" y="700" width="29" height="58"/>
@@ -130,24 +142,92 @@
   <object id="31" gid="18" x="1141" y="1163" width="70" height="183"/>
   <object id="32" gid="13" x="1078" y="1200" width="114" height="37"/>
   <object id="33" gid="13" x="1191" y="1200" width="114" height="37"/>
-  <object id="34" gid="2" x="759" y="696" width="72" height="55"/>
-  <object id="35" gid="2" x="809" y="740" width="72" height="55"/>
-  <object id="36" gid="2" x="771" y="786" width="72" height="55"/>
-  <object id="37" gid="2" x="815" y="692" width="72" height="55"/>
-  <object id="38" gid="2" x="878" y="698" width="72" height="55"/>
-  <object id="39" gid="2" x="872" y="749" width="72" height="55"/>
-  <object id="40" gid="2" x="856" y="648" width="72" height="55"/>
-  <object id="41" gid="2" x="911" y="618" width="72" height="55"/>
-  <object id="42" gid="2" x="822" y="829" width="72" height="55"/>
-  <object id="43" gid="2" x="720" y="742" width="72" height="55"/>
-  <object id="44" gid="2" x="835" y="785" width="72" height="55"/>
-  <object id="45" gid="2" x="767" y="738" width="72" height="55"/>
-  <object id="46" gid="2" x="777" y="829" width="72" height="55"/>
-  <object id="47" gid="2" x="719" y="845" width="72" height="55"/>
-  <object id="48" gid="2" x="718" y="800" width="72" height="55"/>
+  <object id="34" gid="2" x="759" y="696" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="35" gid="2" x="809" y="740" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="36" gid="2" x="771" y="786" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="37" gid="2" x="815" y="692" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="38" gid="2" x="878" y="698" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="39" gid="2" x="872" y="749" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="40" gid="2" x="856" y="648" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="41" gid="2" x="911" y="618" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="42" gid="2" x="822" y="829" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="43" gid="2" x="720" y="742" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="44" gid="2" x="835" y="785" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="45" gid="2" x="767" y="738" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="46" gid="2" x="777" y="829" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="47" gid="2" x="719" y="845" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="48" gid="2" x="718" y="800" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
   <object id="49" gid="2" x="742" y="771" width="72" height="55"/>
-  <object id="50" gid="2" x="967" y="588" width="72" height="55"/>
-  <object id="51" gid="2" x="972" y="637" width="72" height="55"/>
+  <object id="50" gid="2" x="967" y="588" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
+  <object id="51" gid="2" x="972" y="637" width="72" height="55">
+   <properties>
+    <property name="nobox" value="1"/>
+   </properties>
+  </object>
   <object id="52" gid="13" x="183" y="554" width="114" height="37"/>
   <object id="58" gid="9" x="176" y="517" width="29" height="58"/>
   <object id="59" gid="9" x="177" y="460" width="29" height="58"/>
@@ -164,11 +244,19 @@
   <object id="75" gid="16" x="1441" y="1201" width="36" height="42"/>
   <object id="76" gid="2147483657" x="1475" y="816" width="29" height="58"/>
   <object id="77" gid="2147483657" x="1475" y="1106" width="29" height="58"/>
-  <object id="78" gid="2" x="1423" y="994" width="72" height="55"/>
+  <object id="78" gid="2" x="1423" y="994" width="72" height="55">
+   <properties>
+    <property name="nobox" value=""/>
+   </properties>
+  </object>
   <object id="79" gid="2147483657" x="1475" y="1048" width="29" height="58"/>
   <object id="80" gid="2147483657" x="1475" y="758" width="29" height="58"/>
   <object id="81" gid="2147483657" x="1475" y="932" width="29" height="58"/>
-  <object id="82" gid="2" x="1428" y="1043" width="72" height="55"/>
+  <object id="82" gid="2" x="1428" y="1043" width="72" height="55">
+   <properties>
+    <property name="nobox" value=""/>
+   </properties>
+  </object>
   <object id="83" gid="2147483657" x="1475" y="874" width="29" height="58"/>
   <object id="84" gid="2147483657" x="1475" y="1164" width="29" height="58"/>
   <object id="85" gid="2147483657" x="1475" y="990" width="29" height="58"/>
@@ -188,7 +276,7 @@
   <object id="219" x="1139" y="976" width="69" height="70"/>
   <object id="220" x="1029" y="849" width="17" height="18"/>
  </objectgroup>
- <objectgroup name="COLLISION">
+ <objectgroup name="COLLISION" visible="0">
   <object id="86" x="210" y="106" width="55" height="66"/>
   <object id="87" x="239" y="83" width="34" height="31"/>
   <object id="88" x="0" y="59" width="209" height="229"/>

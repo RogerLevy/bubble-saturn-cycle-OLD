@@ -26,5 +26,4 @@
 [x] multitasking
 
 [ ] tweens
-[ ] particles
-  same pool (2 lists, 16 cells per slot)
+

@@ -12,94 +12,51 @@ include modules\swes\sprites
 \ include modules\swes\tilemap-collision
 \ include modules\swes\layers
 
-\ load other game services
+\ load other services
 include modules\stride2d
 include modules\collision-grid
 include modules\gameutils
 include modules\wallpaper
 include modules\tiled-level
 
+\ engine specific stuff
+include engine\saturn\scripting.f
+
 \ constants
 : extents  0 0 4096 4096 ;
+actor single cam
+actor single player
 
 \ variables
 0 value you  \ for collisions
 #1 value cbit  \ collision flag counter
+variable 'dialog  \ for now this is just a flag.
 
+\ game-specific data
 include data
 
-\ engine specific stuff
-include engine\saturn\scripting.f
+\ more engine specific stuff
 include engine\saturn\objects.f
 include engine\saturn\physics.f
 include engine\saturn\box.f
-include engine\saturn\zones.f
 
 fixed
 
 
-
-\ single objects
-" actor" script single cam
-" traveler" script single player
+player as  " traveler" script become
 
 
+include obj\bubble
 
-: :proc  actor single :noname 'act ! ;
-: :task  actor single :noname 0 me perform ;
-
-" bubble" script drop
 \ :proc bubbly  player 's x 2v@ at  me  bubble one  -1 vy !  as ;
 :task bubbly
   begin  player 's x 2v@ at  me  bubble one  -1 vy !  as  3 frames again ;
 
 
-
-\ dialog stuff
-
-variable 'dialog  \ for now this is just a flag.
-
-: dialog>  'dialog on  ; \ r> code> 'dialog ! ;
+include engine\saturn\zones.f
 
 
-\ zone stuff
-
-: drawTalkIcon  ( -- )  talk-icon.image bmp @  player 's x 2v@ 22 - 2af  0  al_draw_bitmap ;
-
-: which  over 's zonetype @  over 's zonetype @ <= if  nip  else  drop then ;
-
-:noname  ( zone you=other flag -- zone flag )
-  you zone is? -exit  >r  ( zone ) you  which  r> ;
-: currentZone  ( me=actor -- zone | 0 )
-  dummy  literal detect  dup dummy = if  drop 0  then ;
-
-: ?zone  ( -- zone | [earlyout] )  player 's currentZone ?dup ?exit r> drop ;
-
-: talk/  'dialog off ;
-jumptable zone/  ' noop , ' talk/ ,
-
-: ?talk  <a> kpressed -exit  player 's currentZone trigger ;
-jumptable ?trigger  ' noop , ' ?talk ,
-
-: ?talkicon  'dialog @ ?exit  drawTalkIcon ;
-jumptable emoticon  ' noop , ' ?talkicon ,
-
-: untrigger  ( zone -- )  ?dup -exit  dup resetZone  's zonetype @ zone/ ;
-
-0 value lastZone
-: zones
-  player 's currentZone dup not if
-    lastZone untrigger
-  else
-    dup lastZone <> if  lastZone untrigger  then
-    dup 's zonetype @ ?trigger
-  then
-  ( zone ) to lastZone ;
-
-: drawEmoticons  ?zone 's zonetype @ emoticon ;
-
-
-\ baseline matrix
+\ camera/rendering
 transform baseline
 
 : /baseline  ( -- )
@@ -107,8 +64,12 @@ transform baseline
   baseline  factor @ dup 2af  al_scale_transform
   baseline  al_use_transform  ;
 
+: drawTalkIcon  ( -- )  talk-icon.image bmp @  player 's x 2v@ 22 - 2af  0  al_draw_bitmap ;
+: ?talkicon  'dialog @ ?exit  drawTalkIcon ;
+jumptable emoticon  ' noop , ' ?talkicon ,
 
-\ camera
+: drawEmoticons  ?zone 's zonetype @ emoticon ;
+
 create m  16 cells /allot
 
 : camTransform  ( -- matrix )
@@ -125,9 +86,7 @@ create m  16 cells /allot
   al_use_transform ;
 
 : para  parared.image  cam 's x 2v@ 0.4 0.4 2*  drawWallpaper ;
-
 : batch  al_hold_bitmap_drawing ;
-
 : cls  0 0 0 1 clear-to-color ;
 : overlays  drawEmoticons  ;
 : all  0 stage all>  show ;
@@ -140,5 +99,3 @@ create m  16 cells /allot
 \ piston config
 ' camRender is render
 :noname  [ is sim ]  physics  zones  logic  multi  1 +to #frames ;
-
-
