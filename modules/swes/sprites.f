@@ -7,9 +7,10 @@ fixed
 : spriteset  ( w h string count -- <name> )  ( -- id )
   spritesets entry >r  <zfilespec> al_load_bitmap r@ initImage  r> subdivide ;
 
+\ Utility to help with calling Allegro functions.
 : sprite>af  ( subimage# spriteset# -- bitmap afsx afsy afsw afsh )  spritesets id> afsubimg ;
 
-\ Quick and easy standard functions. anything more complicated than this isn't helpful.
+\ Stock drawing words. Anything more complicated than this isn't helpful.
 : drawSpriteFlip  ( subimage# spriteset# flip -- )
   >r  sprite>af  at@ 2af  r>  al_draw_bitmap_region ;
 
@@ -17,5 +18,7 @@ fixed
 
 
 : #sprites  ( spriteset# -- n )  spritesets id> numSubimages @ ;
-: spriteSize  ( spriteset# -- w h )  spritesets id> subw 2v@ ;
+
+
+\ : spriteSize  ( spriteset# -- w h )  spritesets id> subw 2v@ ;
 

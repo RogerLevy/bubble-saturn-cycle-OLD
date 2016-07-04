@@ -98,6 +98,7 @@ to cbit
 
 : physics  /dynamic /static /pos ;
 
-
+: does-detect  does> @ detect ;
+: detector:  create  here 0 ,   does-detect  :noname swap !  ;
 
 cgridding -order

@@ -34,11 +34,10 @@ fixed
 
 $f0000000 constant DEPTHMASK
 
-: show  'show @ execute ;
 : enqueue  me , ;
-: ddraw  ( addr -- addr )  here over ?do  i @ as  show  cell +loop ;
+: showem  ( addr -- addr )  here over ?do  i @ as  show  cell +loop ;
 : @zdepth  [ zdepth me - ]# + @ [ DEPTHMASK invert ]# and ;
-: dsort  dup here over - cell/ s>p ['] @zdepth irsort
+: sort  dup here over - cell/ s>p ['] @zdepth irsort
          ; \ dup here over - .s idump ;
 : dfilter  stage all>  vis @ -exit  dup zdepth @ DEPTHMASK and = if  enqueue  then ;
 
@@ -75,6 +74,7 @@ safetable planes
   bgTileset @ validate -exit
     >tileset subw 2v@ gfxw gfxh 2swap 2/  1 1 2+ bgCols 2v!
   enBG on ;
+  
 : initPlane  ( tileset-id|-1 depthrange -- )
   enOBJ on  enSort on  depthrange !  bgTileset !  initBG ;
 
@@ -87,7 +87,7 @@ safetable planes
   enBG @ -exit
   bgTileset @ >tileSrc  bgX 2v@ scrolled bgCols 2v@ DrawTilebuf ;
 
-: ?dsort  enSort @ -exit  dsort ;
-: DrawDepthRange  ( depthrange ) here  swap dfilter  ?dsort  ddraw  reclaim ;
+: ?sort  enSort @ -exit  sort ;
+: DrawDepthRange  ( depthrange ) here  swap dfilter  ?sort  showem  reclaim ;
 : DrawObjs  ( -- )  enOBJ @ -exit  depthrange @ DrawDepthRange ;
 : DrawPlane  ( plane -- )  >curPlane  DrawBG  DrawObjs ;

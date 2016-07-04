@@ -6,7 +6,7 @@
 \  the point of this feature is to allow us total freedom in choosing
 \  simple word names so that each class's script can be properly factored,
 \  but still regain access to any buried aforementioned words just by
-\  reloading the script.
+\  reloading the script. use UPDATE <classname>
 
 variable redef
 
@@ -26,5 +26,5 @@ end-package
   dup redef @ = if  start:  (upd)  redef off  exit then
   start: ;
 
-: update  ( -- <objectname> )
+: update  ( -- <classname> )
   " include obj/" s[ bl parse +s ]s evaluate  focus off  pause off ;
