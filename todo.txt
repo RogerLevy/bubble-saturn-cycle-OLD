@@ -1,7 +1,9 @@
 [ ] crawl
-[ ] background bubbles
+[x] background bubbles
 [ ] bubble attack
 [ ] pincer grab
+
+[ ] layer support
 
 [x] stretched windowed (works in release exe)
 

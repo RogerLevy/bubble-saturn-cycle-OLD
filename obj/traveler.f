@@ -16,7 +16,7 @@ class traveler
 : controls ( -- )  udlrvec accel friction limit ;
 
 : orientation ( -- angle )
-  flags @ hitflags# and not
+  hitflags# set?
   udlrvec or and if  vx 2v@  angle  else
   udlrvec or if  udlrvec  angle  else  ang @  then  then ;
 
@@ -28,7 +28,7 @@ class traveler
 
 \ ------------------------------------------------------------------------------
 
-: anmfrm>  ( -- n )  vx 2v@ magnitude 1.5 + 15 / ac +!  ac @ 1 and ;
+: anmfrm>  ( -- n )  vx 2v@ magnitude 1 + 15 / ac +!  ac @ 1 and ;
 
 traveler start:
   -7 -7 boxx 2v!  14 14 w 2v!  32 12 orgx 2v!

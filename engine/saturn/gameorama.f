@@ -159,10 +159,13 @@ variable info  \ enables debugging mode display
 defer oneInit  ' noop is oneInit
 
 
+: set?  flags @ and ;
+: unset?  flags @ and 0= ;
+
 : start  restart# flags not!  me class @ 'onStart @ execute ;
 : show>  r> code> 'show !  vis on ;                                             ( -- <code> )
 : act>   r> code> 'act ! ;                                                      ( -- <code> )
-: act   flags @ restart# and if  start  then  'act @ execute ;
+: act   restart# set? if  start  then  'act @ execute ;
 : show  'show @ execute ;
 : itterateActors  ( xt list -- )  ( ... -- ... )
   me >r
@@ -192,16 +195,17 @@ defer oneInit  ' noop is oneInit
 
 \ templist deathrow
 
-: (sweep)  0 stage all>  flags @ unload# and -exit  me stage remove  me backstage add ;
+: (sweep)  0 stage all>  unload# set? -exit
+           unload# flags not!
+           me stage remove
+           persistent# unset? if  me backstage add  then ;
 : unload  unload# swap 's flags or! ;
 
-:noname  flags @ persistent# and -exit  me stage add ;
-: (preserve)  literal backstage itterateActors ;  \ put persistent actors back
-: cleanup  ( -- ) backstage stage graft  (preserve) ;
+\ clear everything from stage except persistent stuff.
+: cleanup  backstage stage graft  0 backstage all>  persistent# set? -exit  me stage add ;  \ put persistent actors back onstage
 
-:noname  flags @ persistent# and -exit  me backstage remove ;
-: (orphan)  literal backstage itterateActors ;  \ orphan persistent actors
-: clear  ( -- ) backstage stage graft  (orphan) ;
+\ clear everything from stage including persistent stuff.  persistent stuff is not sent to BACKSTAGE.
+: clear  backstage stage graft  0 backstage all>  persistent# set? -exit  me backstage remove ;  \ orphan persistent actors
 
 : #actors  stage length @ ;
 

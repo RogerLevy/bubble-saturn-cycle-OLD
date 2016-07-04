@@ -62,8 +62,8 @@ to cbit
 
 
 : ?0vx
-  flags @ right# left# or and if  0 vx !  then
-  flags @ top# bottom# or and if  0 vy !  then ;
+  right# left# or set? if  0 vx !  then
+  top# bottom# or set? if  0 vy !  then ;
 
 : /boxes  hitflags# flags not!  moveX  moveY  ?0vx ;
 
