@@ -268,6 +268,14 @@ transform baseline
   320  nativeh 2 / 8 -  at  commandline
   ;
 
+: ide/
+  fs off
+  ['] noop is ui
+  ['] game-events is events
+  ['] game-frame is frame
+  previous-personality @ if close-personality then
+;
+
 : ide
   console-personality open-personality
   ['] ide-ui is ui
@@ -276,19 +284,10 @@ transform baseline
   fs on
   focus on
   ok
-  fs off
-  ['] noop is ui
-  ['] game-events is events
-  ['] game-frame is frame
-  close-personality
+  ide/
   ;
 
-: rld
-  fs off
-  ['] noop is ui
-  ['] game-events is events
-  ['] game-frame is frame
-  close-personality
-  rld ;
+: rld  ide/  rld ;
+: empty  ide/  empty ;
 
 end-package
