@@ -20,7 +20,7 @@
 \  - Semantics for defining BG and Actor object types
 
 
-[undefined] safetable [if]  include modules\safetable  [then]
+[undefined] safetable [if]  include engine\modules\safetable  [then]
 
 package smithdata
 \ NTS: this is an opportunity to save memory if ever needed.  i've already

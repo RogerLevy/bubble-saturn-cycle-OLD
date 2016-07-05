@@ -1,4 +1,4 @@
-[undefined] draw-bitmap-wavey [if] include modules\fx\wavey [then]
+[undefined] draw-bitmap-wavey [if] include engine\modules\fx\wavey [then]
 
 actor super class waveytest
 

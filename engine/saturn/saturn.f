@@ -6,18 +6,18 @@ include engine\saturn\gameorama
 [defined] dev [if] include dev\ide.f [then]
 
 \ graphics services
-include modules\swes\sprites
-\ include modules\swes\tilesets
-\ include modules\swes\tilemap
-\ include modules\swes\tilemap-collision
-\ include modules\swes\layers
+include engine\modules\swes\sprites
+\ include engine\modules\swes\tilesets
+\ include engine\modules\swes\tilemap
+\ include engine\modules\swes\tilemap-collision
+\ include engine\modules\swes\layers
 
 \ load other services
-include modules\stride2d
-include modules\collision-grid
-include modules\gameutils
-include modules\wallpaper
-include modules\tiled-level
+include engine\modules\stride2d
+include engine\modules\collision-grid
+include engine\modules\gameutils
+include engine\modules\wallpaper
+include engine\modules\tiled-level
 
 \ engine specific stuff
 include engine\saturn\scripting.f
