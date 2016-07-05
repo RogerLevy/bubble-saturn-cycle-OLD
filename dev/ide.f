@@ -67,7 +67,7 @@ create history  #256 /allot
 : ?.catch  ?dup -exit .catch ;
 : obey  store  ['] interp catch ?.catch cr testbuffer off  ;
 
-include dev\win-clipboard.f
+include lib\win-clipboard.f
 
 : paste     clpb testbuffer append ;
 

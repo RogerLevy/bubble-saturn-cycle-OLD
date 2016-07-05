@@ -8,9 +8,9 @@
 : @xy   2v@ ;                          : !xy   2v! ;
 : @wh   cell+ cell+ 2v@ ;              : !wh   cell+ cell+ 2v! ;
 
-include modules\rects-generics
+include engine\modules\rects-generics
 
 marker dispose
 1 2 3 4 rect r
-include modules\rects-tests
+include engine\modules\rects-tests
 dispose

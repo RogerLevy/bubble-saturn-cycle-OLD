@@ -2,11 +2,11 @@
 
 fixed
 64 16 + cells struct /actorslot
-include modules/nodes
-include modules/rects
-include modules/id-radixsort
-include modules/allegro-floats
-include modules/templist
+include engine/modules/nodes
+include engine/modules/rects
+include engine/modules/id-radixsort
+include engine/modules/allegro-floats
+include engine/modules/templist
 
 \ -----------------------------------------------------------------------------
 fixed
