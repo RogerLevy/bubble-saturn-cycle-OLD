@@ -3,7 +3,6 @@ fixed
 
 \ standard game services (core game lexicon)
 include engine\saturn\gameorama
-[defined] dev [if] include dev\ide.f [then]
 
 \ graphics services
 include engine\modules\swes\sprites

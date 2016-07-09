@@ -221,6 +221,7 @@ defer frame         \ the body of the loop.  can bypass RENDER and SIM if desire
 variable lag                                                                    \ completed ticks
 include engine\piston
 : time?  ucounter 2>r  execute  ucounter 2r> d-  d>s  i. ;                      ( xt - )  \ print time given XT takes in microseconds
+
 : ok  clearkb >gfx +timer  begin  frame  breaking?  until  -timer >ide  false to breaking? ;
 
 

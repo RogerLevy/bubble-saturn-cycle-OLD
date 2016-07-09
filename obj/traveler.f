@@ -24,7 +24,7 @@ class traveler
 
 : orient  ( -- )  ang @  orientation  0.2 anglerp  ?upright  ang ! ;
 
-: thexder  act>  controls  clampVel  orient ;
+: thexder  act>   controls  clampVel  orient ;
 
 \ ------------------------------------------------------------------------------
 

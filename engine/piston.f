@@ -7,8 +7,14 @@ variable fs
 : ?wpos  fs @ ?exit  display #0 #0 al_set_window_position ;
 : ?fs  display ALLEGRO_FULLSCREEN_WINDOW fs @ al_toggle_display_flag drop  ?wpos ;
 : break  ( -- )  true to breaking? ;
-cr .( Press ALT-TILDE to toggle hitboxes etc. )
+
+[defined] dev [if]
+: tick  poll  ['] sim catch drop  (sweep)  lag ++ ;
+: (render)  me >r  ?fs  ['] render catch drop  al_flip_display  r> as ;
+[else]
 : tick  poll  sim  (sweep)  lag ++ ;
+: (render)  me >r  ?fs  render  al_flip_display  r> as ;
+[then]
 
 0 value alt? \ fix alt-enter bug when game doesn't have focus
 : switch-event
@@ -42,6 +48,5 @@ cr .( Press ALT-TILDE to toggle hitboxes etc. )
 : need-update?  eventq al_is_event_queue_empty  lag @ 4 >=  or ;                ( -- flag )
 : wait  eventq e al_wait_for_event ;
 : epump  begin  dup >r  execute  r>  eventq e al_get_next_event not  until  drop ;     ( xt -- )  ( -- )
-: (render)  me >r  ?fs  render  al_flip_display  r> as ;
 : ?redraw  lag @ -exit  need-update? -exit  (render)  0 lag ! ;   ( -- )
 

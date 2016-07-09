@@ -129,7 +129,7 @@ public
   etype ALLEGRO_EVENT_DISPLAY_RESIZE = -exit
   display al_acknowledge_resize ;
 
-: tick  focus @ not if  poll  then  sim  (sweep)  lag ++ ;
+: tick  focus @ not if  poll  then  ['] sim catch drop  (sweep)  lag ++ ;
 : tick-event  etype ALLEGRO_EVENT_TIMER = -exit  tick  ;
 
 
@@ -238,7 +238,8 @@ public
 
 : cls  ( -- )  focus @ if  0.4 0.4 0.4 1  else  0 0.3 0 1  then clear-to-color ;
 
-: (render)  me >r  ?fs  cls  ['] render framed  ui  al_flip_display  r> as ;
+: reindeer  ['] render catch drop ;
+: (render)  me >r  ?fs  cls  ['] reindeer framed  ui  al_flip_display  r> as ;
 
 : ?redraw
   pause @ not if

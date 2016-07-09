@@ -69,7 +69,7 @@
       ' 2dup , \ GET-SIZE  ( -- x y )
       ' drop , \ ACCEPT    ( addr u1 -- u2)
 
-    : game-starter  null-personality open-personality " include toc ok" evaluate ;
+    : game-starter  null-personality open-personality " include toc ok bye" evaluate ;
     \ Turnkey starter
 
     : refresh  " eventq al_flush_event_queue  rld  ok" evaluate ;
