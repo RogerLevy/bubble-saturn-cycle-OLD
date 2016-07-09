@@ -16,16 +16,13 @@ variable factor  2 factor !
 0 value #frames
 
 \ -----------------------------------------------------------------------------
-include engine/createDisplay
-include engine/bootstrap/init-allegro
+include engine/initDisplay
 
 fixed
-gfxw gfxh factor @ dup 2* createDisplay value display                           \ actually create the display
-al_create_builtin_font value defaultFont
+gfxw gfxh factor @ dup 2* initDisplay                                           \ actually init the display
+
 create native  /ALLEGRO_DISPLAY_MODE /allot
   al_get_num_display_modes #1 -  native  al_get_display_mode
-
-include engine/bootstrap/timerevent
 
 \ ------------------------ words for switching windows ------------------------
 : focus  ( winapi-window - )                                                    \ force window via handle to be the active window
