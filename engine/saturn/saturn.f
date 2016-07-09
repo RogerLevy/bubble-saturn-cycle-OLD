@@ -42,6 +42,13 @@ include engine\saturn\box.f
 fixed
 
 
+:noname [ is oneInit ]
+  at@  startx 2v!
+  1 1 1 1 !color
+  csolid# cmask !
+  ;
+
+
 player as  " traveler" script become
 
 
