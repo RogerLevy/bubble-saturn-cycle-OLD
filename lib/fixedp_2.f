@@ -67,7 +67,7 @@ package fixpointing public
 : pfloor  INT_MASK and ;
 : pceil   pfloor 1.0 + ;
 : 2pfloor  pfloor swap pfloor swap ;
-: pceil   pceil swap pceil swap ;
+: 2pceil   pceil swap pceil swap ;
 : f>p  FPGRAN f* f>s ;
 
 private
