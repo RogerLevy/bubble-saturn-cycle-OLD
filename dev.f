@@ -1,15 +1,15 @@
 empty
 [undefined] dev [if] true constant dev gild [then]
 
-include toc
-include dev\export
-include dev\ide.f
-include dev\doubledip
+include toc.f
+\ include dev\export.f
+include dev\doubledip.f
 
 \ some development helpers
 : s   sim ;  \ single-step!
 : :now  :noname ;  \ execute a nameless definition immediately
 : ;;  postpone ; execute ; immediate
 
-ide
-
+\ include dev\ide.f
+\ ide
+ok
