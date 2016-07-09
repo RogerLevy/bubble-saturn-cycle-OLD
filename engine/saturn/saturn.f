@@ -38,6 +38,7 @@ include data
 include engine\saturn\objects.f
 include engine\saturn\physics.f
 include engine\saturn\box.f
+include engine\saturn\load.f
 
 fixed
 
@@ -50,6 +51,7 @@ fixed
 
 
 player as  " traveler" script become
+  100 100 player put
 
 
 include obj\bubble
@@ -90,11 +92,6 @@ transform baseline
   baseline  factor @ dup 2af  al_scale_transform
   baseline  al_use_transform  ;
 
-: drawTalkIcon  ( -- )  talk-icon.image bmp @  player 's x 2v@ 22 - 2af  0  al_draw_bitmap ;
-: ?talkicon  'dialog @ ?exit  drawTalkIcon ;
-jumptable emoticon  ' noop , ' ?talkicon ,
-
-: drawEmoticons  ?zone 's zonetype @ emoticon ;
 
 create m  16 cells /allot
 
@@ -111,10 +108,10 @@ create m  16 cells /allot
   camTransform  dup  factor @ dup 2af  al_scale_transform
   al_use_transform ;
 
-: para  parared.image  cam 's x 2v@ 0.4 0.4 2*  drawWallpaper ;
+: para  ;
 : batch  al_hold_bitmap_drawing ;
 : cls  0 0 0 1 clear-to-color ;
-: overlays  drawEmoticons  ;
+: overlays  ;
 : all  0 stage all>  show ;
 : boxes  info @ -exit  0 stage all>  showCbox ;
 : camRender
@@ -125,3 +122,5 @@ create m  16 cells /allot
 \ piston config
 ' camRender is render
 :noname  [ is sim ]  physics  zones  logic  multi  cull  1 +to #frames ;
+
+
