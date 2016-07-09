@@ -35,11 +35,6 @@ extend actor
 include engine\object-color.f
 include engine\saturn\task-sf.f
 
-:noname  [ is oneInit ]
-  at@  startx 2v!
-  1 1 1 1 !color
-  ;
-
 
 : hit>  r> code> 'hit ! ;
 : hit   'hit @ execute ;
