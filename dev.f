@@ -4,6 +4,7 @@ empty
 include toc.f
 \ include engine\dev\export.f
 \ include engine\dev\gameprompt.f
+
 include engine\dev\doubledip.f
 
 \ some development helpers
@@ -11,6 +12,17 @@ include engine\dev\doubledip.f
 : :now  :noname ;  \ execute a nameless definition immediately
 : ;;  postpone ; execute ; immediate
 
-\ include engine\dev\ide.f
-\ ide
-ok
+
+\ test dirwalker
+\ " data"
+\ " data\images" \ DOESN'T WORK!!
+\ :noname  drop .filename zcount type cr false ;
+\ 0 directorieswalker1
+
+
+include engine\dev\ide.f
+
+
+ide
+
+\ ok
