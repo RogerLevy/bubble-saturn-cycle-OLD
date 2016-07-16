@@ -36,7 +36,7 @@ bgobj start:  show>  img>  fitImage ;
 
 : /subtype  ( -- )  " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
 
-: ?autobox  " nobox" ?@prop if drop exit then  x 2v@ at  w 2v@ *box ;
+: ?autobox  " nobox" ?prop if drop exit then  x 2v@ at  w 2v@ *box ;
 
 bgobj onMapLoad:  /dims  /subtype  /flip  ?autobox ;
 
