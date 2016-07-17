@@ -1,43 +1,15 @@
 doming +order
 
-create w01a02bgObj
-  w01_a02_bg001.image ,
-  w01_a02_bg002.image ,
-  w01_a02_bg003.image ,
-  w01_a02_bg004.image ,
-  w01_a02_bg005.image ,
-  w01_a02_bg006.image ,
-  w01_a02_bg007.image ,
-  w01_a02_bg008.image ,
-  w01_a02_bg009.image ,
-  w01_a02_bg010.image ,
-  w01_a02_bg011.image ,
-  w01_a02_bg012.image ,
-  w01_a02_bg013.image ,
-  w01_a02_bg014.image ,
-  w01_a02_bg015.image ,
-  w01_a02_bg016.image ,
-  w01_a02_bg017.image ,
-  w01_a02_bg018.image ,
-  w01_a02_bg019.image ,
-
-
-create bgObjTables
-  w01a02bgObj , w01a02bgObj ,
-
 actor super
   var subtype  \ index into current bg object table (pointed to by tbl)
-  var tbl  \ index into bgObjTables
 class bgobj
 
-: img>  bgObjTables tbl @ th @  subtype @ th @ ;
-
-bgobj start:  show>  img>  fitImage ;
-
+/image allotment constant bgimg  \ maybe not the best way to do this but ... it works (i mean the whole one-image-for-everything bit)
+: img>  bgObjTable subtype @ th @ bgimg initImage bgimg ;
 : /subtype  ( -- )  " gid" @attr $fffffff and  me class @ firstgid @  -  subtype ! ;
-
 : ?autobox  " nobox" ?prop if drop exit then  x 2v@ at  w 2v@ *box ;
 
+bgobj start:  show>  img>  ?dup -exit  fitImage ;
 bgobj onMapLoad:  /dims  /subtype  /flip  ?autobox ;
 
 doming -order

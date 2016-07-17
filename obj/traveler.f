@@ -1,3 +1,5 @@
+64 32 earwig.image spriteset SPR_EARWIG
+
 actor super
   var sc  \ shoot counter
   var ac  \ animation counter
