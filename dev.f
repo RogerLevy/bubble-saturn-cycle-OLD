@@ -13,6 +13,6 @@ include engine\saturn\dev\doubledip.f
 : ;;  postpone ; execute ; immediate
 
 
-\ include engine\dev\ide.f ide
+include engine\dev\ide.f ide
 
 \ ok
