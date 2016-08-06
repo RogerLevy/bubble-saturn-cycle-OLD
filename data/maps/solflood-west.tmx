@@ -73,7 +73,7 @@
  </tileset>
  <tileset firstgid="25" name="parabg" tilewidth="512" tileheight="512" tilecount="1" columns="0">
   <tile id="0">
-   <image width="512" height="512" source="../images/parared.png"/>
+   <image width="512" height="512" source="bgimages/parared.png"/>
   </tile>
  </tileset>
  <objectgroup name="NEG">
