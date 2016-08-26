@@ -4,6 +4,7 @@ actor super
   var subtype  \ index into current bg object table (pointed to by tbl)
 class bgobj
 
+
 /image allotment constant bgimg  \ maybe not the best way to do this but ... it works (i mean the whole one-image-for-everything bit)
 : img>  bgObjTable subtype @ th @ bgimg initImage bgimg ;
 

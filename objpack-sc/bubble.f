@@ -1,8 +1,8 @@
 actor super var frm class bubble
+: expire  perform> secs me unload end ;
 
 ' ?pointcull bubble 'cull !
 
-: expire  perform> secs me unload end ;
 
 bubble start:
     3 rnd frm !
