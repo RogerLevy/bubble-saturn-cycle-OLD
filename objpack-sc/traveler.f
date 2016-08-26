@@ -6,6 +6,7 @@ actor super
   var mode  \
 class traveler
 
+
 \ ------------------------------------------------------------------------------
 \ Thexder Controls
 94 100 / constant fric#

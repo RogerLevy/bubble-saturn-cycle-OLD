@@ -1,6 +1,7 @@
-[undefined] draw-bitmap-wavey [if] include engine\modules\fx\wavey [then]
 
 actor super class waveytest
+
+[undefined] draw-bitmap-wavey [if] include engine\modules\fx\wavey [then]
 
 : ?more  x 2v@ player 's x 2v@ proximity  10 /  10 min   10 swap - ;
 \ : ?more  1 ;
