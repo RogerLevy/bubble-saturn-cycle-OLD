@@ -7,6 +7,7 @@ include main
 \ include engine\dev\gameprompt
 \ include engine\saturn\dev\doubledip.f
 
-\ [saturn] import engine\dev\ide
-\ ide
-ok
+\ ok
+
+[saturn] import engine\dev\ide
+ide
