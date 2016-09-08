@@ -1,6 +1,8 @@
 # Saturn Cycle
 Interim example game for pluralistic game dev framework Bubble Framework / Saturn Engine for Forth.
 
+More of a feature demo than a game, it's just a test level from a game that may or may not be made, starring a little earwig.
+
 ## Requirements
 
 * SwiftForth 3.5.3 and up
