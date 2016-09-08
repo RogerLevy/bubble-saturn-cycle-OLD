@@ -1,6 +1,12 @@
 # Saturn Cycle
 Interim example game for pluralistic game dev framework Bubble Framework / Saturn Engine for Forth.
 
+## Requirements
+
+* SwiftForth 3.5.3 and up
+* Windows 7 and up
+* OpenGL 2.0 capable video driver  
+
 ## Directions
 
 1. Clone
@@ -16,3 +22,5 @@ Eventually, several examples will be in subfolders of a main framework repo whic
 Some essential things are still being figuerd out, but the Core is pretty much complete.  
 
 Saturn Engine is too complex for a beginner and doesn't really show off the full potential of the framework & dev environment yet.
+
+GForth and VFX ports?
